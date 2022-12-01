@@ -1,0 +1,7 @@
+.github/
+.git/
+**/.gitignore
+**/.gitkeep
+#
+Makefile
+README.md

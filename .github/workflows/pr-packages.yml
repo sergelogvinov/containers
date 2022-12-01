@@ -1,0 +1,15 @@
+
+name: packages
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3
+      - name: Build
+        run: make packages

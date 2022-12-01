@@ -1,0 +1,41 @@
+#
+Port 22
+Protocol 2
+
+SyslogFacility AUTH
+LogLevel INFO
+
+PermitRootLogin no
+AllowUsers postgres
+
+#AuthorizedKeysCommand /bin/sshd-auth.sh
+#AuthorizedKeysCommandUser postgres
+
+IgnoreRhosts yes
+IgnoreUserKnownHosts yes
+HostbasedAuthentication no
+
+AuthenticationMethods publickey
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+GSSAPIAuthentication no
+StrictModes no
+
+UsePAM yes
+
+AllowTcpForwarding no
+X11Forwarding no
+UseDNS no
+PrintLastLog no
+PrintMotd no
+
+Subsystem sftp /usr/lib/openssh/sftp-server
+
+ClientAliveInterval 30
+ClientAliveCountMax 10
+
+# ssh -Q cipher
+# dd if=/dev/zero bs=4M count=1024 2>dd.txt | time -p ssh -c "aes128-ctr" postgres@localhost "cat > /dev/null" && grep -v records dd.txt
+
+Ciphers aes128-gcm@openssh.com,aes128-ctr
