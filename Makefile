@@ -5,11 +5,16 @@ REGISTRY ?= ghcr.io/sergelogvinov
 PLATFORM ?= linux/arm64,linux/amd64
 PUSH ?= false
 
-BUILD_ARGS :=
-BUILD_ARGS += --platform=$(PLATFORM)
+BUILD_ARGS := --platform=$(PLATFORM)
+ifeq ($(PUSH),true)
 BUILD_ARGS += --push=$(PUSH)
+else
+BUILD_ARGS += --output type=cacheonly
+endif
 
-PACKAGES ?= $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
+PACKAGES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
+PKGCACHE = $(shell echo "--cache-to type=registry,ref=$(REGISTRY)/cache:main-$1,compression=zstd,mode=max --cache-from type=registry,ref=$(REGISTRY)/cache:main-$1")
+PKGVERSION = $(shell cat $1/VERSION 2>/dev/null || echo $(TAG))
 
 ################################################################################
 
@@ -19,4 +24,5 @@ help:
 packages: $(foreach pkg,$(PACKAGES),package-$(pkg)) ## build packages
 
 package-%:
-	@docker buildx build $(BUILD_ARGS) -t $(REGISTRY)/$*:$(TAG) -f $(word 1,$(subst :, ,$*))/Dockerfile $(word 1,$(subst :, ,$*))/
+	docker buildx build $(BUILD_ARGS) $(call PKGCACHE,$*) --build-arg APPVERSION=$(call PKGVERSION,$*) \
+		-t $(REGISTRY)/$*:$(call PKGVERSION,$*) -f $(word 1,$(subst :, ,$*))/Dockerfile $(word 1,$(subst :, ,$*))/

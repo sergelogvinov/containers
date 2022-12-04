@@ -1,5 +1,7 @@
 # syntax = docker/dockerfile:1.4
 ########################################
+ARG APPVERSION
+########################################
 
 FROM golang:1.18-bullseye AS walg
 
@@ -28,7 +30,7 @@ RUN make build && make install
 
 ########################################
 
-FROM postgres:14.6-bullseye AS pkg
+FROM postgres:${APPVERSION}-bullseye AS pkg
 LABEL org.opencontainers.image.description="Postgresql with utils"
 LABEL org.opencontainers.image.licenses=MIT
 
