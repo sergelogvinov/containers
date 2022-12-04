@@ -17,10 +17,8 @@ RUN make redis_install && /usr/local/bin/wal-g --version
 
 FROM scratch AS keydb
 
-ARG APPVERSION
-ENV APPVERSION=${APPVERSION}
-COPY --from=eqalpha/keydb:x86_64_v${APPVERSION} ["/usr/local/bin/",   "amd64/"]
-COPY --from=eqalpha/keydb:arm64_v${APPVERSION}  ["/usr/local/bin/",   "arm64/"]
+COPY --from=eqalpha/keydb:x86_64_v6.3.1 ["/usr/local/bin/",   "amd64/"]
+COPY --from=eqalpha/keydb:arm64_v6.3.1  ["/usr/local/bin/",   "arm64/"]
 
 ########################################
 
