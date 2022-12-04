@@ -9,12 +9,12 @@ RUN apk add --no-cache --update nginx && \
     mkdir -p /run/nginx /var/tmp/nginx/client_body && rm -rf /var/lib/nginx/html/* && \
     rm -rf /etc/nginx/conf.d && rm -rf /etc/nginx/sites-enabled
 
-ENV TABIX_RELEASE=18.07.2
-
+ARG APPVERSION
+ENV APPVERSION=${APPVERSION}
 WORKDIR /www
-RUN wget https://github.com/tabixio/tabix/archive/${TABIX_RELEASE}.tar.gz -O /tmp/tabix.tar.gz && \
+RUN wget https://github.com/tabixio/tabix/archive/${APPVERSION}.tar.gz -O /tmp/tabix.tar.gz && \
     cd /tmp && tar -xf tabix.tar.gz && \
-    mv /tmp/tabix-${TABIX_RELEASE}/build/* /www && \
+    mv /tmp/tabix-${APPVERSION}/build/* /www && \
     rm -rf /tmp/*
 
 COPY ["nginx.conf","/etc/nginx/"]
