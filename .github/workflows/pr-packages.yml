@@ -29,6 +29,12 @@ jobs:
 
       - name: Set up Docker Buildx
         run: make init
+      - name: Github registry login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build
         timeout-minutes: 10
         run: make package-${{ matrix.name }}
