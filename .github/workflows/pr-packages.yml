@@ -15,7 +15,7 @@ jobs:
       - name: List
         id: list
         run: |
-          make list | jq -scR 'split(" ") | {include: .}' | awk '{print "list="$0}' >> $GITHUB_OUTPUT
+          make list | jq -scR 'split(" ")' | awk '{print "list="$0}' >> $GITHUB_OUTPUT
 
   build-packages:
     needs: packages
