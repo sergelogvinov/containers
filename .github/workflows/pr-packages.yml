@@ -20,7 +20,11 @@ jobs:
   build-packages:
     needs: packages
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     strategy:
+      max-parallel: 2
       matrix:
         name: ${{ fromJson(needs.packages.outputs.list) }}
     steps:
@@ -35,7 +39,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
 
       - name: Build
         timeout-minutes: 10
