@@ -13,9 +13,6 @@ else
 BUILD_ARGS += --output type=cacheonly
 endif
 
-NULL  :=
-SPACE := $(NULL) #
-COMMA := ,
 PACKAGES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
 PKGCACHE = $(shell echo "--cache-to type=registry,ref=$(REGCACHE)/cache:main-$1,mode=max --cache-from type=registry,ref=$(REGCACHE)/cache:main-$1")
 PKGVERSION = $(shell cat $1/VERSION 2>/dev/null || echo $(TAG))
