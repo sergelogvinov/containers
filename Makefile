@@ -15,7 +15,7 @@ endif
 
 NULL  :=
 SPACE := $(NULL) #
-COMMA :=,
+COMMA := ,
 PACKAGES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
 PKGCACHE = $(shell echo "--cache-to type=registry,ref=$(REGCACHE)/cache:main-$1,mode=max --cache-from type=registry,ref=$(REGCACHE)/cache:main-$1")
 PKGVERSION = $(shell cat $1/VERSION 2>/dev/null || echo $(TAG))
@@ -32,7 +32,7 @@ init: ## Buildx activate
 	docker buildx inspect --bootstrap multiarch
 
 list: ## List all packages
-	@echo list="{\"include\":[$(subst $(SPACE),$(COMMA),$(PACKAGES))]}"
+	@echo -n $(PACKAGES)
 
 packages: $(foreach pkg,$(PACKAGES),package-$(pkg)) ## Build all packages
 package-%:
