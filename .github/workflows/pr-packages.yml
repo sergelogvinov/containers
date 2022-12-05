@@ -35,6 +35,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build
         timeout-minutes: 10
         run: make package-${{ matrix.name }}
