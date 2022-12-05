@@ -15,7 +15,7 @@ jobs:
       - name: List
         id: list
         run: |
-          make list | jq -scR 'split(" ") | {include: .}' >> $GITHUB_OUTPUT
+          make list | jq -scR 'split(" ") | {include: .}' | xargs echo list= >> $GITHUB_OUTPUT
 
   build-packages:
     needs: packages
