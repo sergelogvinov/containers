@@ -15,14 +15,14 @@ jobs:
       - name: List
         id: list
         run: |
-          make list | jq -scR 'split(" ") | {include: .}' | xargs echo list= >> $GITHUB_OUTPUT
+          make list | awk '{print "list=[" $0 "]"}' >> $GITHUB_OUTPUT
 
   build-packages:
     needs: packages
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        name: ${{ fromJson(needs.packages.outputs.list) }}
+        name: ${{ needs.packages.outputs.list }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
