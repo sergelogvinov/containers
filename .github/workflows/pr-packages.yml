@@ -11,5 +11,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@3
+
       - name: Build
         run: make packages
+        env:
+          PLATFORM: linux/amd64
