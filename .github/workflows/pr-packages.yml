@@ -6,10 +6,42 @@ on:
       - main
 
 jobs:
-  build-packages:
+  packages:
     runs-on: ubuntu-latest
+    outputs:
+      list: ${{ steps.list.outputs.list }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: List
+        id: list
+        run: |
+          make list | jq -scR 'split(" ")' | awk '{print "list="$0}' >> $GITHUB_OUTPUT
+
+  build-packages:
+    needs: packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      max-parallel: 2
+      matrix:
+        name: ${{ fromJson(needs.packages.outputs.list) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@3
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        run: make init
+      - name: Github registry login
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build
-        run: make packages
+        timeout-minutes: 10
+        run: make package-${{ matrix.name }}
+        env:
+          PLATFORM: linux/amd64
