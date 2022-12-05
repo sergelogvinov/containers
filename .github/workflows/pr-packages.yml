@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        name: ${{ needs.packages.outputs.list }}
+        name: ${{ fromJson(needs.packages.outputs.list) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
