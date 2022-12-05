@@ -28,6 +28,9 @@ init: ## Buildx activate
 	docker context use multiarch
 	docker buildx inspect --bootstrap multiarch
 
+list: ## List all packages
+	@echo list=$(PACKAGES)
+
 packages: $(foreach pkg,$(PACKAGES),package-$(pkg)) ## Build all packages
 package-%:
 	@docker buildx build $(BUILD_ARGS) $(call PKGCACHE,$*) --build-arg APPVERSION=$(call PKGVERSION,$*) \
