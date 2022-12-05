@@ -12,6 +12,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Set up Docker Buildx
+        run: make init
       - name: Build
         run: make packages
         env:
