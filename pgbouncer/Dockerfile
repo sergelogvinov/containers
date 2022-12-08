@@ -1,0 +1,14 @@
+# syntax = docker/dockerfile:1.4
+########################################
+ARG APPVERSION
+########################################
+
+FROM postgres:${APPVERSION}-bullseye AS pkg
+LABEL org.opencontainers.image.description="PGBouncer"
+LABEL org.opencontainers.image.licenses=MIT
+
+RUN apt-get update -y && apt-get install -y --no-install-recommends pgbouncer && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+USER postgres
+ENTRYPOINT ["/usr/sbin/pgbouncer","-u","postgres","/etc/pgbouncer/pgbouncer.ini"]
