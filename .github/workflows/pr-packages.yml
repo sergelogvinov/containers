@@ -1,5 +1,5 @@
+name: Packages
 
-name: packages
 on:
   pull_request:
     branches:
