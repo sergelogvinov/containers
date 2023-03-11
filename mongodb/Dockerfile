@@ -17,7 +17,7 @@ RUN make mongo_install && /usr/local/bin/wal-g --version
 
 ########################################
 
-FROM bitnami/mongodb:${APPVERSION}-debian-11-r6 AS pkg
+FROM bitnami/mongodb:${APPVERSION}-debian-11-r16 AS pkg
 LABEL org.opencontainers.image.description="Mongodb with utils"
 LABEL org.opencontainers.image.licenses=MIT
 
