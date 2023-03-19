@@ -8,7 +8,11 @@ on:
         required: true
         type: choice
         options:
-          - docker
+          - fluentd
+          - keydb
+          - nginx-openrestry
+          - openvpn
+          - tabix
 
 jobs:
   build-push:
