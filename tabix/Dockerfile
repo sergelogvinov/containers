@@ -1,7 +1,24 @@
 # syntax = docker/dockerfile:1.4
 ########################################
 
-FROM alpine:3.9 AS pkg
+FROM --platform=$BUILDPLATFORM node:18-alpine3.16 AS build
+
+RUN apk add --no-cache --update git wget
+
+ARG APPVERSION
+ENV APPVERSION=${APPVERSION}
+WORKDIR /www
+RUN wget https://github.com/tabixio/tabix/archive/${APPVERSION}.tar.gz -O /tmp/tabix.tar.gz && \
+    cd /tmp && tar -xf tabix.tar.gz && \
+    cd tabix-${APPVERSION} && \
+    echo 'nodeLinker: node-modules' > .yarnrc.yml && \
+    yarn set version 3.1.1 && \
+    yarn install && yarn build && \
+    mv /tmp/tabix-${APPVERSION}/dist/* /www/
+
+########################################
+
+FROM alpine:3.16 AS pkg
 LABEL org.opencontainers.image.description="Tabix.io UI"
 LABEL org.opencontainers.image.licenses=MIT
 
@@ -9,14 +26,8 @@ RUN apk add --no-cache --update nginx && \
     mkdir -p /run/nginx /var/tmp/nginx/client_body && rm -rf /var/lib/nginx/html/* && \
     rm -rf /etc/nginx/conf.d && rm -rf /etc/nginx/sites-enabled
 
-ARG APPVERSION
-ENV APPVERSION=${APPVERSION}
 WORKDIR /www
-RUN wget https://github.com/tabixio/tabix/archive/${APPVERSION}.tar.gz -O /tmp/tabix.tar.gz && \
-    cd /tmp && tar -xf tabix.tar.gz && \
-    mv /tmp/tabix-${APPVERSION}/build/* /www && \
-    rm -rf /tmp/*
-
+COPY --from=build ["/www","/www"]
 COPY ["nginx.conf","/etc/nginx/"]
 
 EXPOSE 80
