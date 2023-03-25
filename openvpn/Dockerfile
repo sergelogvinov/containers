@@ -7,7 +7,7 @@ FROM alpine:3.17 AS pkg
 LABEL org.opencontainers.image.description="OpenVPN"
 LABEL org.opencontainers.image.licenses="MIT"
 
-RUN apk --update add openvpn iptables ip6tables && \
+RUN apk --update add openvpn openvpn-auth-pam google-authenticator iptables ip6tables && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
 RUN mkdir -p /dev/net && \
@@ -15,6 +15,7 @@ RUN mkdir -p /dev/net && \
 
 WORKDIR /etc/openvpn
 COPY ["server.conf","/etc/openvpn/server.conf"]
+COPY ["pam.d/","/etc/pam.d/"]
 
 ENTRYPOINT ["/usr/sbin/openvpn"]
 CMD ["--status","/tmp/openvpn.status","10","--config","/etc/openvpn/server.conf"]

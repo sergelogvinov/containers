@@ -1,0 +1,4 @@
+# OpenVPN 2FA PAM
+auth required /lib/security/pam_google_authenticator.so secret=/etc/openvpn/auth/otp user=root allowed_perm=0440 authtok_prompt=pin no_strict_owner forward_pass nullok
+# auth required /lib/security/pam_listfile.so onerr=fail item=user sense=allow file=/etc/openvpn/server/users.list
+account sufficient pam_permit.so
