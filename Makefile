@@ -2,6 +2,7 @@
 
 TAG ?= latest
 REGISTRY ?= ghcr.io/sergelogvinov
+REGSYNC  ?= sergelog
 REGCACHE ?= ${REGISTRY}
 PLATFORM ?= linux/arm64,linux/amd64
 PUSH ?= false
@@ -37,6 +38,11 @@ packages: $(foreach pkg,$(PACKAGES),package-$(pkg)) ## Build all packages
 package-%:
 	@docker buildx build $(BUILD_ARGS) $(call PKGCACHE,$*) --build-arg APPVERSION=$(call PKGVERSION,$*) \
 		-t $(REGISTRY)/$*:$(call PKGVERSION,$*) -f $(word 1,$(subst :, ,$*))/Dockerfile $(word 1,$(subst :, ,$*))/
+
+sync: $(foreach pkg,$(PACKAGES),sync-$(pkg)) ## Copy all packages to another repo
+sync-%:
+	@skopeo copy --dest-authfile=~/.docker/config.json --multi-arch=all --override-os=linux \
+		docker://$(REGISTRY)/$*:$(call PKGVERSION,$*) docker://$(REGSYNC)/$*:$(call PKGVERSION,$*)
 
 scan: $(foreach pkg,$(PACKAGES),scan-$(pkg)) ## Vulnerability scan images
 scan-%:
