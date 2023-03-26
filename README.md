@@ -3,6 +3,9 @@
 Our images come in two flavors to support different architectures: `arm64` and `amd64`.
 Uses by [helm](https://github.com/sergelogvinov/helm-charts) deployments.
 
+* [Contolplane lb](contolplane-lb) - haproxy load balancer
+    * `docker pull ghcr.io/sergelogvinov/openvpn:2.6.11`
+    * `docker pull sergelog/openvpn:2.6.11`
 * [Fluentd](fluentd) - with common plugins
     * `docker pull ghcr.io/sergelogvinov/fluentd:latest`
     * `docker pull sergelog/fluentd:1.15.3`
