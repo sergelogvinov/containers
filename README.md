@@ -17,7 +17,7 @@ Uses by [helm](https://github.com/sergelogvinov/helm-charts) deployments.
     * `docker pull ghcr.io/sergelogvinov/mongosqld:latest`
 * [Nginx-openrestry](nginx-openrestry) - nginx with lua
     * `docker pull ghcr.io/sergelogvinov/nginx-openrestry:latest`
-* [Openvpn](openvpn) - openvpn with opt
+* [Openvpn](openvpn) - openvpn with google authenticator (otp)
     * `docker pull ghcr.io/sergelogvinov/openvpn:latest`
     * `docker pull sergelog/openvpn:2.5.8-2`
 * [PGBouncer](pgbouncer) - postgresql pooler
