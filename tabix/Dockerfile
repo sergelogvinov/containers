@@ -18,17 +18,18 @@ RUN wget https://github.com/tabixio/tabix/archive/${APPVERSION}.tar.gz -O /tmp/t
 
 ########################################
 
-FROM alpine:3.16 AS pkg
+FROM alpine:3.17 AS pkg
 LABEL org.opencontainers.image.description="Tabix.io UI"
 LABEL org.opencontainers.image.licenses=MIT
 
 RUN apk add --no-cache --update nginx && \
-    mkdir -p /run/nginx /var/tmp/nginx/client_body && rm -rf /var/lib/nginx/html/* && \
+    mkdir -p /run/nginx /var/lib/nginx/tmp/client_body && rm -rf /var/lib/nginx/html/* && \
     rm -rf /etc/nginx/conf.d && rm -rf /etc/nginx/sites-enabled
 
 WORKDIR /www
 COPY --from=build ["/www","/www"]
 COPY ["nginx.conf","/etc/nginx/"]
 
+USER nginx
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
