@@ -12,6 +12,8 @@ on:
           - keydb
           - nginx-openrestry
           - openvpn
+          - pgbouncer
+          - postgresql
           - tabix
 
 jobs:
