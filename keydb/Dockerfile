@@ -27,8 +27,8 @@ COPY --from=eqalpha/keydb:arm64_v6.3.2  ["/usr/local/bin/",   "arm64/"]
 ########################################
 
 FROM debian:bullseye-slim AS pkg
-LABEL org.opencontainers.image.description="Keydb with utils"
-LABEL org.opencontainers.image.licenses=MIT
+LABEL org.opencontainers.image.description="Keydb with utils" \
+      org.opencontainers.image.licenses="MIT"
 
 RUN groupadd -r -g 999 redis && useradd -r -g redis -u 999 redis
 ENV REDIS_USER=redis REDIS_DATA_DIR=/data

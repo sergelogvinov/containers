@@ -31,8 +31,8 @@ RUN make build && make install
 ########################################
 
 FROM postgres:${APPVERSION}-bullseye AS pkg
-LABEL org.opencontainers.image.description="Postgresql with utils"
-LABEL org.opencontainers.image.licenses=MIT
+LABEL org.opencontainers.image.description="Postgresql with utils" \
+      org.opencontainers.image.licenses="MIT"
 
 RUN apt-get update -y && apt-get install -y --no-install-recommends ca-certificates rsync curl vim-tiny openssh-server pgbadger barman-cli && \
     rm -rf /etc/crontab /etc/cron.hourly/ /etc/cron.daily/ /etc/cron.weekly/ /etc/cron.monthly/ /etc/cron.d/* && \

@@ -4,8 +4,8 @@ ARG APPVERSION
 ########################################
 
 FROM fluent/fluentd:v${APPVERSION}-debian-1.0 AS pkg
-LABEL org.opencontainers.image.description="Fluentd with modules"
-LABEL org.opencontainers.image.licenses=MIT
+LABEL org.opencontainers.image.description="Fluentd with modules" \
+      org.opencontainers.image.licenses=MIT
 
 USER root
 WORKDIR /fluentd/etc

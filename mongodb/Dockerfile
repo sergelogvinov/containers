@@ -17,8 +17,8 @@ RUN make mongo_install && /usr/local/bin/wal-g --version
 
 ########################################
 
-FROM bitnami/mongodb:${APPVERSION}-debian-11-r2 AS pkg
-LABEL org.opencontainers.image.description="Mongodb with utils"
-LABEL org.opencontainers.image.licenses=MIT
+FROM bitnami/mongodb:${APPVERSION}-debian-11-r7 AS pkg
+LABEL org.opencontainers.image.description="Mongodb with utils" \
+      org.opencontainers.image.licenses="MIT"
 
 COPY --from=walg     ["/usr/local/bin/wal-g","/usr/bin/wal-g"]

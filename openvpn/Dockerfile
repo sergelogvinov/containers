@@ -4,8 +4,8 @@ ARG APPVERSION
 ########################################
 
 FROM alpine:3.18 AS pkg
-LABEL org.opencontainers.image.description="OpenVPN"
-LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.description="OpenVPN" \
+      org.opencontainers.image.licenses="MIT"
 
 RUN apk --update add openvpn openvpn-auth-pam google-authenticator iptables ip6tables && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*

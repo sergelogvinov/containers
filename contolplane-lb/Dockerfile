@@ -3,7 +3,9 @@
 ARG APPVERSION
 ########################################
 
-FROM alpine:3.17 AS builder
+FROM alpine:3.18 AS pkg
+LABEL org.opencontainers.image.description="Kubernetes lb" \
+      org.opencontainers.image.licenses="MIT"
 
 RUN apk add --no-cache haproxy && \
     install -m 0750 -o haproxy -g haproxy -d /run
