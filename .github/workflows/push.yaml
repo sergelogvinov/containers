@@ -9,6 +9,7 @@ on:
         type: choice
         options:
           - fluentd
+          - ipsec
           - keydb
           - nginx-openrestry
           - openvpn
