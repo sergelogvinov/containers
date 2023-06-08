@@ -17,8 +17,13 @@ RUN make mongo_install && /usr/local/bin/wal-g --version
 
 ########################################
 
+FROM registry.k8s.io/pause:3.6 AS pause
+
+########################################
+
 FROM bitnami/mongodb:${APPVERSION}-debian-11-r7 AS pkg
 LABEL org.opencontainers.image.description="Mongodb with utils" \
       org.opencontainers.image.licenses="MIT"
 
+COPY --from=pause    ["/pause","/pause"]
 COPY --from=walg     ["/usr/local/bin/wal-g","/usr/bin/wal-g"]

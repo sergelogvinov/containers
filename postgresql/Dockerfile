@@ -30,6 +30,10 @@ RUN make build && make install
 
 ########################################
 
+FROM registry.k8s.io/pause:3.6 AS pause
+
+########################################
+
 FROM postgres:${APPVERSION}-bullseye AS pkg
 LABEL org.opencontainers.image.description="Postgresql with utils" \
       org.opencontainers.image.licenses="MIT"
@@ -42,6 +46,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends ca-certifica
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY ["ssh", "/etc/ssh"]
+COPY --from=pause    ["/pause","/pause"]
 COPY --from=pgcenter ["/usr/bin/pgcenter","/usr/bin/pgcenter"]
 COPY --from=walg     ["/usr/local/bin/wal-g","/usr/bin/wal-g"]
 COPY docker-entrypoint.sh /usr/local/bin/
