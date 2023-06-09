@@ -16,6 +16,7 @@ endif
 
 PACKAGES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
 PKGCACHE = $(shell echo "--cache-to type=registry,ref=$(REGCACHE)/cache:main-$1,mode=max --cache-from type=registry,ref=$(REGCACHE)/cache:main-$1")
+PKGTARGET ?= pkg
 PKGVERSION = $(shell cat $1/VERSION 2>/dev/null || echo $(TAG))
 
 ################################################################################
@@ -37,7 +38,10 @@ list: ## List all packages
 packages: $(foreach pkg,$(PACKAGES),package-$(pkg)) ## Build all packages
 package-%:
 	@docker buildx build $(BUILD_ARGS) $(call PKGCACHE,$*) --build-arg APPVERSION=$(call PKGVERSION,$*) \
-		-t $(REGISTRY)/$*:$(call PKGVERSION,$*) -f $(word 1,$(subst :, ,$*))/Dockerfile $(word 1,$(subst :, ,$*))/
+		-t $(REGISTRY)/$*:$(subst -pkg,,$(call PKGVERSION,$*)-$(PKGTARGET)) \
+		-f $(word 1,$(subst :, ,$*))/Dockerfile \
+		--target=$(PKGTARGET) \
+		$(word 1,$(subst :, ,$*))/
 
 sync: $(foreach pkg,$(PACKAGES),sync-$(pkg)) ## Copy all packages to another repo
 sync-%:
