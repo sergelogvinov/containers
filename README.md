@@ -26,3 +26,8 @@ Uses by [helm](https://github.com/sergelogvinov/helm-charts) deployments.
     * `docker pull ghcr.io/sergelogvinov/postgresql:latest`
 * [Tabix](tabix) - postgresql with wal-g
     * `docker pull ghcr.io/sergelogvinov/tabix:latest`
+
+## Utils
+
+* [skopeo](skopeo) - is a command line utility that performs various operations on container images and image repositories.
+    * `docker pull ghcr.io/sergelogvinov/skopeo:1.12.0`
