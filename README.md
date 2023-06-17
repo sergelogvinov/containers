@@ -31,5 +31,7 @@ Uses by [helm](https://github.com/sergelogvinov/helm-charts) deployments.
 
 * [skopeo](skopeo) - is a command line utility that performs various operations on container images and image repositories.
     * `docker pull ghcr.io/sergelogvinov/skopeo:1.12.0`
+* [sops](sops) -  is an editor of encrypted files that supports YAML, JSON and BINARY formats and encrypts with AWS KMS and PGP.
+    * `docker pull ghcr.io/sergelogvinov/sops:3.7.3`
 * [vals](vals) -  is a tool for managing configuration values and secrets.
     * `docker pull ghcr.io/sergelogvinov/vals:0.25.0`

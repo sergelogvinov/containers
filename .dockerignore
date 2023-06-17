@@ -2,6 +2,7 @@
 .git/
 **/.gitignore
 **/.gitkeep
+**/Dockerfile
 #
 Makefile
 README.md
