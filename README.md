@@ -31,3 +31,5 @@ Uses by [helm](https://github.com/sergelogvinov/helm-charts) deployments.
 
 * [skopeo](skopeo) - is a command line utility that performs various operations on container images and image repositories.
     * `docker pull ghcr.io/sergelogvinov/skopeo:1.12.0`
+* [vals](vals) -  is a tool for managing configuration values and secrets.
+    * `docker pull ghcr.io/sergelogvinov/vals:0.25.0`
