@@ -3,17 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM golang:1.18-bullseye AS walg
-
-RUN apt-get update && apt-get install -y cmake git build-essential
-
-WORKDIR /go/src/
-ENV USE_LIBSODIUM=1
-RUN git clone --single-branch --depth 2 --branch v2.0.1 https://github.com/wal-g/wal-g.git .
-
-ENV GOBIN=/usr/local/bin
-RUN make deps
-RUN make pg_install && /usr/local/bin/wal-g --version
+FROM ghcr.io/sergelogvinov/wal-g:2.0.1-pg AS walg
 
 ########################################
 

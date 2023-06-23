@@ -10,14 +10,16 @@ PUSH ?= false
 BUILD_ARGS := --platform=$(PLATFORM)
 ifeq ($(PUSH),true)
 BUILD_ARGS += --push=$(PUSH)
+else ifeq ($(CI),true)
+BUILD_ARGS += --progress=plain
 else
-BUILD_ARGS += --output type=cacheonly
+BUILD_ARGS += --output type=docker
 endif
 
 PACKAGES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
 PKGCACHE = $(shell echo "--cache-to type=registry,ref=$(REGCACHE)/cache:main-$1,mode=max --cache-from type=registry,ref=$(REGCACHE)/cache:main-$1")
 PKGTARGET ?= pkg
-PKGVERSION = $(shell cat $1/VERSION 2>/dev/null || echo $(TAG))
+PKGVERSION = $(shell head -n 1 $1/VERSION 2>/dev/null || echo $(TAG))
 
 ################################################################################
 
@@ -38,7 +40,7 @@ list: ## List all packages
 packages: $(foreach pkg,$(PACKAGES),package-$(pkg)) ## Build all packages
 package-%:
 	@docker buildx build $(BUILD_ARGS) $(call PKGCACHE,$*) --build-arg APPVERSION=$(call PKGVERSION,$*) \
-		-t $(REGISTRY)/$*:$(subst -pkg,,$(call PKGVERSION,$*)-$(PKGTARGET)) \
+		$(foreach tag,$(shell cat $*/VERSION 2>/dev/null || echo $(TAG)),-t $(REGISTRY)/$*:$(subst -pkg,,$(tag)-$(PKGTARGET))) \
 		-f $(word 1,$(subst :, ,$*))/Dockerfile \
 		--target=$(PKGTARGET) \
 		$(word 1,$(subst :, ,$*))/
