@@ -18,6 +18,7 @@ on:
           - skopeo
           - supercronic
           - tabix
+          - ytt
 
 jobs:
   build-push:
