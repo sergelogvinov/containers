@@ -23,6 +23,7 @@ LABEL org.opencontainers.image.description="Copying an image from and to various
       org.opencontainers.image.source="https://github.com/containers/skopeo"
 
 ARG TARGETARCH
+COPY --from=skopeo ["/go/src/default-policy.json","/etc/containers/policy.json"]
 COPY --from=skopeo ["/go/src/bin/skopeo.linux.${TARGETARCH}","/usr/bin/skopeo"]
 
 ENTRYPOINT ["/usr/bin/skopeo"]
