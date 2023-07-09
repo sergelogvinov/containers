@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.4
 ########################################
 
-FROM alpine:3.17 AS openresty
+FROM alpine:3.18 AS openresty
 
 RUN apk add --no-cache --virtual .build-deps \
     build-base \
@@ -48,7 +48,7 @@ RUN rm -rf /usr/local/openresty/nginx/html/*
 
 ###
 
-FROM alpine:3.17 AS nginx-openresty
+FROM alpine:3.18 AS nginx-openresty
 
 COPY --from=minio/mc:RELEASE.2022-07-06T14-54-36Z /usr/bin/mc /usr/bin/mc
 RUN apk add --no-cache --update libgcc pcre libmaxminddb curl && \
@@ -68,7 +68,7 @@ RUN rm -rf /etc/nginx/conf.d && rm -rf /etc/nginx/sites-enabled && rm -rf /etc/n
 ###
 
 FROM scratch AS pkg
-LABEL org.opencontainers.image.description="Nginx with lua"
-LABEL org.opencontainers.image.licenses=MIT
+LABEL org.opencontainers.image.description="Nginx with lua" \
+      org.opencontainers.image.licenses="MIT"
 
 COPY --from=nginx-openresty / /
