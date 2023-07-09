@@ -5,7 +5,7 @@ ARG APPVERSION
 
 FROM fluent/fluentd:v${APPVERSION}-debian-1.0 AS pkg
 LABEL org.opencontainers.image.description="Fluentd with modules" \
-      org.opencontainers.image.licenses=MIT
+      org.opencontainers.image.licenses="MIT"
 
 USER root
 WORKDIR /fluentd/etc
@@ -17,5 +17,17 @@ RUN gem install \
     fluent-plugin-grafana-loki
 
 COPY --chown=fluent:fluent ["conf/", "/fluentd/etc/"]
+
+USER fluent
+
+########################################
+
+FROM pkg AS clickhouse
+LABEL org.opencontainers.image.description="Fluentd with clickhouse"
+
+USER root
+COPY scripts/clickhouse-push.sh /usr/bin/clickhouse-push.sh
+COPY --from=clickhouse/clickhouse-server:22.8.20 /usr/bin/clickhouse /usr/bin/clickhouse
+RUN ln -s /usr/bin/clickhouse /usr/bin/clickhouse-client
 
 USER fluent
