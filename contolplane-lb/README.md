@@ -10,7 +10,7 @@ machine:
     extraHostEntries:
       - ip: 127.0.0.1
         aliases:
-          - example.com
+          - kube-api.example.com
   pods:
     - apiVersion: v1
       kind: Pod
@@ -26,10 +26,10 @@ machine:
           runAsGroup: 101
         containers:
           - name: contolplane-lb
-            image: ghcr.io/sergelogvinov/contolplane-lb:2.6.11
+            image: ghcr.io/sergelogvinov/contolplane-lb:2.6.14
             env:
               - name: controlplane
-                value: controlplane.example.com:6443
+                value: controlplane.example.com
             resources:
               requests:
                 cpu: 50m
@@ -38,7 +38,9 @@ machine:
               allowPrivilegeEscalation: false
               capabilities:
                 drop: [all]
+              seccompProfile:
+                type: RuntimeDefault
 cluster:
   controlPlane:
-    endpoint: https://example.com:6443
+    endpoint: https://kube-api.example.com:6443
 ```
