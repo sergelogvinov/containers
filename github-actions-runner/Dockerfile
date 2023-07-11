@@ -11,13 +11,20 @@ RUN make
 
 ########################################
 
-FROM ghcr.io/actions/actions-runner:${APPVERSION} AS pkg
+FROM ghcr.io/actions/actions-runner:${APPVERSION} AS actions-runner
 
+########################################
+
+FROM scratch AS base
+LABEL org.opencontainers.image.description="GitHub actions runner" \
+      org.opencontainers.image.source="https://github.com/sergelogvinov/containers/tree/main/github-actions-runner"
+
+COPY --from=actions-runner . .
 USER root
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && apt-get dist-upgrade -y && \
-    apt-get install -y --no-install-recommends software-properties-common procps vim-tiny \
+    apt-get install -y --no-install-recommends procps vim-tiny \
         curl wget make zip rsync git \
         ansible ansible-lint yamllint jq && \
     apt-get install -y python3-boto python3-jmespath && \
@@ -43,24 +50,42 @@ COPY --from=ghcr.io/sergelogvinov/vals:0.25.0 /usr/bin/vals /usr/bin/vals
 # helm hooks error log https://github.com/helm/helm/pull/11228
 COPY --from=helm --chown=root:root /go/src/bin/helm /usr/bin/helm
 
-COPY --from=amazon/aws-cli:2.11.19 /usr/local/aws-cli /usr/local/aws-cli
-RUN ln -s /usr/local/aws-cli/v2/current/bin/aws /usr/local/bin/aws
-
-RUN apt-get update && apt-get install -y apt-transport-https ca-certificates gnupg && \
-    echo "deb https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-    apt-get update && apt-get install -y google-cloud-sdk
-
 ENV HELM_DATA_HOME=/usr/local/share/helm
 RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v3.15.0 && \
     helm repo add bitnami  https://charts.bitnami.com/bitnami && \
     helm repo add sinextra https://helm-charts.sinextra.dev && \
     helm repo update
 
-USER runner
-WORKDIR /app
-
 ENV RUNNER_WORK_FOLDER=/home/github/builds ACTIONS_RUNNER_PRINT_LOG_TO_STDOUT=0
 COPY etc/ansible.cfg /etc/ansible/ansible.cfg
 
 ENTRYPOINT [ "/home/runner/run.sh" ]
+
+########################################
+
+FROM base AS pkg
+
+USER runner
+WORKDIR /app
+
+########################################
+
+FROM base AS aws
+
+COPY --from=amazon/aws-cli:2.11.19 /usr/local/aws-cli /usr/local/aws-cli
+RUN ln -s /usr/local/aws-cli/v2/current/bin/aws /usr/local/bin/aws
+
+USER runner
+WORKDIR /app
+
+########################################
+
+FROM base AS gcp
+
+RUN apt-get update && apt-get install -y apt-transport-https ca-certificates gnupg && \
+    echo "deb https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    apt-get update && apt-get install -y google-cloud-sdk
+
+USER runner
+WORKDIR /app
