@@ -11,7 +11,7 @@ FROM registry.k8s.io/pause:3.6 AS pause
 
 ########################################
 
-FROM bitnami/mongodb:${APPVERSION}-debian-11-r14 AS pkg
+FROM bitnami/mongodb:${APPVERSION}-debian-11-r0 AS pkg
 LABEL org.opencontainers.image.description="Mongodb with utils" \
       org.opencontainers.image.licenses="MIT"
 
