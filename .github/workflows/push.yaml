@@ -11,6 +11,9 @@ on:
           - fluentd
           - ipsec
           - keydb
+          - mongodb
+          - mongosqld
+          - mongosync
           - nginx-openrestry
           - openvpn
           - pgbouncer
