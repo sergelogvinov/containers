@@ -22,7 +22,7 @@ LABEL org.opencontainers.image.description="MongoSync" \
       org.opencontainers.image.documentation="https://www.mongodb.com/docs/cluster-to-cluster-sync" \
       org.opencontainers.image.version=${APPVERSION}
 
-RUN apt-get update && apt-get install --install-suggests -y ca-certificates libssl1.1 libkrb5-3
+RUN apt-get update && apt-get install --install-suggests -y ca-certificates libssl1.1 libkrb5-3 curl jq
 
 ARG TARGETARCH
 COPY --from=archive --chown=0:0 ["/src/${TARGETARCH}/bin","/usr/local/bin"]
