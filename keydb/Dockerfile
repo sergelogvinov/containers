@@ -1,17 +1,9 @@
 # syntax = docker/dockerfile:1.4
 ########################################
+ARG APPVERSION
+########################################
 
-FROM golang:1.18-bullseye AS walg
-
-RUN apt-get update && apt-get install -y cmake git build-essential
-
-WORKDIR /go/src/
-ENV USE_LIBSODIUM=1
-RUN git clone --single-branch --depth 2 --branch v2.0.1 https://github.com/wal-g/wal-g.git .
-
-ENV GOBIN=/usr/local/bin
-RUN make deps
-RUN make redis_install && /usr/local/bin/wal-g --version
+FROM ghcr.io/sergelogvinov/wal-g:2.0.1-redis AS walg
 
 ########################################
 
@@ -22,7 +14,7 @@ COPY --from=eqalpha/keydb:arm64_v6.3.3  ["/usr/local/bin/",   "arm64/"]
 
 ########################################
 
-# FROM redis:6.2.7 AS redis
+FROM redis:6.2.12-bullseye AS redis
 
 ########################################
 
@@ -61,7 +53,12 @@ COPY --from=walg  ["/usr/local/bin/wal-g","/usr/bin/wal-g"]
 
 ARG TARGETARCH
 COPY --from=keydb ["/${TARGETARCH}/keydb-server",   "/usr/bin/keydb-server"]
-COPY --from=keydb ["/${TARGETARCH}/keydb-cli",      "/usr/bin/redis-cli"]
+COPY --from=redis ["/usr/local/bin/redis-cli",      "/usr/bin/redis-cli"]
+# COPY --from=keydb ["/${TARGETARCH}/keydb-cli",      "/usr/bin/redis-cli"]
+
+# RUN redis-cli --version && \
+#     keydb-server --version && \
+#     wal-g --version
 
 USER redis
 VOLUME ["${REDIS_DATA_DIR}"]
