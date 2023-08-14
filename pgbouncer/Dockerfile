@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM postgres:${APPVERSION}-bullseye AS pkg
+FROM postgres:${APPVERSION}-bookworm AS pkg
 LABEL org.opencontainers.image.description="PGBouncer" \
       org.opencontainers.image.licenses="MIT"
 
