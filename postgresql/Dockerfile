@@ -24,7 +24,7 @@ FROM registry.k8s.io/pause:3.6 AS pause
 
 ########################################
 
-FROM postgres:${APPVERSION}-bullseye AS pkg
+FROM postgres:${APPVERSION}-bookworm AS pkg
 LABEL org.opencontainers.image.description="Postgresql with utils" \
       org.opencontainers.image.licenses="MIT"
 
@@ -48,6 +48,6 @@ FROM pkg AS upgrade
 RUN PG_MAJOR_OLD=`expr $PG_MAJOR - 1` && \
     apt-get update -y && apt-get install -y -q curl ca-certificates gnupg && \
     curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    echo "deb http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt-get update -y && apt-get install -y postgresql-$PG_MAJOR_OLD && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
