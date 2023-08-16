@@ -28,6 +28,7 @@ RUN curl -fsSLO https://openresty.org/download/openresty-${APPVERSION}.tar.gz &&
     curl -fsSL https://github.com/leev/ngx_http_geoip2_module/archive/3.3.tar.gz > ngx_http_geoip2_module.tar.gz && \
     tar xzf ngx_http_geoip2_module.tar.gz
 RUN cd openresty-${APPVERSION} && ./configure -j2 --with-http_realip_module --with-pcre-jit --with-ipv6 --with-file-aio \
+        --with-md5-asm --with-sha1-asm --with-threads \
         --add-dynamic-module=/usr/src/ngx_http_geoip2_module-3.3 \
         --sbin-path=/usr/local/sbin/nginx \
         --conf-path=/etc/nginx/nginx.conf --pid-path=/run/nginx/nginx.pid --lock-path=/run/nginx/nginx.lock \
