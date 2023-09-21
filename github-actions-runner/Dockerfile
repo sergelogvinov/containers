@@ -48,7 +48,7 @@ COPY --from=ghcr.io/sergelogvinov/sops:3.7.3  /usr/bin/sops /usr/bin/sops
 COPY --from=ghcr.io/sergelogvinov/vals:0.25.0 /usr/bin/vals /usr/bin/vals
 
 # helm hooks error log https://github.com/helm/helm/pull/11228
-COPY --from=helm --chown=root:root /go/src/bin/helm /usr/bin/helm
+# COPY --from=helm --chown=root:root /go/src/bin/helm /usr/bin/helm
 
 ENV HELM_DATA_HOME=/usr/local/share/helm
 RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v3.15.0 && \
