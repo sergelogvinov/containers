@@ -3,10 +3,10 @@
 ARG APPVERSION
 ########################################
 
-FROM golang:1.18-bullseye AS helm
+FROM golang:1.19-bullseye AS helm
 
 WORKDIR /go/src/
-RUN git clone --single-branch --depth 2 --branch hooks-logs https://github.com/sergelogvinov/helm.git .
+RUN git clone --single-branch --depth 2 --branch release-3.13-logs https://github.com/sergelogvinov/helm.git .
 RUN make
 
 ########################################
@@ -39,19 +39,19 @@ COPY --from=docker:23.0.6-cli /usr/local/libexec/docker/cli-plugins/docker-compo
 COPY --from=docker/buildx-bin:0.11.2 /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
 COPY --from=ghcr.io/sergelogvinov/skopeo:1.13.0 /usr/bin/skopeo /usr/bin/skopeo
 COPY --from=ghcr.io/sergelogvinov/skopeo:1.13.0 /etc/containers/ /etc/containers/
-COPY --from=ghcr.io/aquasecurity/trivy:0.44.1 /usr/local/bin/trivy /usr/local/bin/trivy
+COPY --from=ghcr.io/aquasecurity/trivy:0.45.1 /usr/local/bin/trivy /usr/local/bin/trivy
 COPY --from=ghcr.io/sergelogvinov/reviewdog:0.14.2 /usr/bin/reviewdog /usr/bin/reviewdog
 
-COPY --from=bitnami/kubectl:1.24.15 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
-COPY --from=alpine/helm:3.12.3 /usr/bin/helm /usr/bin/helm
-COPY --from=ghcr.io/sergelogvinov/sops:3.7.3  /usr/bin/sops /usr/bin/sops
-COPY --from=ghcr.io/sergelogvinov/vals:0.25.0 /usr/bin/vals /usr/bin/vals
+COPY --from=bitnami/kubectl:1.26.9 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
+COPY --from=alpine/helm:3.13.0 /usr/bin/helm /usr/bin/helm
+COPY --from=ghcr.io/getsops/sops:v3.8.0-alpine /usr/local/bin/sops /usr/bin/sops
+COPY --from=ghcr.io/sergelogvinov/vals:0.28.0  /usr/bin/vals /usr/bin/vals
 
-# helm hooks error log https://github.com/helm/helm/pull/11228
-# COPY --from=helm --chown=root:root /go/src/bin/helm /usr/bin/helm
+# helm hooks error log https://github.com/helm/helm/pull/11228 https://github.com/helm/helm/pull/10309
+COPY --from=helm --chown=root:root /go/src/bin/helm /usr/bin/helm
 
 ENV HELM_DATA_HOME=/usr/local/share/helm
-RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v3.15.0 && \
+RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v4.5.1 && \
     helm repo add bitnami  https://charts.bitnami.com/bitnami && \
     helm repo add sinextra https://helm-charts.sinextra.dev && \
     helm repo update
@@ -72,7 +72,7 @@ WORKDIR /app
 
 FROM base AS aws
 
-COPY --from=amazon/aws-cli:2.11.19 /usr/local/aws-cli /usr/local/aws-cli
+COPY --from=amazon/aws-cli:2.12.7 /usr/local/aws-cli /usr/local/aws-cli
 RUN ln -s /usr/local/aws-cli/v2/current/bin/aws /usr/local/bin/aws
 
 USER runner
