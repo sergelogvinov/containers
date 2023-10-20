@@ -6,7 +6,7 @@ ARG APPVERSION
 FROM golang:1.19-bullseye AS helm
 
 WORKDIR /go/src/
-RUN git clone --single-branch --depth 2 --branch release-3.13-logs https://github.com/sergelogvinov/helm.git .
+RUN git clone --single-branch --depth 2 --branch release-3.13.1-logs https://github.com/sergelogvinov/helm.git .
 RUN make
 
 ########################################
@@ -39,13 +39,14 @@ COPY --from=docker:23.0.6-cli /usr/local/libexec/docker/cli-plugins/docker-compo
 COPY --from=docker/buildx-bin:0.11.2 /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
 COPY --from=ghcr.io/sergelogvinov/skopeo:1.13.0 /usr/bin/skopeo /usr/bin/skopeo
 COPY --from=ghcr.io/sergelogvinov/skopeo:1.13.0 /etc/containers/ /etc/containers/
-COPY --from=ghcr.io/aquasecurity/trivy:0.45.1 /usr/local/bin/trivy /usr/local/bin/trivy
+COPY --from=ghcr.io/aquasecurity/trivy:0.46.0 /usr/local/bin/trivy /usr/local/bin/trivy
 COPY --from=ghcr.io/sergelogvinov/reviewdog:0.14.2 /usr/bin/reviewdog /usr/bin/reviewdog
 
-COPY --from=bitnami/kubectl:1.26.9 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
-COPY --from=alpine/helm:3.13.0 /usr/bin/helm /usr/bin/helm
+COPY --from=bitnami/kubectl:1.27.7 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
+COPY --from=alpine/helm:3.13.1 /usr/bin/helm /usr/bin/helm
 COPY --from=ghcr.io/getsops/sops:v3.8.0-alpine /usr/local/bin/sops /usr/bin/sops
 COPY --from=ghcr.io/sergelogvinov/vals:0.28.0  /usr/bin/vals /usr/bin/vals
+COPY --from=ghcr.io/yannh/kubeconform:v0.6.3   /kubeconform /usr/bin/kubeconform
 
 # helm hooks error log https://github.com/helm/helm/pull/11228 https://github.com/helm/helm/pull/10309
 COPY --from=helm --chown=root:root /go/src/bin/helm /usr/bin/helm
