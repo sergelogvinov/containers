@@ -9,7 +9,7 @@ PUSH ?= false
 
 BUILD_ARGS := --platform=$(PLATFORM)
 ifeq ($(PUSH),true)
-BUILD_ARGS += --push=$(PUSH)
+BUILD_ARGS += --push=$(PUSH) --output type=image,annotation-index.org.opencontainers.image.source="https://github.com/sergelogvinov/containers"
 else ifeq ($(CI),true)
 BUILD_ARGS += --progress=plain
 else
