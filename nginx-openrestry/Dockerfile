@@ -25,13 +25,13 @@ ARG APPVERSION
 ENV APPVERSION=${APPVERSION}
 RUN curl -fsSLO https://openresty.org/download/openresty-${APPVERSION}.tar.gz && \
     tar xzf openresty-${APPVERSION}.tar.gz && \
-    curl -fsSL https://github.com/leev/ngx_http_geoip2_module/archive/3.3.tar.gz > ngx_http_geoip2_module.tar.gz && \
+    curl -fsSL https://github.com/leev/ngx_http_geoip2_module/archive/3.4.tar.gz > ngx_http_geoip2_module.tar.gz && \
     tar xzf ngx_http_geoip2_module.tar.gz
 RUN cd openresty-${APPVERSION} && ./configure -j2 --with-http_realip_module --with-pcre-jit --with-ipv6 --with-file-aio \
         --with-md5-asm --with-sha1-asm --with-threads \
-        --add-dynamic-module=/usr/src/ngx_http_geoip2_module-3.3 \
+        --add-dynamic-module=/usr/src/ngx_http_geoip2_module-3.4 \
         --sbin-path=/usr/local/sbin/nginx \
-        --conf-path=/etc/nginx/nginx.conf --pid-path=/run/nginx/nginx.pid --lock-path=/run/nginx/nginx.lock \
+        --conf-path=/etc/nginx/nginx.conf --pid-path=/run/nginx.pid --lock-path=/run/nginx.lock \
         --http-client-body-temp-path=/tmp/client_body \
         --http-proxy-temp-path=/tmp/proxy \
         --http-fastcgi-temp-path=/tmp/fastcgi \
@@ -51,7 +51,7 @@ RUN rm -rf /usr/local/openresty/nginx/html/*
 
 FROM alpine:3.18 AS nginx-openresty
 
-COPY --from=minio/mc:RELEASE.2022-07-06T14-54-36Z /usr/bin/mc /usr/bin/mc
+COPY --from=minio/mc:RELEASE.2023-10-24T21-42-22Z /usr/bin/mc /usr/bin/mc
 RUN apk add --no-cache --update libgcc pcre libmaxminddb curl && \
     addgroup -g 101 -S nginx && adduser --disabled-password -S --home /var/lib/nginx --u 100 --gecos "nginx" nginx && \
     install -o nginx -g nginx -d /run/nginx /var/cache/nginx /var/log/nginx /var/lib/nginx/tmp
