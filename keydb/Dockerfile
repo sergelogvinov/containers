@@ -9,8 +9,8 @@ FROM ghcr.io/sergelogvinov/wal-g:2.0.1-redis AS walg
 
 FROM scratch AS keydb
 
-COPY --from=eqalpha/keydb:x86_64_v6.3.3 ["/usr/local/bin/",   "amd64/"]
-COPY --from=eqalpha/keydb:arm64_v6.3.3  ["/usr/local/bin/",   "arm64/"]
+COPY --from=eqalpha/keydb:x86_64_v6.3.4 ["/usr/local/bin/",   "amd64/"]
+COPY --from=eqalpha/keydb:arm64_v6.3.4  ["/usr/local/bin/",   "arm64/"]
 
 ########################################
 
@@ -53,8 +53,9 @@ COPY --from=walg  ["/usr/local/bin/wal-g","/usr/bin/wal-g"]
 
 ARG TARGETARCH
 COPY --from=keydb ["/${TARGETARCH}/keydb-server",   "/usr/bin/keydb-server"]
+COPY --from=keydb ["/${TARGETARCH}/keydb-check-rdb","/usr/bin/keydb-check-rdb"]
+COPY --from=keydb ["/${TARGETARCH}/keydb-cli",      "/usr/bin/keydb-cli"]
 COPY --from=redis ["/usr/local/bin/redis-cli",      "/usr/bin/redis-cli"]
-# COPY --from=keydb ["/${TARGETARCH}/keydb-cli",      "/usr/bin/redis-cli"]
 
 # RUN redis-cli --version && \
 #     keydb-server --version && \
