@@ -3,16 +3,16 @@
 ARG APPVERSION
 ########################################
 
-FROM golang:1.18-bullseye AS walg-base
+FROM golang:1.20-bookworm AS walg-base
 
 RUN apt-get update && apt-get install -y cmake git build-essential
 
 WORKDIR /go/src/
-ENV USE_LIBSODIUM=1
 
 ARG APPVERSION
-RUN git clone --single-branch --depth 2 --branch v${APPVERSION} https://github.com/wal-g/wal-g.git .
+RUN git clone --single-branch --depth 2 --branch ${APPVERSION} https://github.com/wal-g/wal-g.git .
 
+ENV USE_LIBSODIUM=1 USE_BROTLI=1
 ENV GOBIN=/usr/local/bin
 RUN make deps
 
@@ -31,7 +31,7 @@ FROM registry.k8s.io/pause:3.6 AS pause
 
 ########################################
 
-FROM alpine:3.18 AS pg
+FROM debian:bookworm-slim AS pg
 LABEL org.opencontainers.image.description="Wal-g for postgresql" \
       org.opencontainers.image.licenses="MIT"
 
@@ -40,7 +40,7 @@ COPY --from=walg-pg     ["/usr/local/bin/wal-g","/usr/local/bin/wal-g"]
 
 ########################################
 
-FROM alpine:3.18 AS mongo
+FROM debian:bookworm-slim AS mongo
 LABEL org.opencontainers.image.description="Wal-g for mongo" \
       org.opencontainers.image.licenses="MIT"
 
@@ -49,7 +49,7 @@ COPY --from=walg-mongo  ["/usr/local/bin/wal-g","/usr/local/bin/wal-g"]
 
 ########################################
 
-FROM alpine:3.18 AS redis
+FROM debian:bookworm-slim AS redis
 LABEL org.opencontainers.image.description="Wal-g for redis" \
       org.opencontainers.image.licenses="MIT"
 
