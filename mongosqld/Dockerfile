@@ -18,6 +18,10 @@ RUN tar -xzf /src/mongodb-bi-linux-arm64.tgz && mkdir -p /src/arm64/bin && \
 ########################################
 
 FROM ubuntu:22.04 AS pkg
+ARG APPVERSION
+LABEL org.opencontainers.image.description="MongoSQL" \
+      org.opencontainers.image.documentation="https://www.mongodb.com/docs/bi-connector/current/reference/mongosqld/" \
+      org.opencontainers.image.version=${APPVERSION}
 
 RUN apt-get update && apt-get install --install-suggests -y ca-certificates libssl3 libkrb5-3
 

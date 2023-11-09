@@ -51,7 +51,6 @@ RUN rm -rf /usr/local/openresty/nginx/html/*
 
 FROM alpine:3.18 AS nginx-openresty
 
-COPY --from=minio/mc:RELEASE.2023-10-24T21-42-22Z /usr/bin/mc /usr/bin/mc
 RUN apk add --no-cache --update libgcc pcre libmaxminddb curl && \
     addgroup -g 101 -S nginx && adduser --disabled-password -S --home /var/lib/nginx --u 100 --gecos "nginx" nginx && \
     install -o nginx -g nginx -d /run/nginx /var/cache/nginx /var/log/nginx /var/lib/nginx/tmp
@@ -73,3 +72,7 @@ LABEL org.opencontainers.image.description="Nginx with lua" \
       org.opencontainers.image.licenses="MIT"
 
 COPY --from=nginx-openresty / /
+COPY --from=minio/mc:RELEASE.2023-10-30T18-43-32Z /usr/bin/mc /usr/bin/mc
+
+STOPSIGNAL SIGQUIT
+CMD ["/usr/local/sbin/nginx", "-g", "daemon off;"]
