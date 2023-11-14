@@ -28,7 +28,7 @@ FROM postgres:${APPVERSION}-bookworm AS pkg
 LABEL org.opencontainers.image.description="Postgresql with utils" \
       org.opencontainers.image.licenses="MIT"
 
-RUN apt-get update -y && apt-get install -y --no-install-recommends ca-certificates rsync curl vim-tiny openssh-server pgbadger barman-cli && \
+RUN apt-get update -y && apt-get install -y --no-install-recommends ca-certificates rsync curl vim-tiny openssh-server pgbadger && \
     rm -rf /etc/crontab /etc/cron.hourly/ /etc/cron.daily/ /etc/cron.weekly/ /etc/cron.monthly/ /etc/cron.d/* && \
     mkdir -p /var/run/sshd && echo '' > /etc/motd && \
     chgrp postgres -R /etc/ssl/private && \
