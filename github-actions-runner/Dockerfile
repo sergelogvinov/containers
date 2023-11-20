@@ -11,6 +11,16 @@ RUN make
 
 ########################################
 
+FROM golang:1.19-bullseye AS git-chglog
+
+WORKDIR /go/src/
+RUN git clone --single-branch --depth 2 --branch v0.15.4 https://github.com/git-chglog/git-chglog .
+RUN make build && \
+    ./git-chglog --version && \
+    cp git-chglog /usr/local/bin/git-chglog
+
+########################################
+
 FROM ghcr.io/actions/actions-runner:${APPVERSION} AS actions-runner
 
 ########################################
@@ -35,18 +45,20 @@ RUN install -m 0775 -o runner -g runner -d /app && \
     install -m 0775 -o runner -g runner -d /home/runner -d /home/runner/.ansible
 
 # https://hub.docker.com/_/docker/tags
-COPY --from=docker:23.0.6-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
-COPY --from=docker/buildx-bin:0.11.2 /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
-COPY --from=ghcr.io/sergelogvinov/skopeo:1.13.0 /usr/bin/skopeo /usr/bin/skopeo
-COPY --from=ghcr.io/sergelogvinov/skopeo:1.13.0 /etc/containers/ /etc/containers/
-COPY --from=ghcr.io/aquasecurity/trivy:0.46.0 /usr/local/bin/trivy /usr/local/bin/trivy
+COPY --from=docker:24.0.7-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
+COPY --from=docker/buildx-bin:0.12.0 /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
+COPY --from=ghcr.io/sergelogvinov/skopeo:1.13 /usr/bin/skopeo /usr/bin/skopeo
+COPY --from=ghcr.io/sergelogvinov/skopeo:1.13 /etc/containers/ /etc/containers/
+COPY --from=ghcr.io/aquasecurity/trivy:0.47.0 /usr/local/bin/trivy /usr/local/bin/trivy
 COPY --from=ghcr.io/sergelogvinov/reviewdog:0.14.2 /usr/bin/reviewdog /usr/bin/reviewdog
+COPY --from=git-chglog /usr/local/bin/git-chglog /usr/bin/git-chglog
 
-COPY --from=bitnami/kubectl:1.27.7 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
-COPY --from=alpine/helm:3.13.1 /usr/bin/helm /usr/bin/helm
-COPY --from=ghcr.io/getsops/sops:v3.8.0-alpine /usr/local/bin/sops /usr/bin/sops
-COPY --from=ghcr.io/sergelogvinov/vals:0.28.0  /usr/bin/vals /usr/bin/vals
-COPY --from=ghcr.io/yannh/kubeconform:v0.6.3   /kubeconform /usr/bin/kubeconform
+COPY --from=bitnami/kubectl:1.27.8 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
+COPY --from=alpine/helm:3.13.2 /usr/bin/helm /usr/bin/helm
+COPY --from=ghcr.io/getsops/sops:v3.8.1-alpine /usr/local/bin/sops /usr/bin/sops
+COPY --from=ghcr.io/sergelogvinov/vals:0.28.0 /usr/bin/vals /usr/bin/vals
+COPY --from=ghcr.io/yannh/kubeconform:v0.6.4 /kubeconform /usr/bin/kubeconform
+COPY --from=minio/mc:RELEASE.2023-10-30T18-43-32Z /usr/bin/mc /usr/bin/mc
 
 # helm hooks error log https://github.com/helm/helm/pull/11228 https://github.com/helm/helm/pull/10309
 COPY --from=helm --chown=root:root /go/src/bin/helm /usr/bin/helm
