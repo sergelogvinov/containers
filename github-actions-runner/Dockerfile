@@ -70,7 +70,10 @@ RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v4.5.
     helm repo update
 
 ENV RUNNER_WORK_FOLDER=/home/github/builds ACTIONS_RUNNER_PRINT_LOG_TO_STDOUT=0
+ENV BUILDKIT_PROGRESS=plain
+
 COPY etc/ansible.cfg /etc/ansible/ansible.cfg
+COPY scripts/ /
 
 ENTRYPOINT [ "/home/runner/run.sh" ]
 
