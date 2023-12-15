@@ -14,7 +14,8 @@ RUN gem install \
     fluent-plugin-record-modifier \
     fluent-plugin-anonymizer \
     fluent-plugin-prometheus \
-    fluent-plugin-grafana-loki
+    fluent-plugin-grafana-loki \
+    fluent-plugin-s3
 
 COPY --chown=fluent:fluent ["conf/", "/fluentd/etc/"]
 
@@ -27,7 +28,7 @@ LABEL org.opencontainers.image.description="Fluentd with clickhouse"
 
 USER root
 COPY scripts/clickhouse-push.sh /usr/bin/clickhouse-push.sh
-COPY --from=clickhouse/clickhouse-server:23.3.10 /usr/bin/clickhouse /usr/bin/clickhouse
+COPY --from=clickhouse/clickhouse-server:23.11 /usr/bin/clickhouse /usr/bin/clickhouse
 RUN ln -s /usr/bin/clickhouse /usr/bin/clickhouse-client
 
 USER fluent
