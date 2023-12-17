@@ -3,10 +3,10 @@
 ARG APPVERSION
 ########################################
 
-FROM golang:1.19-bullseye AS helm
+FROM golang:1.21-bullseye AS helm
 
 WORKDIR /go/src/
-RUN git clone --single-branch --depth 2 --branch release-3.13.1-logs https://github.com/sergelogvinov/helm.git .
+RUN git clone --single-branch --depth 2 --branch release-3.13.3-logs https://github.com/sergelogvinov/helm.git .
 RUN make
 
 ########################################
