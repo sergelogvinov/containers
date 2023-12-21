@@ -17,7 +17,11 @@ RUN apk add --no-cache --virtual .build-deps \
     zlib-dev \
     libmaxminddb-dev \
     nginx \
-    libcap
+    libcap \
+    brotli \
+    brotli-libs \
+    brotli-dev \
+    git
 
 WORKDIR /usr/src
 
@@ -26,10 +30,12 @@ ENV APPVERSION=${APPVERSION}
 RUN curl -fsSLO https://openresty.org/download/openresty-${APPVERSION}.tar.gz && \
     tar xzf openresty-${APPVERSION}.tar.gz && \
     curl -fsSL https://github.com/leev/ngx_http_geoip2_module/archive/3.4.tar.gz > ngx_http_geoip2_module.tar.gz && \
-    tar xzf ngx_http_geoip2_module.tar.gz
+    tar xzf ngx_http_geoip2_module.tar.gz && \
+    git clone --recursive https://github.com/google/ngx_brotli.git
 RUN cd openresty-${APPVERSION} && ./configure -j2 --with-http_realip_module --with-pcre-jit --with-ipv6 --with-file-aio \
         --with-md5-asm --with-sha1-asm --with-threads \
         --add-dynamic-module=/usr/src/ngx_http_geoip2_module-3.4 \
+        --add-dynamic-module=/usr/src/ngx_brotli \
         --sbin-path=/usr/local/sbin/nginx \
         --conf-path=/etc/nginx/nginx.conf --pid-path=/run/nginx.pid --lock-path=/run/nginx.lock \
         --http-client-body-temp-path=/tmp/client_body \
@@ -64,6 +70,7 @@ COPY --from=openresty /etc/nginx                    /etc/nginx
 COPY                  nginx.conf                    /etc/nginx/nginx.conf
 
 RUN rm -rf /etc/nginx/conf.d && rm -rf /etc/nginx/sites-enabled && rm -rf /etc/nginx/*.default
+RUN nginx -t
 
 ###
 
