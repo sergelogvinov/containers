@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM fluent/fluentd:v${APPVERSION}-debian-1.0 AS pkg
+FROM fluent/fluentd:v${APPVERSION}-debian-1.1 AS pkg
 LABEL org.opencontainers.image.description="Fluentd with modules" \
       org.opencontainers.image.licenses="MIT"
 

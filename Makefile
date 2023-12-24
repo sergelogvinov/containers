@@ -16,8 +16,15 @@ else
 BUILD_ARGS += --output type=docker
 endif
 
-PACKAGES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
+ifdef ACTIONS_RUNTIME_TOKEN
+PKGCACHE = $(shell echo "--cache-to type=gha,mode=max --cache-from type=gha")
+else ifdef REGCACHE_UPLOAD
 PKGCACHE = $(shell echo "--cache-to type=registry,ref=$(REGCACHE)/cache:main-$1,mode=max --cache-from type=registry,ref=$(REGCACHE)/cache:main-$1")
+else
+PKGCACHE = $(shell echo "--cache-from type=registry,ref=$(REGCACHE)/cache:main-$1")
+endif
+
+PACKAGES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
 PKGTARGET ?= pkg
 PKGVERSION = $(shell head -n 1 $1/VERSION 2>/dev/null || echo $(TAG))
 
