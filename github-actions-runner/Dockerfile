@@ -3,14 +3,6 @@
 ARG APPVERSION
 ########################################
 
-FROM golang:1.21-bullseye AS helm
-
-WORKDIR /go/src/
-RUN git clone --single-branch --depth 2 --branch release-3.13.3-logs https://github.com/sergelogvinov/helm.git .
-RUN make
-
-########################################
-
 FROM golang:1.19-bullseye AS git-chglog
 
 WORKDIR /go/src/
@@ -61,7 +53,7 @@ COPY --from=ghcr.io/yannh/kubeconform:v0.6.4 /kubeconform /usr/bin/kubeconform
 COPY --from=minio/mc:RELEASE.2023-10-30T18-43-32Z /usr/bin/mc /usr/bin/mc
 
 # helm hooks error log https://github.com/helm/helm/pull/11228 https://github.com/helm/helm/pull/10309
-COPY --from=helm --chown=root:root /go/src/bin/helm /usr/bin/helm
+COPY --from=ghcr.io/sergelogvinov/helm:3.13.3 --chown=root:root /usr/bin/helm /usr/bin/helm
 
 ENV HELM_DATA_HOME=/usr/local/share/helm
 RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v4.5.1 && \
