@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.20-bullseye AS ytt
+FROM --platform=$BUILDPLATFORM golang:1.21-bookworm AS ytt
 
 WORKDIR /go/src/ytt
 

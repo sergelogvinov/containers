@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.18-bullseye AS skopeo
+FROM --platform=$BUILDPLATFORM golang:1.19-bullseye AS skopeo
 
 RUN apt-get update && apt-get install -y git build-essential
 
