@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM golang:1.18-bullseye AS vals
+FROM golang:1.21-bookworm AS vals
 
 RUN apt-get update && apt-get install -y git build-essential
 
