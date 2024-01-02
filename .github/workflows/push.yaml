@@ -21,6 +21,7 @@ on:
           - skopeo
           - supercronic
           - tabix
+          - tinyproxy
           - ytt
 
 jobs:
