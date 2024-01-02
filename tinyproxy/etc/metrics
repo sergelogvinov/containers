@@ -1,5 +1,5 @@
 # HELP opens Number of open connections.
-# TYPE opens Gauge
+# TYPE opens Counter
 opens {opens}
 # HELP reqs Number of requests.
 # TYPE reqs Counter
