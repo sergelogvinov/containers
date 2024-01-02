@@ -1,0 +1,14 @@
+# syntax = docker/dockerfile:1.4
+########################################
+ARG APPVERSION
+########################################
+
+FROM alpine:3.18 AS pkg
+LABEL org.opencontainers.image.description="Tinyproxy" \
+      org.opencontainers.image.licenses="MIT"
+
+RUN apk --update --no-cache add tinyproxy
+COPY ["etc/tinyproxy.conf","/etc/tinyproxy/tinyproxy.conf"]
+
+ENTRYPOINT ["/usr/bin/tinyproxy"]
+CMD ["-d","-c","/etc/tinyproxy/tinyproxy.conf"]
