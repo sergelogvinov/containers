@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<disabled-plugins>
+  <disabled-plugin name="dotnetcore" />
+  <disabled-plugin name="allure" />
+  <disabled-plugin name="cloud-amazon" />
+  <disabled-plugin name="agent.push" />
+  <disabled-plugin name="dotnet" />
+  <disabled-plugin name="dotNetRunners" />
+  <disabled-plugin name="vsphere" />
+  <disabled-plugin name="visualstudiotest" />
+  <disabled-plugin name="Apache Ant" />
+  <disabled-plugin name="Ant" />
+  <disabled-plugin name="Duplicator" />
+  <disabled-plugin name="FxCop" />
+  <disabled-plugin name="bugzilla" />
+  <disabled-plugin name="jira-cloud-integration" />
+  <disabled-plugin name="remoteAccess" />
+  <disabled-plugin name="GitLabIssues" />
+  <disabled-plugin name="Maven2" />
+  <disabled-plugin name="TeamCity.BitBucketIssues" />
+  <disabled-plugin name="bbserver-connection" />
+  <disabled-plugin name="golang" />
+  <disabled-plugin name="gradle-runner" />
+  <disabled-plugin name="ldap" />
+  <disabled-plugin name="mercurial" />
+  <disabled-plugin name="nt-domain-login" />
+  <disabled-plugin name="python-runner" />
+  <disabled-plugin name="svn" />
+  <disabled-plugin name="starteam" />
+  <disabled-plugin name="vs-addin-distributor" />
+  <disabled-plugin name="tfs" />
+  <disabled-plugin name="sbt-runner" />
+  <disabled-plugin name="rake-runner" />
+  <disabled-plugin name="qodana" />
+  <disabled-plugin name="powershell-runner" />
+  <disabled-plugin name="Inspection" />
+  <disabled-plugin name="Ipr" />
+  <disabled-plugin name="gantRunner" />
+  <disabled-plugin name="gant-tool" />
+  <disabled-plugin name="nuget" />
+</disabled-plugins>

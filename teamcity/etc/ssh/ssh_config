@@ -1,0 +1,16 @@
+#
+
+Host *
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    GSSAPIAuthentication no
+    GSSAPIKeyExchange no
+    ForwardAgent yes
+    ServerAliveInterval 30
+    ServerAliveCountMax 10
+    ControlPath /tmp/.ssh-%h-%p-%r
+    ControlMaster auto
+    ControlPersist 1m
+    PreferredAuthentications publickey
+    SendEnv LANG LC_*
+    LogLevel ERROR

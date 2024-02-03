@@ -27,6 +27,13 @@ Uses by [helm](https://github.com/sergelogvinov/helm-charts) deployments.
 * [Tabix](tabix) - postgresql with wal-g
     * `docker pull ghcr.io/sergelogvinov/tabix:latest`
 
+## CICD
+
+* [Github actions runner](github-actions-runner)
+    * `docker pull ghcr.io/sergelogvinov/github-actions-runner`
+* [Teamcity](teamcity)
+    * `docker pull ghcr.io/sergelogvinov/teamcity`
+
 ## Utils
 
 * [reviewdog](reviewdog) - is an automated code review tool integrated with any code analysis tools regardless of programming language.

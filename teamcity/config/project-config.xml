@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2020.1/project-config.xsd">
+  <name>&lt;Root project&gt;</name>
+  <description>Contains all other projects</description>
+  <parameters />
+  <project-extensions>
+    <extension id="PROJECT_EXT_1" type="ReportTab">
+      <parameters>
+        <param name="startPage" value="coverage.zip!index.html" />
+        <param name="title" value="Code Coverage" />
+        <param name="type" value="BuildReportTab" />
+      </parameters>
+    </extension>
+    <extension id="PROJECT_EXT_2" type="CloudImage">
+      <parameters>
+        <param name="agentNamePrefix" value="teamcity-agent" />
+        <param name="agent_pool_id" value="0" />
+        <param name="imageDescription" value="Use deployment: teamcity-agent" />
+        <param name="imageInstanceLimit" value="3" />
+        <param name="podTemplateMode" value="deployment-base" />
+        <param name="profileId" value="kube-1" />
+        <param name="source-id" value="teamcity-agent" />
+        <param name="sourceDeployment" value="teamcity-agent" />
+      </parameters>
+    </extension>
+    <extension id="kube-1" type="CloudProfile">
+      <parameters>
+        <param name="agentPushPreset" value="" />
+        <param name="apiServerUrl" value="https://kubernetes.default.svc" />
+        <param name="authStrategy" value="service-account" />
+        <param name="cloud-code" value="kube" />
+        <param name="description" value="Kubernetes local cluster" />
+        <param name="eksAccessId" value="" />
+        <param name="eksClusterName" value="" />
+        <param name="eksIAMRoleArn" value="" />
+        <param name="enabled" value="true" />
+        <param name="idpIssuerUrl" value="" />
+        <param name="name" value="Kubernetes" />
+        <param name="namespace" value="default" />
+        <param name="next-hour" value="" />
+        <param name="oidcClientId" value="" />
+        <param name="profileId" value="kube-1" />
+        <param name="profileInstanceLimit" value="3" />
+        <param name="profileServerUrl" value="http://teamcity" />
+        <param name="secure:authToken" value="" />
+        <param name="secure:caCertData" value="" />
+        <param name="secure:clientCertData" value="" />
+        <param name="secure:clientKeyData" value="" />
+        <param name="secure:eksSecretKey" value="" />
+        <param name="secure:oidcClientSecret" value="" />
+        <param name="secure:oidcRefreshToken" value="" />
+        <param name="secure:password" value="" />
+        <param name="system.cloud.profile_id" value="kube-1" />
+        <param name="terminate-idle-time" value="3600" />
+        <param name="total-work-time" value="" />
+        <param name="username" value="" />
+      </parameters>
+    </extension>
+  </project-extensions>
+  <cleanup>
+    <options>
+      <option name="preventDependenciesArtifactsFromCleanup" value="false" />
+    </options>
+  </cleanup>
+</project>
