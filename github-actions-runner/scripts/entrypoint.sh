@@ -27,12 +27,11 @@ else
 
     if [[ -z $RUNNER_TOKEN ]]; then
         _PATH_="$(echo $RUNNER_URL | cut -d/ -f4-)"
+        export GH_TOKEN="${GITHUB_ACCESS_TOKEN}"
 
-        RUNNER_TOKEN="$(curl -XPOST -fsSL \
-            -H "Authorization: token ${GITHUB_ACCESS_TOKEN}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/${SCOPE}/${_PATH_}/actions/runners/registration-token" \
-            | jq -r '.token')"
+        RUNNER_TOKEN="$(gh api --method POST ${SCOPE}/${_PATH_}/actions/runners/registration-token | jq -r '.token')"
+
+        [[ -z $RUNNER_TOKEN ]] && echo "Error : Failed to get registration token" && exit 1
     fi
 
     /home/runner/config.sh \

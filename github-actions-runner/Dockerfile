@@ -30,7 +30,14 @@ RUN apt-get update -y && apt-get dist-upgrade -y && \
         curl wget make zip rsync git \
         ansible ansible-lint yamllint jq && \
     apt-get install -y python3-boto python3-jmespath && \
-    ln -s /usr/bin/python3 /usr/bin/python
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    ln -s /usr/bin/python3 /usr/bin/python && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN wget https://cli.github.com/packages/githubcli-archive-keyring.gpg -O /usr/share/keyrings/githubcli-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list && \
+    apt-get update && apt-get install -y gh && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN install -m 0775 -o runner -g runner -d /app && \
     install -m 0775 -o runner -g runner -d /home/github -d /home/github/.ansible -d /home/github/builds && \
