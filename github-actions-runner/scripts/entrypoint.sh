@@ -31,7 +31,7 @@ else
 
         RUNNER_TOKEN="$(gh api --method POST ${SCOPE}/${_PATH_}/actions/runners/registration-token | jq -r '.token')"
 
-        [[ -z $RUNNER_TOKEN ]] && echo "Error : Failed to get registration token" && exit 1
+        [[ -z $RUNNER_TOKEN || "$RUNNER_TOKEN" == "null" ]] && echo "Error : Failed to get registration token" && exit 1
     fi
 
     /home/runner/config.sh \
