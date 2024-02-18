@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.4
+# syntax = docker/dockerfile:1.6
 ########################################
 ARG APPVERSION
 ########################################
 
-FROM alpine:3.18 AS pkg
+FROM alpine:3.19 AS pkg
 LABEL org.opencontainers.image.description="IPSec with utils" \
       org.opencontainers.image.licenses="MIT"
 

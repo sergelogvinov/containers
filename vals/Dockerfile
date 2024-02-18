@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.4
+# syntax = docker/dockerfile:1.6
 ########################################
 ARG APPVERSION
 ########################################
 
-FROM golang:1.21-bookworm AS vals
+FROM golang:1.22-bookworm AS vals
 
 RUN apt-get update && apt-get install -y git build-essential
 
@@ -17,9 +17,9 @@ RUN make build && ./bin/vals version
 
 ########################################
 
-FROM alpine:3.18 AS pkg
+FROM alpine:3.19 AS pkg
 LABEL org.opencontainers.image.description="Vals is a tool for managing configuration values and secrets" \
-      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.source="https://github.com/helmfile/vals"
 
 ARG TARGETARCH

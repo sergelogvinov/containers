@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.4
+# syntax = docker/dockerfile:1.6
 ########################################
 ARG APPVERSION
 ########################################
@@ -20,9 +20,10 @@ RUN GOOS=linux GOARCH=amd64 go build -mod vendor -ldflags="$LDFLAGS" -o dist/ytt
 
 ########################################
 
-FROM alpine:3.18 AS pkg
+FROM alpine:3.19 AS pkg
 
 LABEL org.opencontainers.image.description="YTT is a templating tool that understands YAML structure." \
+      org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.source="https://github.com/carvel-dev/ytt"
 
 ARG TARGETARCH

@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.4
+# syntax = docker/dockerfile:1.6
 ########################################
 ARG APPVERSION
 ########################################
@@ -28,6 +28,17 @@ RUN make redis_install && /usr/local/bin/wal-g --version
 ########################################
 
 FROM registry.k8s.io/pause:3.6 AS pause
+
+########################################
+
+FROM debian:bookworm-slim AS pkg
+LABEL org.opencontainers.image.description="Wal-g" \
+      org.opencontainers.image.licenses="MIT"
+
+COPY --from=pause       ["/pause","/pause"]
+COPY --from=walg-pg     ["/usr/local/bin/wal-g","/usr/local/bin/wal-g-pg"]
+COPY --from=walg-mongo  ["/usr/local/bin/wal-g","/usr/local/bin/wal-g-mongo"]
+COPY --from=walg-redis  ["/usr/local/bin/wal-g","/usr/local/bin/wal-g-redis"]
 
 ########################################
 

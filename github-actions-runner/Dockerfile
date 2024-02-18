@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.4
+# syntax = docker/dockerfile:1.6
 ########################################
 ARG APPVERSION
 ########################################
@@ -46,9 +46,9 @@ RUN install -m 0775 -o runner -g runner -d /app && \
 # https://hub.docker.com/_/docker/tags
 COPY --from=docker:24.0.9-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
 COPY --from=docker/buildx-bin:0.12.1 /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
-COPY --from=ghcr.io/sergelogvinov/skopeo:1.13 /usr/bin/skopeo /usr/bin/skopeo
-COPY --from=ghcr.io/sergelogvinov/skopeo:1.13 /etc/containers/ /etc/containers/
-COPY --from=ghcr.io/aquasecurity/trivy:0.49.0 /usr/local/bin/trivy /usr/local/bin/trivy
+COPY --from=ghcr.io/sergelogvinov/skopeo:1.14 /usr/bin/skopeo /usr/bin/skopeo
+COPY --from=ghcr.io/sergelogvinov/skopeo:1.14 /etc/containers/ /etc/containers/
+COPY --from=ghcr.io/aquasecurity/trivy:0.49.1 /usr/local/bin/trivy /usr/local/bin/trivy
 COPY --from=ghcr.io/sergelogvinov/reviewdog:0.14.2 /usr/bin/reviewdog /usr/bin/reviewdog
 COPY --from=git-chglog /usr/local/bin/git-chglog /usr/bin/git-chglog
 

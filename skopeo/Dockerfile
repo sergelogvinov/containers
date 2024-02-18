@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.4
+# syntax = docker/dockerfile:1.6
 ########################################
 ARG APPVERSION
 ########################################
@@ -17,7 +17,7 @@ RUN make bin/skopeo.linux.amd64 bin/skopeo.linux.arm64
 
 ########################################
 
-FROM alpine:3.18 AS pkg
+FROM alpine:3.19 AS pkg
 LABEL org.opencontainers.image.description="Copying an image from and to various storage mechanisms" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.source="https://github.com/containers/skopeo"
