@@ -12,7 +12,8 @@ WORKDIR /src
 RUN wget https://fastdl.mongodb.org/tools/mongosync/mongosync-ubuntu2004-x86_64-${APPVERSION}.tgz  -O /src/mongosync-amd64.tgz
 
 RUN tar -xzf /src/mongosync-amd64.tgz && mkdir -p /src/amd64/bin && \
-    mv mongosync-ubuntu2004-x86_64-${APPVERSION}/bin/*  /src/amd64/bin/
+    mv mongosync-ubuntu2004-x86_64-${APPVERSION}/bin/*  /src/amd64/bin/ && \
+    mkdir -p /src/arm64/bin && cp /src/amd64/bin/* /src/arm64/bin/
 
 ########################################
 

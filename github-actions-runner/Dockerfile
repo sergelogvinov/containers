@@ -3,16 +3,6 @@
 ARG APPVERSION
 ########################################
 
-FROM golang:1.19-bullseye AS git-chglog
-
-WORKDIR /go/src/
-RUN git clone --single-branch --depth 2 --branch v0.15.4 https://github.com/git-chglog/git-chglog .
-RUN make build && \
-    ./git-chglog --version && \
-    cp git-chglog /usr/local/bin/git-chglog
-
-########################################
-
 FROM ghcr.io/actions/actions-runner:${APPVERSION} AS actions-runner
 
 ########################################
@@ -50,7 +40,7 @@ COPY --from=ghcr.io/sergelogvinov/skopeo:1.14 /usr/bin/skopeo /usr/bin/skopeo
 COPY --from=ghcr.io/sergelogvinov/skopeo:1.14 /etc/containers/ /etc/containers/
 COPY --from=ghcr.io/aquasecurity/trivy:0.49.1 /usr/local/bin/trivy /usr/local/bin/trivy
 COPY --from=ghcr.io/sergelogvinov/reviewdog:0.14.2 /usr/bin/reviewdog /usr/bin/reviewdog
-COPY --from=git-chglog /usr/local/bin/git-chglog /usr/bin/git-chglog
+COPY --from=ghcr.io/sergelogvinov/git-chglog:0.15.4 /usr/local/bin/git-chglog /usr/bin/git-chglog
 
 COPY --from=bitnami/kubectl:1.28.6 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
 COPY --from=alpine/helm:3.13.3 /usr/bin/helm /usr/bin/helm
