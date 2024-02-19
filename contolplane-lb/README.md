@@ -26,7 +26,7 @@ machine:
           runAsGroup: 101
         containers:
           - name: contolplane-lb
-            image: ghcr.io/sergelogvinov/contolplane-lb:2.6.14
+            image: ghcr.io/sergelogvinov/contolplane-lb:2.8.6
             env:
               - name: controlplane
                 value: controlplane.example.com
