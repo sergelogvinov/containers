@@ -14,7 +14,7 @@ on:
           - mongodb
           - mongosqld
           - mongosync
-          - nginx-openrestry
+          - nginx-openresty
           - openvpn
           - pgbouncer
           - postgresql

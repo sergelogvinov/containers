@@ -13,14 +13,15 @@ RUN wget https://github.com/metrico/clickhouse-mate/releases/download/${APPVERSI
 
 ########################################
 
-FROM ghcr.io/sergelogvinov/nginx-openrestry:1.21.4.3 AS pkg
+FROM ghcr.io/sergelogvinov/nginx-openresty:1.21.4.3 AS pkg
 LABEL org.opencontainers.image.description="Advanced User-Interface for ClickHouse" \
       org.opencontainers.image.licenses="AGPL-3.0" \
       org.opencontainers.image.url="https://gigapipe.com/qryn/" \
       org.opencontainers.image.source="https://github.com/metrico/clickhouse-mate"
 
 RUN apk add --no-cache --update curl && \
-    install -o nginx -g nginx -d /tmp/cache
+    install -o nginx -g nginx -d /run /tmp/cache && \
+    rm -rf /tmp/* /run/*
 
 WORKDIR /www
 COPY --from=build ["/www","/www"]

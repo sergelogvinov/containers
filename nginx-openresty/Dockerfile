@@ -94,7 +94,7 @@ FROM alpine:3.19 AS nginx-openresty
 
 RUN apk add --no-cache --update libgcc pcre libmaxminddb curl && \
     addgroup -g 101 -S nginx && adduser --disabled-password -S --home /var/lib/nginx --u 100 --gecos "nginx" nginx && \
-    install -o nginx -g nginx -d /run/nginx /var/cache/nginx /var/log/nginx /var/lib/nginx/tmp
+    install -o nginx -g nginx -d /run /var/cache/nginx /var/log/nginx /var/lib/nginx/tmp
 
 COPY --from=openresty /usr/local/openresty/luajit   /usr/local/openresty/luajit
 COPY --from=openresty /usr/local/openresty/lualib   /usr/local/openresty/lualib
@@ -105,7 +105,7 @@ COPY --from=openresty /etc/nginx                    /etc/nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
 RUN rm -rf /etc/nginx/conf.d && rm -rf /etc/nginx/sites-enabled && rm -rf /etc/nginx/*.default
-RUN nginx -t && rm -rf /tmp/*
+RUN nginx -t && rm -rf /tmp/* /run/*
 
 ###
 
@@ -125,7 +125,7 @@ FROM alpine:3.19 AS nginx-openresty-device-detection
 
 RUN apk add --no-cache --update libgcc pcre libmaxminddb curl && \
     addgroup -g 101 -S nginx && adduser --disabled-password -S --home /var/lib/nginx --u 100 --gecos "nginx" nginx && \
-    install -o nginx -g nginx -d /run/nginx /var/cache/nginx /var/log/nginx /var/lib/nginx/tmp
+    install -o nginx -g nginx -d /run /var/cache/nginx /var/log/nginx /var/lib/nginx/tmp
 
 COPY --from=openresty-device-detection /usr/local/openresty/luajit   /usr/local/openresty/luajit
 COPY --from=openresty-device-detection /usr/local/openresty/lualib   /usr/local/openresty/lualib
@@ -136,7 +136,7 @@ COPY --from=openresty-device-detection /etc/nginx                    /etc/nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
 RUN rm -rf /etc/nginx/conf.d && rm -rf /etc/nginx/sites-enabled && rm -rf /etc/nginx/*.default
-RUN nginx -t && rm -rf /tmp/*
+RUN nginx -t && rm -rf /tmp/* /run/*
 
 ###
 
