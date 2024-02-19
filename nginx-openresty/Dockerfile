@@ -105,7 +105,7 @@ COPY --from=openresty /etc/nginx                    /etc/nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
 RUN rm -rf /etc/nginx/conf.d && rm -rf /etc/nginx/sites-enabled && rm -rf /etc/nginx/*.default
-RUN nginx -t
+RUN nginx -t && rm -rf /tmp/*
 
 ###
 
@@ -136,7 +136,7 @@ COPY --from=openresty-device-detection /etc/nginx                    /etc/nginx
 COPY nginx.conf /etc/nginx/nginx.conf
 
 RUN rm -rf /etc/nginx/conf.d && rm -rf /etc/nginx/sites-enabled && rm -rf /etc/nginx/*.default
-RUN nginx -t
+RUN nginx -t && rm -rf /tmp/*
 
 ###
 
