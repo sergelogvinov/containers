@@ -44,13 +44,40 @@ init: ## Buildx activate
 list: ## List all packages
 	@echo -n $(PACKAGES)
 
+################################################################################
+
+define build
+	@docker buildx build $(BUILD_ARGS) $(call PKGCACHE,$(1)) --build-arg APPVERSION=$(call PKGVERSION,$(1)) \
+		$(foreach tag,$(shell cat $(1)/VERSION 2>/dev/null || echo $(TAG)),-t $(REGISTRY)/$(1):$(subst -pkg,,$(tag)-$(2))) \
+		-f $(word 1,$(subst :, ,$(1)))/Dockerfile \
+		--target=$(2) \
+		$(word 1,$(subst :, ,$(1)))/
+endef
+
 packages: $(foreach pkg,$(PACKAGES),package-$(pkg)) ## Build all packages
+
+package-fluentd:
+	$(call build,fluentd,pkg)
+	$(call build,fluentd,clickhouse)
+package-nginx-openresty: 
+	$(call build,nginx-openresty,pkg)
+	$(call build,nginx-openresty,device-detection)
+package-github-actions-runner:
+	$(call build,github-actions-runner,pkg)
+	$(call build,github-actions-runner,aws)
+	$(call build,github-actions-runner,gcp)
+package-teamcity:
+	$(call build,teamcity,pkg)
+	$(call build,teamcity,agent)
+package-wal-g:
+	$(call build,wal-g,pg)
+	$(call build,wal-g,mongo)
+	$(call build,wal-g,redis)
+
 package-%:
-	@docker buildx build $(BUILD_ARGS) $(call PKGCACHE,$*) --build-arg APPVERSION=$(call PKGVERSION,$*) \
-		$(foreach tag,$(shell cat $*/VERSION 2>/dev/null || echo $(TAG)),-t $(REGISTRY)/$*:$(subst -pkg,,$(tag)-$(PKGTARGET))) \
-		-f $(word 1,$(subst :, ,$*))/Dockerfile \
-		--target=$(PKGTARGET) \
-		$(word 1,$(subst :, ,$*))/
+	$(call build,$*,$(PKGTARGET))
+
+################################################################################
 
 sync: $(foreach pkg,$(PACKAGES),sync-$(pkg)) ## Copy all packages to another repo
 sync-%:
