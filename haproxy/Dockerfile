@@ -13,4 +13,8 @@ RUN apk add libcap
 RUN setcap    cap_net_bind_service=+ep /usr/local/sbin/haproxy && \
     setcap -v cap_net_bind_service=+ep /usr/local/sbin/haproxy
 
+COPY ["haproxy.cfg","/etc/haproxy/haproxy.cfg"]
+
 USER haproxy
+ENTRYPOINT ["/usr/local/sbin/haproxy"]
+CMD ["-f", "/etc/haproxy/haproxy.cfg"]
