@@ -34,15 +34,15 @@ RUN install -m 0775 -o runner -g runner -d /app && \
     install -m 0775 -o runner -g runner -d /home/runner -d /home/runner/.ansible
 
 # https://hub.docker.com/_/docker/tags
-COPY --from=docker:24.0.9-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
-COPY --from=docker/buildx-bin:0.12.1 /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
+COPY --from=docker:25.0.5-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
+COPY --from=docker/buildx-bin:0.13.1 /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
 COPY --from=ghcr.io/sergelogvinov/skopeo:1.14 /usr/bin/skopeo /usr/bin/skopeo
 COPY --from=ghcr.io/sergelogvinov/skopeo:1.14 /etc/containers/ /etc/containers/
 COPY --from=ghcr.io/aquasecurity/trivy:0.50.1 /usr/local/bin/trivy /usr/local/bin/trivy
 COPY --from=ghcr.io/sergelogvinov/reviewdog:0.17.2 /usr/bin/reviewdog /usr/bin/reviewdog
 COPY --from=ghcr.io/sergelogvinov/git-chglog:0.15.4 /usr/local/bin/git-chglog /usr/bin/git-chglog
 
-COPY --from=bitnami/kubectl:1.28.8 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
+COPY --from=bitnami/kubectl:1.28.9 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
 COPY --from=alpine/helm:3.13.3 /usr/bin/helm /usr/bin/helm
 COPY --from=ghcr.io/getsops/sops:v3.8.1-alpine /usr/local/bin/sops /usr/bin/sops
 COPY --from=ghcr.io/sergelogvinov/vals:0.36.0 /usr/bin/vals /usr/bin/vals
