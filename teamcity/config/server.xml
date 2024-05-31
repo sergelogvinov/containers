@@ -68,11 +68,14 @@
     -->
     <Connector port="8111" protocol="org.apache.coyote.http11.Http11NioProtocol"
                connectionTimeout="60000"
+               redirectPort="8543"
                useBodyEncodingForURI="true"
                tcpNoDelay="1"
+               maxHttpHeaderSize="16000"
                secure="true"
                scheme="https"
     />
+
 
     <!-- Uncomment if connector with Http11NioProtocol does not work reliably  -->
     <!--
