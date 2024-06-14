@@ -59,7 +59,7 @@ packages: $(foreach pkg,$(PACKAGES),package-$(pkg)) ## Build all packages
 package-fluentd:
 	$(call build,fluentd,pkg)
 	$(call build,fluentd,clickhouse)
-package-nginx-openresty: 
+package-nginx-openresty:
 	$(call build,nginx-openresty,pkg)
 	$(call build,nginx-openresty,device-detection)
 package-github-actions-runner:
