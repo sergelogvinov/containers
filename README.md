@@ -3,38 +3,56 @@
 Our images come in two flavors to support different architectures: `arm64` and `amd64`.
 Uses by [helm](https://github.com/sergelogvinov/helm-charts) deployments.
 
+
+Build and push images to the registry
+
+```shell
+# Build all images
+make packages REGISTRY=ghcr.io/$GITHUB_USER PUSH=true
+
+# Build specific image
+make package-teamcity REGISTRY=ghcr.io/$GITHUB_USER PUSH=true
+```
+
+### Common images
+
 * [Contolplane lb](contolplane-lb) - haproxy load balancer
     * `docker pull ghcr.io/sergelogvinov/openvpn:2.6.11`
     * `docker pull sergelog/openvpn:2.6.11`
 * [Fluentd](fluentd) - with common plugins
     * `docker pull ghcr.io/sergelogvinov/fluentd:latest`
     * `docker pull sergelog/fluentd:1.15.3`
+* [Nginx-openresty](nginx-openresty) - nginx with lua
+    * `docker pull ghcr.io/sergelogvinov/nginx-openresty:latest`
+* [Openvpn](openvpn) - openvpn with google authenticator (otp)
+    * `docker pull ghcr.io/sergelogvinov/openvpn:latest`
+    * `docker pull sergelog/openvpn:2.5.8-2`
+* [Wireguard](wireguard) - simple script to create wireguard connection
+    * `docker pull ghcr.io/sergelogvinov/wireguard:1.0.20210914`
+
+### Databases
+
 * [Keydb](keydb) - keydb with wal-g
     * `docker pull ghcr.io/sergelogvinov/keydb:latest`
 * [Mongodb](mongodb) - mongodb with wal-g
     * `docker pull ghcr.io/sergelogvinov/mongodb:latest`
 * [Mongosqld](mongosqld) - mongosqld
     * `docker pull ghcr.io/sergelogvinov/mongosqld:latest`
-* [Nginx-openresty](nginx-openresty) - nginx with lua
-    * `docker pull ghcr.io/sergelogvinov/nginx-openresty:latest`
-* [Openvpn](openvpn) - openvpn with google authenticator (otp)
-    * `docker pull ghcr.io/sergelogvinov/openvpn:latest`
-    * `docker pull sergelog/openvpn:2.5.8-2`
 * [PGBouncer](pgbouncer) - postgresql pooler
     * `docker pull ghcr.io/sergelogvinov/pgbouncer:latest`
 * [Postgresql](postgresql) - postgresql with wal-g
     * `docker pull ghcr.io/sergelogvinov/postgresql:latest`
-* [Tabix](tabix) - postgresql with wal-g
+* [Tabix](tabix) - clickhouse GUI
     * `docker pull ghcr.io/sergelogvinov/tabix:latest`
 
-## CICD
+### CICD
 
 * [Github actions runner](github-actions-runner)
     * `docker pull ghcr.io/sergelogvinov/github-actions-runner`
 * [Teamcity](teamcity)
     * `docker pull ghcr.io/sergelogvinov/teamcity`
 
-## Utils
+### Utils
 
 * [reviewdog](reviewdog) - is an automated code review tool integrated with any code analysis tools regardless of programming language.
     * `docker pull ghcr.io/sergelogvinov/reviewdog:0.14.2`
