@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.6
+# syntax = docker/dockerfile:1.10
 ########################################
-ARG APPVERSION
+ARG APPVERSION=1.8.0
 ########################################
 
-FROM --platform=$BUILDPLATFORM ubuntu:20.04 as archive
+FROM --platform=$BUILDPLATFORM ubuntu:20.04 AS archive
 
 RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates wget
 ARG APPVERSION
