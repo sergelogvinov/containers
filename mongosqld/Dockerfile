@@ -1,7 +1,7 @@
-# syntax = docker/dockerfile:1.6
+# syntax = docker/dockerfile:1.10
 ########################################
 
-FROM --platform=$BUILDPLATFORM ubuntu:22.04 as archive
+FROM --platform=$BUILDPLATFORM ubuntu:22.04 AS archive
 
 RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates wget
 ARG APPVERSION
