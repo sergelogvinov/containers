@@ -1,6 +1,6 @@
-# syntax = docker/dockerfile:1.6
+# syntax = docker/dockerfile:1.10
 ########################################
-ARG APPVERSION
+ARG APPVERSION=16
 ########################################
 
 FROM postgres:${APPVERSION}-bookworm AS pkg

@@ -1,6 +1,6 @@
-# syntax = docker/dockerfile:1.6
+# syntax = docker/dockerfile:1.10
 ########################################
-ARG APPVERSION
+ARG APPVERSION=16
 ########################################
 
 FROM ghcr.io/sergelogvinov/wal-g:v3.0.3-pg AS walg
