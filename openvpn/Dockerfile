@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.6
+# syntax = docker/dockerfile:1.10
 ########################################
 ARG APPVERSION
 ########################################
 
-FROM alpine:3.19 AS pkg
+FROM alpine:3.20 AS pkg
 LABEL org.opencontainers.image.description="OpenVPN" \
       org.opencontainers.image.licenses="MIT"
 
