@@ -7,15 +7,15 @@ FROM ghcr.io/sergelogvinov/wal-g:v3.0.3-pg AS walg
 
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.16 as pgcenter
+FROM --platform=$BUILDPLATFORM golang:1.16 AS pgcenter
 
 WORKDIR /go/src/pgcenter
 
 RUN git clone --single-branch --depth 2 -b v0.9.2 https://github.com/lesovsky/pgcenter.git .
 
 ARG TARGETOS TARGETARCH
-ENV GOOS $TARGETOS
-ENV GOARCH $TARGETARCH
+ENV GOOS=$TARGETOS
+ENV GOARCH=$TARGETARCH
 RUN make build && make install
 
 ########################################
