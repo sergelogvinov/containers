@@ -1,6 +1,7 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION=latest
+# renovate: datasource=docker depName=ghcr.io/actions/actions-runner
+ARG APPVERSION=2.319.0
 ########################################
 
 FROM ghcr.io/actions/actions-runner:${APPVERSION} AS actions-runner
