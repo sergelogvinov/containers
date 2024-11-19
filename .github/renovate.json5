@@ -23,7 +23,7 @@
   "ignorePaths": [],
   "packageRules": [
     {
-      "matchManagers": ["dockerfile"],
+      "matchManagers": ["dockerfile", "regex"],
       "groupName": "{{depName}}"
     },
     {
