@@ -17,16 +17,3 @@ updates:
       timezone: "Etc/UTC"
     labels:
       - "dependencies"
-
-  - package-ecosystem: "docker"
-    directory: "/"
-    commit-message:
-      prefix: "chore:"
-    open-pull-requests-limit: 5
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "12:00"
-      timezone: "Etc/UTC"
-    labels:
-      - "dependencies"
