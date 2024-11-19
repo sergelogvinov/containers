@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM golang:1.21-bullseye AS helm
+FROM golang:1.23-bullseye AS helm
 
 WORKDIR /go/src/
 

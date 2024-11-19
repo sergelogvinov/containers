@@ -7,7 +7,7 @@ FROM ghcr.io/sergelogvinov/wal-g:v3.0.3-pg AS walg
 
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.16 AS pgcenter
+FROM --platform=$BUILDPLATFORM golang:1.23 AS pgcenter
 
 WORKDIR /go/src/pgcenter
 
