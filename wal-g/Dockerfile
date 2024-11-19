@@ -27,7 +27,7 @@ RUN make redis_install && /usr/local/bin/wal-g --version
 
 ########################################
 
-FROM registry.k8s.io/pause:3.6 AS pause
+FROM registry.k8s.io/pause:3.10 AS pause
 
 ########################################
 

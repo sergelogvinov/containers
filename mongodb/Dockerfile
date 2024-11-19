@@ -7,7 +7,7 @@ FROM ghcr.io/sergelogvinov/wal-g:v3.0.3-mongo AS walg
 
 ########################################
 
-FROM registry.k8s.io/pause:3.6 AS pause
+FROM registry.k8s.io/pause:3.10 AS pause
 
 ########################################
 
