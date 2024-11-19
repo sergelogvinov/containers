@@ -20,7 +20,7 @@ RUN make build && make install
 
 ########################################
 
-FROM registry.k8s.io/pause:3.6 AS pause
+FROM registry.k8s.io/pause:3.10 AS pause
 
 ########################################
 
