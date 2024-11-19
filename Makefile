@@ -26,7 +26,7 @@ endif
 
 PACKAGES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
 PKGTARGET ?= pkg
-PKGVERSION = $(shell head -n 1 $1/VERSION 2>/dev/null || echo $(TAG))
+PKGVERSION = $(shell grep -v "#" $1/VERSION | head -n 1 2>/dev/null || echo $(TAG))
 
 ################################################################################
 
@@ -47,8 +47,8 @@ list: ## List all packages
 ################################################################################
 
 define build
-	@docker buildx build $(BUILD_ARGS) $(call PKGCACHE,$(1)) --build-arg APPVERSION=$(call PKGVERSION,$(1)) \
-		$(foreach tag,$(shell cat $(1)/VERSION 2>/dev/null || echo $(TAG)),-t $(REGISTRY)/$(1):$(subst -pkg,,$(tag)-$(2))) \
+	docker buildx build $(BUILD_ARGS) $(call PKGCACHE,$(1)) --build-arg APPVERSION=$(call PKGVERSION,$(1)) \
+		$(foreach tag,$(shell grep -v "#" $(1)/VERSION 2>/dev/null || echo $(TAG)),-t $(REGISTRY)/$(1):$(subst -pkg,,$(tag)-$(2))) \
 		-f $(word 1,$(subst :, ,$(1)))/Dockerfile \
 		--target=$(2) \
 		$(word 1,$(subst :, ,$(1)))/
