@@ -16,6 +16,8 @@ else
 BUILD_ARGS += --output type=docker
 endif
 
+COSING_ARGS ?=
+
 ifdef ACTIONS_RUNTIME_TOKEN
 PKGCACHE = $(shell echo "--cache-to type=gha,mode=max --cache-from type=gha")
 else ifdef REGCACHE_UPLOAD
@@ -76,6 +78,15 @@ package-wal-g:
 
 package-%:
 	$(call build,$*,$(PKGTARGET))
+
+################################################################################
+
+define cosign
+	cosign sign --yes $(COSING_ARGS) --recursive $(foreach tag,$(shell grep -v "#" $(1)/VERSION 2>/dev/null || echo $(TAG)),$(REGISTRY)/$(1):$(subst -pkg,,$(tag)-$(2)))
+endef
+
+cosign-%:
+	$(call cosign,$*,$(PKGTARGET))
 
 ################################################################################
 

@@ -56,7 +56,7 @@ jobs:
         uses: crazy-max/ghaction-github-runtime@v3
       - name: Build
         timeout-minutes: 15
-        run: make package-${{ inputs.package }}
+        run: make package-${{ inputs.package }} cosign-${{ inputs.package }}
         env:
           PUSH: "true"
 
