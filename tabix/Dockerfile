@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.6
 ########################################
 
-FROM --platform=$BUILDPLATFORM node:18-alpine3.16 AS build
+FROM --platform=$BUILDPLATFORM node:20-alpine3.16 AS build
 
 RUN apk add --no-cache --update git wget
 
