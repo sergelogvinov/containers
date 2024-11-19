@@ -1,1 +1,2 @@
+# renovate: datasource=github-releases depName=reviewdog/reviewdog versioning=semver
 0.17.2

@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION
+ARG APPVERSION=0.17.2
 ########################################
 
 FROM --platform=$BUILDPLATFORM golang:1.21-bullseye AS reviewdog
