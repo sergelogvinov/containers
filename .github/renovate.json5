@@ -35,13 +35,14 @@
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["ubuntu"],
-      "matchFileNames": ["mongosync/Dockerfile"],
-      "major": {
-          "enabled": false
-      },
-      "minor": {
-          "enabled": false
-      }
+      "matchFileNames": ["mongosqld\/Dockerfile","mongosync\/Dockerfile"],
+      "allowedVersions": "<=20",
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["redis"],
+      "matchFileNames": ["keydb\/Dockerfile"],
+      "allowedVersions": "<=6",
     },
   ],
 }
