@@ -23,6 +23,20 @@
   "ignorePaths": [],
   "packageRules": [
     {
+      "matchManagers": ["dockerfile"],
+      "groupName": "{{depName}}"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["golang"],
+      "major": {
+          "enabled": false
+      },
+      "minor": {
+          "enabled": false
+      }
+    },
+    {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["node"],
       "major": {

@@ -6,10 +6,12 @@
       "fileMatch": ["(^|/)Dockerfile$","(^|/)VERSION$"],
       "matchStrings": [
         // # renovate: datasource=github-releases depName=org/repo versioning=loose
-        // version: 1.2.3
         // # renovate: datasource=helm depName=project repository=https://helm.project.com versioning=loose
-        // version: 1.15.1
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?( versioning=(?<versioning>.*?))?\\n.+: (&\\S+\\s)?(?<currentValue>\\S+)",
+        //
+        // version: 1.2.3
+        // version=1.2.3
+        // 1.2.3
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?( versioning=(?<versioning>.*?))?\\n(.+[:=]\\s*)?(&\\S+\\s)?(?<currentValue>\\S+)"
         // # renovate: datasource=github-releases depName=org/repo versioning=loose
         // https://github.com/org/repo/releases/download/v1.2.3/artifact
         "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\n.+/(?<currentValue>(v|\\d)[^/]+)"
