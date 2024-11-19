@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION
+ARG APPVERSION=0.36.0
 ########################################
 
 FROM golang:1.22-bookworm AS vals

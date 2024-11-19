@@ -1,2 +1,3 @@
+# renovate: datasource=docker depName=jetbrains/teamcity-server
 2024.07.3
 latest

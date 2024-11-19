@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION
+ARG APPVERSION=1.0.20210914
 ########################################
 
 FROM alpine:3.20 AS pkg
