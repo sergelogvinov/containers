@@ -1,4 +1,3 @@
 # renovate: datasource=docker depName=postgres
 16.5
-# renovate: datasource=docker depName=postgres
 16

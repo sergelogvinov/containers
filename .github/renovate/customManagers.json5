@@ -3,7 +3,9 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["(^|/)Dockerfile$","(^|/)VERSION$"],
+      "fileMatch": [
+        "(^|/)Dockerfile$"
+      ],
       "matchStrings": [
         // # renovate: datasource=github-releases depName=org/repo versioning=loose
         // # renovate: datasource=helm depName=project repository=https://helm.project.com versioning=loose
@@ -17,7 +19,28 @@
         "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\n.+/(?<currentValue>(v|\\d)[^/]+)"
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}"
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
+    },
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "(^|/)VERSION$"
+      ],
+      "matchStrings": [
+        // # renovate: datasource=github-releases depName=org/repo versioning=loose
+        // # renovate: datasource=helm depName=project repository=https://helm.project.com versioning=loose
+        //
+        // version: 1.2.3
+        // version=1.2.3
+        // 1.2.3
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( repository=(?<registryUrl>\\S+))?( versioning=(?<versioning>.*?))?\\n(.+[:=]\\s*)?(&\\S+\\s)?(?<currentValue>\\S+)",
+        // # renovate: datasource=github-releases depName=org/repo versioning=loose
+        // https://github.com/org/repo/releases/download/v1.2.3/artifact
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>.*?))?\\n.+/(?<currentValue>(v|\\d)[^/]+)"
+      ],
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
+      "extractVersionTemplate": "^v?(?<version>.*)$"
     }
   ]
 }
