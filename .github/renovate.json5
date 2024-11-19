@@ -48,6 +48,11 @@
     },
     {
       "matchDatasources": ["docker"],
+      "matchPackageNames": ["postgres"],
+      "allowedVersions": "<=16"
+    },
+    {
+      "matchDatasources": ["docker"],
       "matchPackageNames": ["mongo"],
       "allowedVersions": "<=7"
     },
