@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION=6
+ARG APPVERSION=7
 ########################################
 
 FROM ghcr.io/sergelogvinov/wal-g:v3.0.3-mongo AS walg
