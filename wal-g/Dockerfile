@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM golang:1.22-bookworm AS walg-base
+FROM golang:1.23-bookworm AS walg-base
 
 RUN apt-get update && apt-get install -y cmake git build-essential
 

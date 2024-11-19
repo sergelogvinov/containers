@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.21-bookworm AS deckschrubber
+FROM --platform=$BUILDPLATFORM golang:1.23-bookworm AS deckschrubber
 
 RUN apt-get update && apt-get install -y git build-essential
 
