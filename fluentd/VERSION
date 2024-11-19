@@ -1,2 +1,2 @@
-# renovate: datasource=docker depName=fluent/fluentd
+# renovate: datasource=docker depName=fluent/fluentd versioning=loose
 1.16.2
