@@ -46,7 +46,7 @@ COPY --from=bitnami/kubectl:1.28.9 /opt/bitnami/kubectl/bin/kubectl /usr/local/b
 COPY --from=alpine/helm:3.13.3 /usr/bin/helm /usr/bin/helm
 COPY --from=ghcr.io/getsops/sops:v3.8.1-alpine /usr/local/bin/sops /usr/bin/sops
 COPY --from=ghcr.io/sergelogvinov/vals:0.36.0 /usr/bin/vals /usr/bin/vals
-COPY --from=ghcr.io/yannh/kubeconform:v0.6.4 /kubeconform /usr/bin/kubeconform
+COPY --from=ghcr.io/yannh/kubeconform:v0.6.7 /kubeconform /usr/bin/kubeconform
 COPY --from=minio/mc:RELEASE.2024-01-16T16-06-34Z /usr/bin/mc /usr/bin/mc
 
 # helm hooks error log https://github.com/helm/helm/pull/11228 https://github.com/helm/helm/pull/10309
