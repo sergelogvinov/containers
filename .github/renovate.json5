@@ -49,19 +49,19 @@
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["mongo"],
-      "allowedVersions": "<=7",
+      "allowedVersions": "<=7"
     },
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["ubuntu"],
       "matchFileNames": ["mongosqld\/Dockerfile","mongosync\/Dockerfile"],
-      "allowedVersions": "<=20",
+      "allowedVersions": "<=20"
     },
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["redis"],
       "matchFileNames": ["keydb\/Dockerfile"],
-      "allowedVersions": "<=6",
-    },
+      "allowedVersions": "<=6"
+    }
   ],
 }
