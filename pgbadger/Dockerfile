@@ -1,9 +1,9 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION
+ARG APPVERSION=16
 ########################################
 
-FROM postgres:bookworm AS pkg
+FROM postgres:${APPVERSION}-bookworm AS pkg
 LABEL org.opencontainers.image.description="pgBadger" \
       org.opencontainers.image.licenses="PostgreSQL Licence"
 

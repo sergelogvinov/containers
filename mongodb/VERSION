@@ -1,2 +1,3 @@
+# renovate: datasource=docker depName=bitnami/mongodb:6.0.13-debian-11-r21 versioning=loose
 6.0.13
 6
