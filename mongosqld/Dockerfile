@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.10
 ########################################
 
-FROM --platform=$BUILDPLATFORM ubuntu:22.04 AS archive
+FROM --platform=$BUILDPLATFORM ubuntu:24.04 AS archive
 
 RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates wget
 ARG APPVERSION
@@ -17,7 +17,7 @@ RUN tar -xzf /src/mongodb-bi-linux-arm64.tgz && mkdir -p /src/arm64/bin && \
 
 ########################################
 
-FROM ubuntu:22.04 AS pkg
+FROM ubuntu:24.04 AS pkg
 ARG APPVERSION
 LABEL org.opencontainers.image.description="MongoSQL" \
       org.opencontainers.image.documentation="https://www.mongodb.com/docs/bi-connector/current/reference/mongosqld/" \

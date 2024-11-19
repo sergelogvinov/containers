@@ -3,7 +3,7 @@
 ARG APPVERSION=1.8.0
 ########################################
 
-FROM --platform=$BUILDPLATFORM ubuntu:20.04 AS archive
+FROM --platform=$BUILDPLATFORM ubuntu:24.04 AS archive
 
 RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates wget
 ARG APPVERSION
@@ -17,7 +17,7 @@ RUN tar -xzf /src/mongosync-amd64.tgz && mkdir -p /src/amd64/bin && \
 
 ########################################
 
-FROM ubuntu:20.04 AS pkg
+FROM ubuntu:24.04 AS pkg
 ARG APPVERSION
 LABEL org.opencontainers.image.description="MongoSync" \
       org.opencontainers.image.documentation="https://www.mongodb.com/docs/cluster-to-cluster-sync" \
