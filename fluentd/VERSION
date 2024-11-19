@@ -1,2 +1,2 @@
-# renovate: datasource=docker depName=fluent/fluentd:v1.16.2-debian-1.1 versioning=semver
+# renovate: datasource=github-releases depName=fluent/fluentd versioning=semver
 1.16.2
