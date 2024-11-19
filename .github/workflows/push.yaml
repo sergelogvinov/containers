@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       package:
-        description: 'Package'
+        description: "Package"
         required: true
         type: choice
         options:
@@ -59,3 +59,12 @@ jobs:
         run: make package-${{ inputs.package }}
         env:
           PUSH: "true"
+
+      - name: Clean old images
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: ${{ inputs.package }}
+          package-type: container
+          ignore-versions: latest
+          min-versions-to-keep: 16
+        continue-on-error: true
