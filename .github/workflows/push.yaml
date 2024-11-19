@@ -66,5 +66,5 @@ jobs:
           package-name: ${{ inputs.package }}
           package-type: container
           ignore-versions: latest
-          min-versions-to-keep: 16
+          min-versions-to-keep: 10
         continue-on-error: true
