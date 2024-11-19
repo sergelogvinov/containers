@@ -1,12 +1,11 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION
+ARG APPVERSION=2024.07.3
 ########################################
 
 FROM jetbrains/teamcity-server:${APPVERSION} AS pkg
 LABEL org.opencontainers.image.description="Teamcity" \
-      org.opencontainers.image.documentation="https://hub.docker.com/r/jetbrains/teamcity-server" \
-      org.opencontainers.image.version=${APPVERSION}
+      org.opencontainers.image.documentation="https://hub.docker.com/r/jetbrains/teamcity-server"
 
 USER root
 RUN curl -LfsSo /opt/teamcity/webapps/ROOT/WEB-INF/lib/postgresql-42.7.4.jar https://jdbc.postgresql.org/download/postgresql-42.7.4.jar && \
@@ -25,8 +24,7 @@ CMD ["/opt/teamcity/bin/teamcity-server.sh","run"]
 
 FROM jetbrains/teamcity-minimal-agent:${APPVERSION} AS agent
 LABEL org.opencontainers.image.description="Teamcity Agent" \
-      org.opencontainers.image.documentation="https://hub.docker.com/r/jetbrains/teamcity-minimal-agent" \
-      org.opencontainers.image.version=${APPVERSION}
+      org.opencontainers.image.documentation="https://hub.docker.com/r/jetbrains/teamcity-minimal-agent"
 
 USER root
 ENV DEBIAN_FRONTEND=noninteractive
