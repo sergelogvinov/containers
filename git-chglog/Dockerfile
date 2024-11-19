@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION
+ARG APPVERSION=0.15.4
 ########################################
 
 FROM --platform=$BUILDPLATFORM golang:1.19-bullseye AS chglog

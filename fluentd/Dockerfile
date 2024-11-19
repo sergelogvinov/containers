@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION
+ARG APPVERSION=1.16.2
 ########################################
 
 FROM fluent/fluentd:v${APPVERSION}-debian-1.1 AS pkg

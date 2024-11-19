@@ -1,1 +1,2 @@
-0.15.4
+# renovate: datasource=github-releases depName=git-chglog/git-chglog versioning=loose
+0.15.0

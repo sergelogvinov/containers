@@ -1,1 +1,2 @@
+# renovate: datasource=docker depName=fluent/fluentd
 1.16.2
