@@ -14,7 +14,7 @@ COPY --from=eqalpha/keydb:arm64_v6.3.4  ["/usr/local/bin/",   "arm64/"]
 
 ########################################
 
-FROM redis:6.2.12-bullseye AS redis
+FROM redis:7.0.11-bullseye AS redis
 
 ########################################
 
