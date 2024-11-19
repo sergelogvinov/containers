@@ -14,10 +14,10 @@ updates:
       interval: "weekly"
       day: "monday"
       time: "12:00"
-      timezone: "UTC"
+      timezone: "Etc/UTC"
     labels:
       - "dependencies"
-  
+
   - package-ecosystem: "docker"
     directory: "/"
     commit-message:
@@ -27,7 +27,6 @@ updates:
       interval: "weekly"
       day: "monday"
       time: "12:00"
-      timezone: "UTC"
+      timezone: "Etc/UTC"
     labels:
       - "dependencies"
-    
