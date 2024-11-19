@@ -64,3 +64,19 @@ make package-teamcity REGISTRY=ghcr.io/$GITHUB_USER PUSH=true
     * `docker pull ghcr.io/sergelogvinov/supercronic:0.2.25`
 * [wal-g](wal-g) - database backup tool.
     * `docker pull ghcr.io/sergelogvinov/wal-g:2.0.1`
+
+# Verify images
+
+We'll be employing [Cosing's](https://github.com/sigstore/cosign) keyless verifications to ensure that images were built in Github Actions.
+
+Verify the image built in GitHub Actions:
+
+```shell
+cosign verify ghcr.io/sergelogvinov/tinyproxy:1.11.1 --certificate-identity https://github.com/sergelogvinov/containers/.github/workflows/push.yaml@refs/heads/main --certificate-oidc-issuer https://token.actions.githubusercontent.com
+```
+
+Verify the image signed by me, built in GitHub Actions.:
+
+```shell
+cosign verify ghcr.io/sergelogvinov/tinyproxy:1.11.1 --certificate-identity serge.logvinov@sinextra.dev --certificate-oidc-issuer https://github.com/login/oauth
+```
