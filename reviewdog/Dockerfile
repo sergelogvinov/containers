@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.21-bullseye AS reviewdog
+FROM --platform=$BUILDPLATFORM golang:1.23-bullseye AS reviewdog
 
 RUN apt-get update && apt-get install -y git build-essential
 

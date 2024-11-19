@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.22.4-bookworm AS builder
+FROM --platform=$BUILDPLATFORM golang:1.23.3-bookworm AS builder
 
 RUN apt-get update && apt-get install -y cmake git build-essential
 

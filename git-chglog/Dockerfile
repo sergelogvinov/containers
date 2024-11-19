@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.19-bullseye AS chglog
+FROM --platform=$BUILDPLATFORM golang:1.23-bullseye AS chglog
 
 WORKDIR /go/src
 
