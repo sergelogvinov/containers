@@ -44,7 +44,7 @@ COPY --from=docker:26.1.4-cli /usr/local/libexec/docker/cli-plugins/docker-compo
 COPY --from=docker/buildx-bin:0.13.1 /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
 COPY --from=ghcr.io/sergelogvinov/skopeo:1.15 /usr/bin/skopeo /usr/bin/skopeo
 COPY --from=ghcr.io/sergelogvinov/skopeo:1.15 /etc/containers/ /etc/containers/
-COPY --from=ghcr.io/aquasecurity/trivy:0.55.2 /usr/local/bin/trivy /usr/local/bin/trivy
+COPY --from=ghcr.io/aquasecurity/trivy:0.57.1 /usr/local/bin/trivy /usr/local/bin/trivy
 COPY --from=ghcr.io/sergelogvinov/reviewdog:0.17.2 /usr/bin/reviewdog /usr/bin/reviewdog
 COPY --from=ghcr.io/sergelogvinov/git-chglog:0.15.4 /usr/local/bin/git-chglog /usr/bin/git-chglog
 
