@@ -3,7 +3,7 @@
 ARG APPVERSION=0.2.29
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.21-bullseye AS supercronic
+FROM --platform=$BUILDPLATFORM golang:1.23-bullseye AS supercronic
 
 WORKDIR /go/src/supercronic
 

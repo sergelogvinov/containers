@@ -47,7 +47,7 @@ list: ## List all packages
 ################################################################################
 
 define build
-	docker buildx build $(BUILD_ARGS) $(call PKGCACHE,$(1)) --build-arg APPVERSION=$(call PKGVERSION,$(1)) \
+	@docker buildx build $(BUILD_ARGS) $(call PKGCACHE,$(1)) --build-arg APPVERSION=$(call PKGVERSION,$(1)) \
 		$(foreach tag,$(shell grep -v "#" $(1)/VERSION 2>/dev/null || echo $(TAG)),-t $(REGISTRY)/$(1):$(subst -pkg,,$(tag)-$(2))) \
 		-f $(word 1,$(subst :, ,$(1)))/Dockerfile \
 		--target=$(2) \
