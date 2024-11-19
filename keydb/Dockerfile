@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM ghcr.io/sergelogvinov/wal-g:2.0.1-redis AS walg
+FROM ghcr.io/sergelogvinov/wal-g:v3.0.3-redis AS walg
 
 ########################################
 
