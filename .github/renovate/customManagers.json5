@@ -3,7 +3,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["(^|/)apps/.+\\.ya?ml$","(^|/)clusters/.+\\.ya?ml$"],
+      "fileMatch": ["/VERSION$"],
       "matchStrings": [
         // # renovate: datasource=github-releases depName=org/repo versioning=loose
         // version: 1.2.3
