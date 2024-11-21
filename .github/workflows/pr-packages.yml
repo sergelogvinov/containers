@@ -7,6 +7,7 @@ on:
 
 jobs:
   packages:
+    name: List packages
     runs-on: ubuntu-latest
     outputs:
       packages: ${{ steps.filter.outputs.changes }}
@@ -16,18 +17,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: dorny/paths-filter@v3
+      - name: Check changes
+        uses: dorny/paths-filter@v3
         id: filter
         with:
           # make list | xargs -n1 | xargs -L 1 -I {} -R 2 echo "{}: [{}/**]" > .github/packages.yaml
           filters: .github/packages.yaml
 
   build-packages:
+    name: Build
+    timeout-minutes: 20
     needs: packages
-    runs-on: ubuntu-latest
+    runs-on: Builder
     permissions:
       contents: read
-      packages: write
+      packages: read
     strategy:
       max-parallel: 2
       matrix:
@@ -36,12 +40,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: arm64
-      - name: Set up docker buildx
-        uses: docker/setup-buildx-action@v3
+      # - name: Set up QEMU
+      #   timeout-minutes: 2
+      #   uses: docker/setup-qemu-action@v3
+      #   with:
+      #     platforms: arm64
+      # - name: Set up docker buildx
+      #   timeout-minutes: 2
+      #   uses: docker/setup-buildx-action@v3
 
       - name: Github registry login
         uses: docker/login-action@v3
@@ -53,7 +59,7 @@ jobs:
       - name: Expose GitHub Runtime
         uses: crazy-max/ghaction-github-runtime@v3
       - name: Build
-        timeout-minutes: 10
+        timeout-minutes: 15
         run: make package-${{ matrix.pkg }}
         env:
           PLATFORM: linux/amd64
