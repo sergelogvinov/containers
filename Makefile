@@ -28,7 +28,7 @@ endif
 
 PACKAGES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
 PKGTARGET ?= pkg
-PKGVERSION = $(shell grep -v "#" $1/VERSION | head -n 1 2>/dev/null || echo $(TAG))
+PKGVERSION = $(shell grep -v "\#" $1/VERSION | head -n 1 2>/dev/null || echo $(TAG))
 
 ################################################################################
 
@@ -53,6 +53,7 @@ define build
 		$(foreach tag,$(shell grep -v "#" $(1)/VERSION 2>/dev/null || echo $(TAG)),-t $(REGISTRY)/$(1):$(subst -pkg,,$(tag)-$(2))) \
 		-f $(word 1,$(subst :, ,$(1)))/Dockerfile \
 		--target=$(2) \
+		--metadata-file metadata-$(1)-$(2).json \
 		$(word 1,$(subst :, ,$(1)))/
 endef
 
