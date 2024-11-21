@@ -65,7 +65,7 @@ jobs:
         env:
           PUSH: "true"
       - name: Sign image
-        timeout-minutes: 2
+        timeout-minutes: 5
         run: make cosign-${{ inputs.package }}
 
       - name: Clean old images
