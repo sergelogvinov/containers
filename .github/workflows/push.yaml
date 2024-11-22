@@ -6,6 +6,7 @@ on:
       package:
         description: "Package"
         required: true
+        default: all
         type: choice
         options:
           - fluentd
@@ -23,19 +24,49 @@ on:
           - tabix
           - tinyproxy
           - ytt
+          - all
 
 env:
   REGISTRY: ghcr.io/${{ github.repository_owner }}
 
 jobs:
+  packages:
+    name: List packages
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.package.outputs.packages || steps.filter.outputs.changes }}
+    permissions:
+      pull-requests: read
+    steps:
+      - name: Checkout
+        if: ${{ (inputs.package == 'all') }}
+        uses: actions/checkout@v4
+
+      - name: Check changes
+        if: ${{ (inputs.package == 'all') }}
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          # make list | xargs -n1 | xargs -L 1 -I {} -R 2 echo "{}: [{}/**]" > .github/packages.yaml
+          filters: .github/packages.yaml
+      - name: Set packages
+        if: ${{ (inputs.package != 'all') }}
+        id: package
+        run: echo "packages=[\"${{ inputs.package }}\"]" >> "$GITHUB_OUTPUT"
+
   build-push:
-    name: Build image and push
-    timeout-minutes: 20
+    name: Release image
+    timeout-minutes: 60
+    needs: packages
     runs-on: Builder
     permissions:
       contents: read
       packages: write
       id-token: write
+    strategy:
+        max-parallel: 2
+        matrix:
+          pkg: ${{ fromJSON(needs.packages.outputs.packages) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -62,17 +93,17 @@ jobs:
         uses: crazy-max/ghaction-github-runtime@v3
       - name: Build image
         timeout-minutes: 15
-        run: make package-${{ inputs.package }}
+        run: make package-${{ matrix.pkg }}
         env:
           PUSH: "true"
       - name: Sign image
         timeout-minutes: 5
-        run: make cosign-${{ inputs.package }}
+        run: make cosign-${{ matrix.pkg }}
 
       - name: Clean old images
         uses: actions/delete-package-versions@v5
         with:
-          package-name: ${{ inputs.package }}
+          package-name: ${{ matrix.pkg }}
           package-type: container
           ignore-versions: latest
           min-versions-to-keep: 10

@@ -67,6 +67,12 @@
       "matchPackageNames": ["redis"],
       "matchFileNames": ["keydb\/Dockerfile"],
       "allowedVersions": "<=6"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["amazon/aws-cli"],
+      "matchUpdateTypes": ["patch"],
+      "enabled": false
     }
-  ],
+  ]
 }
