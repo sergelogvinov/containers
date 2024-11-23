@@ -60,7 +60,7 @@ jobs:
           filters: .github/packages.yaml
           base: ${{ github.event_name != 'pull_request' && github.ref || '' }}
       - name: Set packages
-        if: ${{ (inputs.package != 'all') }}
+        if: ${{ (inputs.package != 'all' && inputs.package != '') }}
         id: package
         run: echo "packages=[\"${{ inputs.package }}\"]" >> "$GITHUB_OUTPUT"
 
