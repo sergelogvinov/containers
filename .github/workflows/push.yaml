@@ -28,10 +28,13 @@ on:
           - openvpn
           - pgbouncer
           - postgresql
+          - reviewdog
           - skopeo
           - supercronic
           - tabix
+          - teamcity
           - tinyproxy
+          - wal-g
           - ytt
           - all
 
