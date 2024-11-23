@@ -53,9 +53,11 @@ jobs:
       - name: Checkout
         if: ${{ inputs.package == 'all' || github.event_name != 'pull_request' }}
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 5
 
       - name: Check changes
-        if: ${{ inputs.package == 'all' || github.event_name != 'pull_request' }}
+        if: ${{ inputs.package == 'all' || inputs.package == '' }}
         uses: dorny/paths-filter@v3
         id: filter
         with:
@@ -63,7 +65,7 @@ jobs:
           filters: .github/packages.yaml
           base: ${{ github.event_name != 'pull_request' && github.ref || '' }}
       - name: Set packages
-        if: ${{ (inputs.package != 'all' && inputs.package != '') }}
+        if: ${{ inputs.package != 'all' && inputs.package != '' }}
         id: package
         run: echo "packages=[\"${{ inputs.package }}\"]" >> "$GITHUB_OUTPUT"
 
