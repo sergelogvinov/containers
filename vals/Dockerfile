@@ -17,7 +17,7 @@ RUN make build && ./bin/vals version
 
 ########################################
 
-FROM alpine:3.20 AS pkg
+FROM alpine:3.21 AS pkg
 LABEL org.opencontainers.image.description="Vals is a tool for managing configuration values and secrets" \
       org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.source="https://github.com/helmfile/vals"
