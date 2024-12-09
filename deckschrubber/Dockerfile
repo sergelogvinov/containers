@@ -20,7 +20,7 @@ RUN GOOS=linux GOARCH=amd64 go build -ldflags "-w -s" -o dist/deckschrubber.linu
 
 ########################################
 
-FROM alpine:3.20 AS pkg
+FROM alpine:3.21 AS pkg
 LABEL org.opencontainers.image.description="Deckschrubber inspects images and removes those older than a given age" \
       org.opencontainers.image.licenses="AGPL-3.0" \
       org.opencontainers.image.source="https://github.com/fraunhoferfokus/deckschrubber"

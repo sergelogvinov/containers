@@ -22,7 +22,7 @@ RUN GOOS=linux GOARCH=amd64 go build -mod vendor -ldflags="$LDFLAGS" -o dist/rev
 
 ########################################
 
-FROM alpine:3.20 AS pkg
+FROM alpine:3.21 AS pkg
 LABEL org.opencontainers.image.description="Automated code review tool integrated with any code analysis tools regardless of programming language" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.source="https://github.com/reviewdog/reviewdog"

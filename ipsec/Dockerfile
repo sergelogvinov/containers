@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM alpine:3.20 AS pkg
+FROM alpine:3.21 AS pkg
 LABEL org.opencontainers.image.description="IPSec with utils" \
       org.opencontainers.image.licenses="MIT"
 
