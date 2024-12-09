@@ -107,7 +107,7 @@ jobs:
       - name: Expose GitHub Runtime
         uses: crazy-max/ghaction-github-runtime@v3
       - name: Build image
-        timeout-minutes: 15
+        timeout-minutes: 30
         run: make package-${{ matrix.pkg }}
         env:
           PUSH: "true"
