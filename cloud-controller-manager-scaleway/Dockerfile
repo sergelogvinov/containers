@@ -22,7 +22,7 @@ RUN GOARCH=amd64 go build -a -o /src/scaleway-cloud-controller-manager-amd64 -ld
 ########################################
 
 FROM gcr.io/distroless/static:nonroot-${TARGETARCH} AS pkg
-LABEL org.opencontainers.image.description="Scaleway controller manager" \
+LABEL org.opencontainers.image.description="Scaleway Cloud controller manager" \
       org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.source="https://github.com/scaleway/scaleway-cloud-controller-manager"
 
