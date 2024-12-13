@@ -1,5 +1,5 @@
 clickhouse-mate: [clickhouse-mate/**]
-cloud-provider-azure: [cloud-provider-azure/**]
+cloud-controller-manager: [cloud-controller-manager/**]
 cluster-autoscaler: [cluster-autoscaler/**]
 contolplane-lb: [contolplane-lb/**]
 curl: [curl/**]
