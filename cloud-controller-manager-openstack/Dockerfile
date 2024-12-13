@@ -29,6 +29,6 @@ LABEL org.opencontainers.image.description="Openstack controller manager" \
       org.opencontainers.image.source="https://github.com/sergelogvinov/cloud-provider-openstack"
 
 ARG TARGETARCH
-COPY --from=build /src/openstack-cloud-controller-manager-${TARGETARCH} /openstack-cloud-controller-manager
+COPY --from=build /src/openstack-cloud-controller-manager-${TARGETARCH} /bin/openstack-cloud-controller-manager
 WORKDIR /
-ENTRYPOINT ["/openstack-cloud-controller-manager"]
+CMD ["/bin/openstack-cloud-controller-manager"]
