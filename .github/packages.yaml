@@ -1,6 +1,7 @@
 clickhouse-mate: [clickhouse-mate/**]
 cloud-controller-manager-azure: [cloud-controller-manager-azure/**]
 cloud-controller-manager-openstack: [cloud-controller-manager-openstack/**]
+cloud-controller-manager-scaleway: [cloud-controller-manager-scaleway/**]
 cluster-autoscaler: [cluster-autoscaler/**]
 contolplane-lb: [contolplane-lb/**]
 curl: [curl/**]
