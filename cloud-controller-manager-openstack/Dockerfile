@@ -24,6 +24,9 @@ RUN make build BUILD_CMDS=openstack-cloud-controller-manager GOARCH=amd64 && \
 ########################################
 
 FROM gcr.io/distroless/static:nonroot-${TARGETARCH} AS pkg
+LABEL org.opencontainers.image.description="Openstack controller manager" \
+      org.opencontainers.image.licenses="Apache-2.0" \
+      org.opencontainers.image.source="https://github.com/sergelogvinov/cloud-provider-openstack"
 
 ARG TARGETARCH
 COPY --from=build /src/openstack-cloud-controller-manager-${TARGETARCH} /openstack-cloud-controller-manager

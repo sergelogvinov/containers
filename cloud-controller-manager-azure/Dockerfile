@@ -22,6 +22,9 @@ RUN GOARCH=amd64 go build -a -o /src/cloud-controller-manager-amd64 -ldflags '-s
 ########################################
 
 FROM gcr.io/distroless/static:nonroot-${TARGETARCH} AS pkg
+LABEL org.opencontainers.image.description="Azure controller manager" \
+      org.opencontainers.image.licenses="Apache-2.0" \
+      org.opencontainers.image.source="https://github.com/kubernetes-sigs/cloud-provider-azure"
 
 ARG TARGETARCH
 COPY --from=build /src/cloud-controller-manager-${TARGETARCH} /cloud-controller-manager
