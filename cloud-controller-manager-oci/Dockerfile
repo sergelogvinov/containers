@@ -10,7 +10,7 @@ WORKDIR /src
 
 ARG APPVERSION
 ENV APPVERSION=${APPVERSION}
-RUN git clone --single-branch --depth 2 --branch v${APPVERSION}.0 https://github.com/sergelogvinov/oci-cloud-controller-manager.git .
+RUN git clone --single-branch --depth 2 --branch release-${APPVERSION}-talos https://github.com/sergelogvinov/oci-cloud-controller-manager.git .
 RUN go mod edit -replace k8s.io/cloud-provider@v0.30.6=github.com/sergelogvinov/cloud-provider@nodelifecycle-${APPVERSION} && \
     go mod tidy && go mod vendor
 
