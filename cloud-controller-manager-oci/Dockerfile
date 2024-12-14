@@ -17,7 +17,7 @@ RUN go mod edit -replace k8s.io/cloud-provider@v0.30.6=github.com/sergelogvinov/
 ENV CGO_ENABLED=0 GOOS=linux VERSION=v${APPVERSION}.0
 RUN make build COMPONENT=oci-cloud-controller-manager GOARCH=amd64 && \
     mv dist/oci-cloud-controller-manager oci-cloud-controller-manager-amd64 && \
-    make build COMPONENT=oci-cloud-controller-manager GOARCH=amd64 && \
+    make build COMPONENT=oci-cloud-controller-manager GOARCH=arm64 && \
     mv dist/oci-cloud-controller-manager oci-cloud-controller-manager-arm64 && \
     ./oci-cloud-controller-manager-`go env GOARCH` --version
 
