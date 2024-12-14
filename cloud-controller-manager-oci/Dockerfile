@@ -29,6 +29,6 @@ LABEL org.opencontainers.image.description="Oracle controller manager" \
       org.opencontainers.image.source="https://github.com/oracle/oci-cloud-controller-manager"
 
 ARG TARGETARCH
-COPY --from=build /src/oci-cloud-controller-manager-${TARGETARCH} /oci-cloud-controller-manager
+COPY --from=build /src/oci-cloud-controller-manager-${TARGETARCH} /usr/local/bin/oci-cloud-controller-manager
 WORKDIR /
-ENTRYPOINT ["/oci-cloud-controller-manager"]
+ENTRYPOINT ["/usr/local/bin/oci-cloud-controller-manager"]
