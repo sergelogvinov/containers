@@ -18,6 +18,8 @@ on:
         default: all
         type: choice
         options:
+          - csi-oci
+          #
           - fluentd
           - ipsec
           - keydb
