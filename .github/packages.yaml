@@ -1,6 +1,7 @@
 clickhouse-mate: [clickhouse-mate/**]
 cloud-controller-manager-azure: [cloud-controller-manager-azure/**]
 cloud-controller-manager-gcp: [cloud-controller-manager-gcp/**]
+cloud-controller-manager-hcloud: [cloud-controller-manager-hcloud/**]
 cloud-controller-manager-oci: [cloud-controller-manager-oci/**]
 cloud-controller-manager-openstack: [cloud-controller-manager-openstack/**]
 cloud-controller-manager-scaleway: [cloud-controller-manager-scaleway/**]
