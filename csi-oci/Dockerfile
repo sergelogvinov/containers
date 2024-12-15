@@ -10,7 +10,7 @@ WORKDIR /src
 
 ARG APPVERSION
 ENV APPVERSION=${APPVERSION}
-RUN git clone --single-branch --depth 2 --branch v${APPVERSION}.0 https://github.com/oracle/oci-cloud-controller-manager.git .
+RUN git clone --single-branch --depth 2 --branch release-${APPVERSION}-talos https://github.com/sergelogvinov/oci-cloud-controller-manager.git .
 
 ENV CGO_ENABLED=0 GOOS=linux VERSION=v${APPVERSION}.0 COMPONENT="oci-csi-controller-driver oci-csi-node-driver"
 RUN make build ARCH=amd64 && \
