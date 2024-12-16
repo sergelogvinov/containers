@@ -15,8 +15,8 @@ RUN go mod edit -replace k8s.io/cloud-provider@v0.31.3=github.com/sergelogvinov/
     go mod tidy
 
 ENV CGO_ENABLED=0 GOOS=linux
-RUN GOARCH=amd64 go build -a -o /src/cloud-controller-manager-amd64 -ldflags '-s -w -X github.com/hetznercloud/hcloud-cloud-controller-manager/hcloud.providerVersion==${APPVERSION}' . && \
-    GOARCH=arm64 go build -a -o /src/cloud-controller-manager-arm64 -ldflags '-s -w -X github.com/hetznercloud/hcloud-cloud-controller-manager/hcloud.providerVersion==${APPVERSION}' . && \
+RUN GOARCH=amd64 go build -a -o /src/cloud-controller-manager-amd64 -ldflags '-s -w -X github.com/hetznercloud/hcloud-cloud-controller-manager/hcloud.providerVersion=${APPVERSION}' . && \
+    GOARCH=arm64 go build -a -o /src/cloud-controller-manager-arm64 -ldflags '-s -w -X github.com/hetznercloud/hcloud-cloud-controller-manager/hcloud.providerVersion=${APPVERSION}' . && \
     ./cloud-controller-manager-`go env GOARCH` --version
 
 ########################################
