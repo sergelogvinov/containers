@@ -32,3 +32,14 @@ COPY --from=clickhouse/clickhouse-server:24.10 /usr/bin/clickhouse /usr/bin/clic
 RUN ln -s /usr/bin/clickhouse /usr/bin/clickhouse-client
 
 USER fluent
+
+########################################
+
+FROM pkg AS logtail
+LABEL org.opencontainers.image.description="Fluentd with logtail"
+
+USER root
+RUN gem install \
+    fluent-plugin-logtail
+
+USER fluent
