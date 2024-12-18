@@ -46,5 +46,5 @@ else
     unset GITHUB_ACCESS_TOKEN
 fi
 
-nodever=${GITHUB_ACTIONS_RUNNER_FORCED_NODE_VERSION:-node16}
+nodever=${GITHUB_ACTIONS_RUNNER_FORCED_NODE_VERSION:-node20}
 exec /home/runner/externals/$nodever/bin/node /home/runner/bin/RunnerService.js
