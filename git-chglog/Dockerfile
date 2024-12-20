@@ -18,7 +18,7 @@ RUN GOOS=linux GOARCH=amd64 go build -ldflags "-w -s -X main.version=${APPVERSIO
 
 ########################################
 
-FROM alpine:3.20 AS pkg
+FROM alpine:3.21 AS pkg
 
 LABEL org.opencontainers.image.description="CHANGELOG generator implemented in Go" \
       org.opencontainers.image.licenses="MIT" \

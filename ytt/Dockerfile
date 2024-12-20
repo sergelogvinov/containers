@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION=0.48.0
+ARG APPVERSION=0.51.1
 ########################################
 
 FROM --platform=$BUILDPLATFORM golang:1.23-bookworm AS ytt

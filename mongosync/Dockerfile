@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION=1.8.0
+ARG APPVERSION=1.9.0
 ########################################
 
 FROM --platform=$BUILDPLATFORM ubuntu:20.04 AS archive
