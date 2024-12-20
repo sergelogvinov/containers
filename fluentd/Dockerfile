@@ -28,7 +28,7 @@ LABEL org.opencontainers.image.description="Fluentd with clickhouse"
 
 USER root
 COPY scripts/clickhouse-push.sh /usr/bin/clickhouse-push.sh
-COPY --from=clickhouse/clickhouse-server:24.10 /usr/bin/clickhouse /usr/bin/clickhouse
+COPY --from=clickhouse/clickhouse-server:24.12 /usr/bin/clickhouse /usr/bin/clickhouse
 RUN ln -s /usr/bin/clickhouse /usr/bin/clickhouse-client
 
 USER fluent
