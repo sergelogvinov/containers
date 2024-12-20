@@ -20,7 +20,7 @@ RUN GOOS=linux GOARCH=amd64 go build -mod vendor -ldflags="$LDFLAGS" -o dist/ytt
 
 ########################################
 
-FROM alpine:3.20 AS pkg
+FROM alpine:3.21 AS pkg
 
 LABEL org.opencontainers.image.description="YTT is a templating tool that understands YAML structure." \
       org.opencontainers.image.licenses="Apache-2.0" \
