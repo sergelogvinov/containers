@@ -3,16 +3,23 @@
 ARG APPVERSION=39.86
 ########################################
 
+FROM --platform=$BUILDPLATFORM ubuntu:22.04 AS archive
+
+RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates wget
+
+WORKDIR /src
+ENV HELMDOCSVERSION=1.14.2
+RUN wget https://github.com/norwoodj/helm-docs/releases/download/v${HELMDOCSVERSION}/helm-docs_${HELMDOCSVERSION}_Linux_x86_64.tar.gz -O /src/helm-docs-amd64.tar.gz && \
+    wget https://github.com/norwoodj/helm-docs/releases/download/v${HELMDOCSVERSION}/helm-docs_${HELMDOCSVERSION}_Linux_arm64.tar.gz  -O /src/helm-docs-arm64.tar.gz
+
+RUN tar -xvf helm-docs-amd64.tar.gz && \
+    mv helm-docs helm-docs-amd64 && \
+    tar -xvf helm-docs-arm64.tar.gz && \
+    mv helm-docs helm-docs-arm64
+
+########################################
+
 FROM renovate/renovate:${APPVERSION} AS pkg
 
-USER root
-
-ENV HELMDOCSVERSION=1.14.2
 ARG TARGETARCH
-RUN cd /tmp && curl -L -O https://github.com/norwoodj/helm-docs/releases/download/v${HELMDOCSVERSION}/helm-docs_${HELMDOCSVERSION}_Linux_${TARGETARCH}.tar.gz && \
-    tar -xvf helm-docs_1.14.2_Linux_${TARGETARCH}.tar.gz && \
-    mv helm-docs /usr/local/bin/helm-docs && \
-    chmod +x /usr/local/bin/helm-docs && \
-    rm -rf /tmp/*
-
-USER ubuntu
+COPY --from=archive --chown=0:0 ["/src/helm-docs-${TARGETARCH}","/usr/local/bin/helm-docs"]
