@@ -1,90 +1,134 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends":
-    [
-      "config:recommended",
-      "docker:enableMajor",
-      ":timezone(Europe/Tallinn)",
-      ":dependencyDashboard",
-      ":disableRateLimiting",
-      ":semanticCommits",
-      ":semanticCommitScopeDisabled",
-      "github>sergelogvinov/containers//.github/renovate/customManagers.json5",
-      "github>sergelogvinov/containers//.github/renovate/semanticCommits.json5",
-      "github>sergelogvinov/containers//.github/renovate/groups.json5",
-    ],
+  "extends": [
+    "config:recommended",
+    "docker:enableMajor",
+    ":timezone(Europe/Tallinn)",
+    ":dependencyDashboard",
+    ":disableRateLimiting",
+    ":semanticCommits",
+    ":semanticCommitScopeDisabled",
+    "github>sergelogvinov/containers//.github/renovate/customManagers.json5",
+    "github>sergelogvinov/containers//.github/renovate/semanticCommits.json5",
+    "github>sergelogvinov/containers//.github/renovate/groups.json5"
+  ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
   "prHeader": "Update Request | Renovate Bot",
-  "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
+  "suppressNotifications": [
+    "prEditedNotification",
+    "prIgnoreNotification"
+  ],
   "separateMajorMinor": true,
   "separateMultipleMajor": true,
   "rebaseWhen": "conflicted",
   "ignorePaths": [],
   "packageRules": [
     {
-      "matchManagers": ["dockerfile", "regex"],
+      "matchManagers": [
+        "dockerfile",
+        "regex"
+      ],
       "groupName": "{{depName}}"
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["golang"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "golang"
+      ],
       "major": {
-          "enabled": false
+        "enabled": false
       },
       "minor": {
-          "enabled": false
+        "enabled": false
       }
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["node"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "node"
+      ],
       "major": {
-          "enabled": false
+        "enabled": false
       },
       "minor": {
-          "enabled": false
+        "enabled": false
       }
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["renovate/renovate"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "renovate/renovate"
+      ],
       "major": {
-          "enabled": false
+        "enabled": false
       },
       "minor": {
-          "enabled": true
-      }
+        "enabled": true
+      },
       "patch": {
-          "enabled": false
+        "enabled": false
       }
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["postgres"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "postgres"
+      ],
       "allowedVersions": "<=16"
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["mongo"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "mongo"
+      ],
       "allowedVersions": "<=7"
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["ubuntu"],
-      "matchFileNames": ["mongosqld\/Dockerfile","mongosync\/Dockerfile"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "ubuntu"
+      ],
+      "matchFileNames": [
+        "mongosqld\/Dockerfile",
+        "mongosync\/Dockerfile"
+      ],
       "allowedVersions": "<=20"
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["redis"],
-      "matchFileNames": ["keydb\/Dockerfile"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "redis"
+      ],
+      "matchFileNames": [
+        "keydb\/Dockerfile"
+      ],
       "allowedVersions": "<=6"
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["amazon/aws-cli"],
-      "matchUpdateTypes": ["patch"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "amazon/aws-cli"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
       "enabled": false
     }
   ]
