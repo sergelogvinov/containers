@@ -48,6 +48,19 @@
     },
     {
       "matchDatasources": ["docker"],
+      "matchPackageNames": ["renovate/renovate"],
+      "major": {
+          "enabled": false
+      },
+      "minor": {
+          "enabled": true
+      }
+      "patch": {
+          "enabled": false
+      }
+    },
+    {
+      "matchDatasources": ["docker"],
       "matchPackageNames": ["postgres"],
       "allowedVersions": "<=16"
     },
