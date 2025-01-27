@@ -77,7 +77,7 @@ WORKDIR /app
 
 FROM base AS aws
 
-COPY --from=amazon/aws-cli:2.22.3 /usr/local/aws-cli /usr/local/aws-cli
+COPY --from=amazon/aws-cli:2.23.6 /usr/local/aws-cli /usr/local/aws-cli
 RUN ln -s /usr/local/aws-cli/v2/current/bin/aws /usr/local/bin/aws
 
 USER runner
