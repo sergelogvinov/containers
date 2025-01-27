@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION=2024.07.3
+ARG APPVERSION=2024.12.1
 ########################################
 
 FROM jetbrains/teamcity-server:${APPVERSION} AS pkg
