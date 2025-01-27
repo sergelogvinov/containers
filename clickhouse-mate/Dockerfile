@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.11
+# syntax = docker/dockerfile:1.13
 ########################################
 
 FROM --platform=$BUILDPLATFORM alpine:3.21 AS build
