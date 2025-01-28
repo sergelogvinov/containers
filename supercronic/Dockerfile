@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.11
 ########################################
-ARG APPVERSION=0.2.29
+ARG APPVERSION=0.2.33
 ########################################
 
 FROM --platform=$BUILDPLATFORM golang:1.23-bullseye AS supercronic
