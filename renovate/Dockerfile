@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.14
 ########################################
-ARG APPVERSION=39.177
+ARG APPVERSION=39.179
 ########################################
 
 FROM --platform=$BUILDPLATFORM ubuntu:24.04 AS archive
