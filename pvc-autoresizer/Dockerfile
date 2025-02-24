@@ -1,0 +1,31 @@
+# syntax = docker/dockerfile:1.14
+########################################
+ARG APPVERSION
+########################################
+
+FROM --platform=$BUILDPLATFORM golang:1.22.4-bookworm AS builder
+
+RUN apt-get update && apt-get install -y cmake git build-essential
+
+ARG APPVERSION
+WORKDIR /go/src/pvc-autoresizer
+RUN git clone --single-branch --depth 2 --branch v${APPVERSION} https://github.com/topolvm/pvc-autoresizer.git .
+RUN go mod download
+
+ARG VERSION=${APPVERSION}
+ENV CGO_ENABLED=0 GOOS=linux
+RUN GOARCH=amd64 go build -o bin/pvc-autoresizer.amd64 -ldflags "-X main.version=${VERSION} -X main.commit=${COMMIT_HASH}" ./cmd && \
+    GOARCH=arm64 go build -o bin/pvc-autoresizer.arm64 -ldflags "-X main.version=${VERSION} -X main.commit=${COMMIT_HASH}" ./cmd && \
+    ./bin/pvc-autoresizer.`go env GOARCH` -h
+
+#######
+
+FROM --platform=${TARGETARCH} scratch AS pkg
+LABEL org.opencontainers.image.description="Topolvm pvc autoresizer" \
+      org.opencontainers.image.licenses="Apache-2.0" \
+      org.opencontainers.image.source="https://github.com/topolvm/pvc-autoresizer.git"
+
+ARG TARGETARCH
+COPY --from=builder /go/src/pvc-autoresizer/bin/pvc-autoresizer.${TARGETARCH} /pvc-autoresizer
+
+ENTRYPOINT ["/pvc-autoresizer"]
