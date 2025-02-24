@@ -14,8 +14,8 @@ RUN go mod download
 
 ARG VERSION=${APPVERSION}
 ENV CGO_ENABLED=0 GOOS=linux
-RUN GOARCH=amd64 go build -o bin/pvc-autoresizer.amd64 -ldflags "-X main.version=${VERSION} -X main.commit=${COMMIT_HASH}" ./cmd && \
-    GOARCH=arm64 go build -o bin/pvc-autoresizer.arm64 -ldflags "-X main.version=${VERSION} -X main.commit=${COMMIT_HASH}" ./cmd && \
+RUN GOARCH=amd64 go build -o bin/pvc-autoresizer.amd64 -ldflags "-w -s" ./cmd && \
+    GOARCH=arm64 go build -o bin/pvc-autoresizer.arm64 -ldflags "-w -s" ./cmd && \
     ./bin/pvc-autoresizer.`go env GOARCH` -h
 
 #######
