@@ -33,6 +33,24 @@
         "minor"
       ],
       "enabled": false
+    },
+    {
+      "description": "AWS Group",
+      "groupName": "AWS",
+      "matchPackagePatterns": [
+        "amazon/aws-cli"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "enabled": false
     }
   ]
 }
