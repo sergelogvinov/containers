@@ -39,7 +39,7 @@ RUN mkdir -p /home/buildagent/conf /home/buildagent/.ansible && \
 
 # https://hub.docker.com/_/docker/tags
 COPY --from=docker:27.5.1-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
-COPY --from=docker/buildx-bin:0.19.3 /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
+COPY --from=docker/buildx-bin:0.21.1 /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
 COPY --from=ghcr.io/sergelogvinov/skopeo:1.15 /usr/bin/skopeo /usr/bin/skopeo
 COPY --from=ghcr.io/sergelogvinov/skopeo:1.15 /etc/containers/ /etc/containers/
 COPY --from=ghcr.io/aquasecurity/trivy:0.59.1 /usr/local/bin/trivy /usr/local/bin/trivy
