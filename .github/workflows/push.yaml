@@ -35,11 +35,13 @@ on:
           - skopeo
           - supercronic
           - tabix
-          - teamcity
           - tinyproxy
           - vals
           - wal-g
           - ytt
+          # cicd
+          - teamcity
+          - github-actions-runner
           - all
 
 env:
