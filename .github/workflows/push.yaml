@@ -77,7 +77,7 @@ jobs:
 
   build-push:
     name: Release image
-    timeout-minutes: 60
+    timeout-minutes: 240
     needs: packages
     runs-on: Builder
     permissions:
@@ -113,7 +113,7 @@ jobs:
       - name: Expose GitHub Runtime
         uses: crazy-max/ghaction-github-runtime@v3
       - name: Build image
-        timeout-minutes: 30
+        timeout-minutes: 240
         run: make package-${{ matrix.pkg }}
         env:
           PUSH: "true"
