@@ -3,7 +3,7 @@
 ARG APPVERSION=7
 ########################################
 
-FROM ghcr.io/sergelogvinov/wal-g:v3.0.3-mongo AS walg
+FROM ghcr.io/sergelogvinov/wal-g:v3.0.7-mongo AS walg
 
 ########################################
 
