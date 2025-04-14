@@ -3,7 +3,7 @@
 ARG APPVERSION=16
 ########################################
 
-FROM ghcr.io/sergelogvinov/wal-g:v3.0.3-pg AS walg
+FROM ghcr.io/sergelogvinov/wal-g:v3.0.7-pg AS walg
 
 ########################################
 
