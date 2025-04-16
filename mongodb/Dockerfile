@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.14
 ########################################
-ARG APPVERSION=7
+ARG APPVERSION=8
 ########################################
 
 FROM ghcr.io/sergelogvinov/wal-g:v3.0.7-mongo AS walg
@@ -11,7 +11,7 @@ FROM registry.k8s.io/pause:3.10 AS pause
 
 ########################################
 
-FROM bitnami/mongodb:${APPVERSION}-debian-11-r21 AS pkg
+FROM bitnami/mongodb:${APPVERSION}-debian-12-r3 AS pkg
 ARG APPVERSION
 LABEL org.opencontainers.image.description="Mongodb with utils" \
       org.opencontainers.image.documentation="https://www.mongodb.com" \
