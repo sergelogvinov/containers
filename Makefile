@@ -80,6 +80,9 @@ package-wal-g:
 	$(call build,wal-g,pg)
 	$(call build,wal-g,mongo)
 	$(call build,wal-g,redis)
+package-mongodb:
+	$(call build,mongodb,pkg)
+	$(call build,mongodb,official)
 
 package-%:
 	$(call build,$*,$(PKGTARGET))
