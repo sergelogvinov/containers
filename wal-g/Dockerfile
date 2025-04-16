@@ -15,7 +15,7 @@ RUN git clone --single-branch --depth 2 --branch ${APPVERSION} https://github.co
 RUN git tag -d v3.0.6 ||:
 
 ENV USE_LIBSODIUM=1 USE_BROTLI=1
-ENV CGO_ENABLED=0 GOBIN=/usr/local/bin
+ENV GOBIN=/usr/local/bin
 RUN make deps
 
 FROM walg-base AS walg-pg
