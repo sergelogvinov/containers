@@ -47,7 +47,8 @@ RUN cd /usr/src/ip2location && \
     cd data && perl ip-country.pl && cd ../test && ./test-IP2Location
 RUN cd /usr/src/ip2proxy && \
     autoreconf -i -v && \
-    ./configure && make && make install
+    ./configure && make && make install && \
+    cd test && ./test-IP2Proxy
 
 ###
 
