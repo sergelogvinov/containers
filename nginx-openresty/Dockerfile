@@ -1,7 +1,7 @@
-# syntax = docker/dockerfile:1.14
+# syntax = docker/dockerfile:1.15
 ########################################
 
-FROM alpine:3.20 AS openresty-build
+FROM alpine:3.21 AS openresty-build
 
 RUN apk add --no-cache --virtual .build-deps \
     build-base \
@@ -25,7 +25,7 @@ RUN apk add --no-cache --virtual .build-deps \
 
 WORKDIR /usr/src
 
-ARG APPVERSION
+ARG APPVERSION=1.21.4.4
 ENV APPVERSION=${APPVERSION}
 RUN curl -fsSLO https://openresty.org/download/openresty-${APPVERSION}.tar.gz && \
     tar xzf openresty-${APPVERSION}.tar.gz && \
@@ -90,7 +90,7 @@ RUN rm -rf /usr/local/openresty/nginx/html/*
 
 ###
 
-FROM alpine:3.20 AS nginx-openresty
+FROM alpine:3.21 AS nginx-openresty
 
 RUN apk add --no-cache --update libgcc pcre libmaxminddb curl && \
     addgroup -g 101 -S nginx && adduser --disabled-password -S --home /var/lib/nginx --u 100 --gecos "nginx" nginx && \
@@ -114,14 +114,14 @@ LABEL org.opencontainers.image.description="Nginx with lua" \
       org.opencontainers.image.licenses="MIT"
 
 COPY --from=nginx-openresty / /
-COPY --from=minio/mc:RELEASE.2023-10-30T18-43-32Z /usr/bin/mc /usr/bin/mc
+COPY --from=minio/mc:RELEASE.2025-04-16T18-13-26Z /usr/bin/mc /usr/bin/mc
 
 STOPSIGNAL SIGQUIT
 CMD ["/usr/local/sbin/nginx", "-g", "daemon off;"]
 
 ###
 
-FROM alpine:3.20 AS nginx-openresty-device-detection
+FROM alpine:3.21 AS nginx-openresty-device-detection
 
 RUN apk add --no-cache --update libgcc pcre libmaxminddb curl && \
     addgroup -g 101 -S nginx && adduser --disabled-password -S --home /var/lib/nginx --u 100 --gecos "nginx" nginx && \
@@ -145,7 +145,7 @@ LABEL org.opencontainers.image.description="Nginx with lua and device-detection"
       org.opencontainers.image.licenses="MPL-2.0"
 
 COPY --from=nginx-openresty-device-detection / /
-COPY --from=minio/mc:RELEASE.2023-10-30T18-43-32Z /usr/bin/mc /usr/bin/mc
+COPY --from=minio/mc:RELEASE.2025-04-16T18-13-26Z /usr/bin/mc /usr/bin/mc
 
 STOPSIGNAL SIGQUIT
 CMD ["/usr/local/sbin/nginx", "-g", "daemon off;"]
