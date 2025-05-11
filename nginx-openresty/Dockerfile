@@ -5,10 +5,13 @@ FROM alpine:3.21 AS openresty-build
 
 RUN apk add --no-cache --virtual .build-deps \
     build-base \
+    autoconf \
+    automake \
     coreutils \
     curl \
     linux-headers \
     make \
+    libtool \
     perl-dev \
     readline-dev \
     openssl-dev \
@@ -33,6 +36,19 @@ RUN curl -fsSLO https://openresty.org/download/openresty-${APPVERSION}.tar.gz &&
     tar xzf ngx_http_geoip2_module.tar.gz && \
     git clone --single-branch --depth 2 --recursive https://github.com/google/ngx_brotli.git
 
+# ip2location components
+RUN git clone --single-branch --depth 2 --branch master https://github.com/chrislim2888/IP2Location-C-Library ip2location && \
+    git clone --single-branch --depth 2 --branch master https://github.com/ip2location/ip2proxy-c ip2proxy && \
+    git clone --single-branch --depth 2 --branch master https://github.com/ip2location/ip2location-nginx ip2mod-location && \
+    git clone --single-branch --depth 2 --branch master https://github.com/ip2location/ip2proxy-nginx ip2mod-proxy
+RUN cd /usr/src/ip2location && \
+    autoreconf -i -v && \
+    ./configure && make && make install && \
+    cd data && perl ip-country.pl && cd ../test && ./test-IP2Location
+RUN cd /usr/src/ip2proxy && \
+    autoreconf -i -v && \
+    ./configure && make && make install
+
 ###
 
 FROM openresty-build AS openresty
@@ -40,6 +56,8 @@ FROM openresty-build AS openresty
 RUN cd openresty-${APPVERSION} && ./configure -j2 --with-http_realip_module --with-pcre-jit --with-ipv6 --with-file-aio \
         --with-md5-asm --with-sha1-asm --with-threads \
         --add-dynamic-module=/usr/src/ngx_http_geoip2_module-3.4 \
+        --add-dynamic-module=/usr/src/ip2mod-location \
+        --add-dynamic-module=/usr/src/ip2mod-proxy \
         --add-module=/usr/src/ngx_brotli \
         --sbin-path=/usr/local/sbin/nginx \
         --conf-path=/etc/nginx/nginx.conf --pid-path=/run/nginx.pid --lock-path=/run/nginx.lock \
@@ -68,6 +86,8 @@ RUN git clone --single-branch --depth 2 --branch master https://github.com/51Deg
 RUN cd openresty-${APPVERSION} && ./configure -j2 --with-http_realip_module --with-pcre-jit --with-ipv6 --with-file-aio \
         --with-md5-asm --with-sha1-asm --with-threads \
         --add-dynamic-module=/usr/src/ngx_http_geoip2_module-3.4 \
+        --add-dynamic-module=/usr/src/ip2mod-location \
+        --add-dynamic-module=/usr/src/ip2mod-proxy \
         --add-module=/usr/src/ngx_brotli \
         --add-dynamic-module=/usr/src/device-detection/nginx/51Degrees_module \
         --with-cc-opt="-DFIFTYONEDEGREES_TRIE -DFIFTYONEDEGREES_NO_THREADING -fcommon" \
@@ -96,6 +116,7 @@ RUN apk add --no-cache --update libgcc pcre libmaxminddb curl && \
     addgroup -g 101 -S nginx && adduser --disabled-password -S --home /var/lib/nginx --u 100 --gecos "nginx" nginx && \
     install -o nginx -g nginx -d /run /var/cache/nginx /var/log/nginx /var/lib/nginx/tmp
 
+COPY --from=openresty /usr/local/lib                /usr/local/lib
 COPY --from=openresty /usr/local/openresty/luajit   /usr/local/openresty/luajit
 COPY --from=openresty /usr/local/openresty/lualib   /usr/local/openresty/lualib
 COPY --from=openresty /usr/local/openresty/nginx    /usr/local/openresty/nginx
@@ -127,6 +148,7 @@ RUN apk add --no-cache --update libgcc pcre libmaxminddb curl && \
     addgroup -g 101 -S nginx && adduser --disabled-password -S --home /var/lib/nginx --u 100 --gecos "nginx" nginx && \
     install -o nginx -g nginx -d /run /var/cache/nginx /var/log/nginx /var/lib/nginx/tmp
 
+COPY --from=openresty-device-detection /usr/local/lib                /usr/local/lib
 COPY --from=openresty-device-detection /usr/local/openresty/luajit   /usr/local/openresty/luajit
 COPY --from=openresty-device-detection /usr/local/openresty/lualib   /usr/local/openresty/lualib
 COPY --from=openresty-device-detection /usr/local/openresty/nginx    /usr/local/openresty/nginx
