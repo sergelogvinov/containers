@@ -25,7 +25,7 @@ RUN apk add --no-cache --virtual .build-deps \
 
 WORKDIR /usr/src
 
-ARG APPVERSION=1.21.4.4
+ARG APPVERSION=1.27.1.2
 ENV APPVERSION=${APPVERSION}
 RUN curl -fsSLO https://openresty.org/download/openresty-${APPVERSION}.tar.gz && \
     tar xzf openresty-${APPVERSION}.tar.gz && \
