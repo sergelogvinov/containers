@@ -13,7 +13,7 @@ RUN wget https://github.com/metrico/clickhouse-mate/releases/download/${APPVERSI
 
 ########################################
 
-FROM ghcr.io/sergelogvinov/nginx-openresty:1.21.4.3 AS pkg
+FROM ghcr.io/sergelogvinov/nginx-openresty:1.27.1.2 AS pkg
 LABEL org.opencontainers.image.description="Advanced User-Interface for ClickHouse" \
       org.opencontainers.image.licenses="AGPL-3.0" \
       org.opencontainers.image.url="https://gigapipe.com/qryn/" \
