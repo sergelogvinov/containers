@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.14
+# syntax = docker/dockerfile:1.16
 ########################################
 ARG APPVERSION=1.11.2
 ########################################
 
-FROM alpine:3.21 AS pkg
+FROM alpine:3.22 AS pkg
 LABEL org.opencontainers.image.description="Tinyproxy" \
       org.opencontainers.image.licenses="MIT"
 
