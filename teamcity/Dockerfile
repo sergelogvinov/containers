@@ -61,7 +61,8 @@ USER buildagent
 WORKDIR /home/buildagent
 COPY --chown=root:root etc/ /etc/
 
-RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v4.5.1 && \
+RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.5 && \
+    helm plugin install https://github.com/databus23/helm-diff --version v3.12.1 && \
     helm repo add bitnami  https://charts.bitnami.com/bitnami && \
     helm repo add sinextra https://helm-charts.sinextra.dev && \
     helm repo update
