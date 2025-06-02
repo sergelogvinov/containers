@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.14
+# syntax = docker/dockerfile:1.16
 ########################################
 ARG APPVERSION
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.22-bullseye AS skopeo
+FROM --platform=$BUILDPLATFORM golang:1.23-bullseye AS skopeo
 
 RUN apt-get update && apt-get install -y git build-essential
 
@@ -17,7 +17,7 @@ RUN make bin/skopeo.linux.amd64 bin/skopeo.linux.arm64
 
 ########################################
 
-FROM alpine:3.21 AS pkg
+FROM alpine:3.22 AS pkg
 LABEL org.opencontainers.image.description="Copying an image from and to various storage mechanisms" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.source="https://github.com/containers/skopeo"

@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.14
+# syntax = docker/dockerfile:1.16
 ########################################
-ARG APPVERSION=0.51.1
+ARG APPVERSION=0.52.0
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.23-bookworm AS ytt
+FROM --platform=$BUILDPLATFORM golang:1.24-bookworm AS ytt
 
 WORKDIR /go/src/ytt
 
@@ -20,7 +20,7 @@ RUN GOOS=linux GOARCH=amd64 go build -mod vendor -ldflags="$LDFLAGS" -o dist/ytt
 
 ########################################
 
-FROM alpine:3.21 AS pkg
+FROM alpine:3.22 AS pkg
 
 LABEL org.opencontainers.image.description="YTT is a templating tool that understands YAML structure." \
       org.opencontainers.image.licenses="Apache-2.0" \

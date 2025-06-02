@@ -1,7 +1,7 @@
-# syntax = docker/dockerfile:1.14
+# syntax = docker/dockerfile:1.16
 ########################################
 
-FROM --platform=$BUILDPLATFORM alpine:3.21 AS build
+FROM --platform=$BUILDPLATFORM alpine:3.22 AS build
 
 RUN apk add --no-cache --update git wget
 

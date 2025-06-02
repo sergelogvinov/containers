@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.14
+# syntax = docker/dockerfile:1.16
 ########################################
 ARG APPVERSION
 ########################################
 
-FROM alpine:3.21 AS pkg
+FROM alpine:3.22 AS pkg
 LABEL org.opencontainers.image.description="Kubernetes lb" \
       org.opencontainers.image.licenses="MIT"
 
