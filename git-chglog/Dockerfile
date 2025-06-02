@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.14
+# syntax = docker/dockerfile:1.16
 ########################################
 ARG APPVERSION=0.15.4
 ########################################
@@ -18,7 +18,7 @@ RUN GOOS=linux GOARCH=amd64 go build -ldflags "-w -s -X main.version=${APPVERSIO
 
 ########################################
 
-FROM alpine:3.21 AS pkg
+FROM alpine:3.22 AS pkg
 
 LABEL org.opencontainers.image.description="CHANGELOG generator implemented in Go" \
       org.opencontainers.image.licenses="MIT" \
