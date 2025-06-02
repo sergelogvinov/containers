@@ -53,7 +53,8 @@ COPY --from=minio/mc:RELEASE.2024-01-16T16-06-34Z /usr/bin/mc /usr/bin/mc
 COPY --from=ghcr.io/sergelogvinov/helm:3.13.3 --chown=root:root /usr/bin/helm /usr/bin/helm
 
 ENV HELM_DATA_HOME=/usr/local/share/helm
-RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v4.5.1 && \
+RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.5 && \
+    helm plugin install https://github.com/databus23/helm-diff --version v3.12.1 && \
     helm repo add bitnami  https://charts.bitnami.com/bitnami && \
     helm repo add sinextra https://helm-charts.sinextra.dev && \
     helm repo update
