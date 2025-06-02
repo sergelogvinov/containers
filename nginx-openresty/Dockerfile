@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1.15
 ########################################
 
-FROM alpine:3.21 AS openresty-build
+FROM alpine:3.22 AS openresty-build
 
 RUN apk add --no-cache --virtual .build-deps \
     build-base \
@@ -111,7 +111,7 @@ RUN rm -rf /usr/local/openresty/nginx/html/*
 
 ###
 
-FROM alpine:3.21 AS nginx-openresty
+FROM alpine:3.22 AS nginx-openresty
 
 RUN apk add --no-cache --update libgcc pcre libmaxminddb curl && \
     addgroup -g 101 -S nginx && adduser --disabled-password -S --home /var/lib/nginx --u 100 --gecos "nginx" nginx && \
@@ -143,7 +143,7 @@ CMD ["/usr/local/sbin/nginx", "-g", "daemon off;"]
 
 ###
 
-FROM alpine:3.21 AS nginx-openresty-device-detection
+FROM alpine:3.22 AS nginx-openresty-device-detection
 
 RUN apk add --no-cache --update libgcc pcre libmaxminddb curl && \
     addgroup -g 101 -S nginx && adduser --disabled-password -S --home /var/lib/nginx --u 100 --gecos "nginx" nginx && \
