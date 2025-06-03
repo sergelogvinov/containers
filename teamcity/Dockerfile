@@ -47,14 +47,14 @@ COPY --from=ghcr.io/sergelogvinov/reviewdog:0.20.3 /usr/bin/reviewdog /usr/bin/r
 COPY --from=ghcr.io/sergelogvinov/git-chglog:0.15.4 /usr/local/bin/git-chglog /usr/bin/git-chglog
 
 COPY --from=bitnami/kubectl:1.32 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
-COPY --from=alpine/helm:3.17.3 /usr/bin/helm /usr/bin/helm
+COPY --from=alpine/helm:3.18.1 /usr/bin/helm /usr/bin/helm
 COPY --from=ghcr.io/getsops/sops:v3.10.2-alpine /usr/local/bin/sops /usr/bin/sops
 COPY --from=ghcr.io/sergelogvinov/vals:0.41.1 /usr/bin/vals /usr/bin/vals
 COPY --from=ghcr.io/yannh/kubeconform:v0.7.0 /kubeconform /usr/bin/kubeconform
 COPY --from=minio/mc:RELEASE.2025-04-08T15-39-49Z /usr/bin/mc /usr/bin/mc
 
 # helm hooks error log https://github.com/helm/helm/pull/11228 https://github.com/helm/helm/pull/10309
-COPY --from=ghcr.io/sergelogvinov/helm:3.13.3 --chown=root:root /usr/bin/helm /usr/bin/helm
+# COPY --from=ghcr.io/sergelogvinov/helm:3.13.3 --chown=root:root /usr/bin/helm /usr/bin/helm
 
 USER buildagent
 
