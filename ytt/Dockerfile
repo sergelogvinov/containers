@@ -13,7 +13,7 @@ RUN git clone --single-branch --depth 2 --branch v${APPVERSION} https://github.c
 ENV CGO_ENABLED=0
 RUN go mod vendor
 
-ENV LDFLAGS="-w -s -X carvel.dev/ytt/pkg/version.Version==$APPVERSION"
+ENV LDFLAGS="-w -s -X carvel.dev/ytt/pkg/version.Version=$APPVERSION"
 RUN GOOS=linux GOARCH=amd64 go build -mod vendor -ldflags="$LDFLAGS" -o dist/ytt.linux.amd64 ./cmd/ytt && \
     GOOS=linux GOARCH=arm64 go build -mod vendor -ldflags="$LDFLAGS" -o dist/ytt.linux.arm64 ./cmd/ytt && \
     ./dist/ytt.linux.`go env GOARCH` --version
