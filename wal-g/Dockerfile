@@ -1,6 +1,6 @@
-# syntax = docker/dockerfile:1.14
+# syntax = docker/dockerfile:1.16
 ########################################
-ARG APPVERSION
+ARG APPVERSION=v3.0.7
 ########################################
 
 FROM golang:1.22-bookworm AS walg-base
@@ -12,7 +12,7 @@ WORKDIR /go/src/
 ARG APPVERSION
 RUN git clone --single-branch --depth 2 --branch ${APPVERSION} https://github.com/wal-g/wal-g.git .
 # Fix: fail if commit has two tags
-RUN git tag -d v3.0.6 ||:
+# RUN git tag -d v3.0.6 ||:
 
 ENV USE_LIBSODIUM=1 USE_BROTLI=1
 ENV GOBIN=/usr/local/bin
