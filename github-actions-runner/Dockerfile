@@ -34,7 +34,7 @@ RUN install -m 0775 -o runner -g runner -d /app && \
     install -m 0775 -o runner -g runner -d /home/runner -d /home/runner/.ansible
 
 # https://hub.docker.com/_/docker/tags
-COPY --from=docker:28.3.2-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
+COPY --from=docker:28.3.3-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
 # COPY --from=docker/buildx-bin:0.15.0 /buildx /usr/local/lib/docker/cli-plugins/docker-buildx
 COPY --from=ghcr.io/sergelogvinov/skopeo /usr/bin/skopeo /usr/bin/skopeo
 COPY --from=ghcr.io/sergelogvinov/skopeo /etc/containers/ /etc/containers/
