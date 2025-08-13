@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.16
 ########################################
-ARG APPVERSION=1.13.1
+ARG APPVERSION=1.15.0
 ########################################
 
 FROM --platform=$BUILDPLATFORM ubuntu:24.04 AS archive
@@ -18,7 +18,7 @@ RUN tar -xzf /src/mongosync-amd64.tgz && mkdir -p /src/amd64/bin && \
 ########################################
 
 FROM ubuntu:24.04 AS pkg
-ARG APPVERSION=1.13.1
+ARG APPVERSION=1.15.0
 LABEL org.opencontainers.image.description="MongoSync" \
       org.opencontainers.image.documentation="https://www.mongodb.com/docs/cluster-to-cluster-sync" \
       org.opencontainers.image.version=${APPVERSION}
