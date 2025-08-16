@@ -1,2 +1,2 @@
 # renovate: datasource=github-releases depName=fluent/fluentd versioning=semver
-1.18.0
+1.19.0
