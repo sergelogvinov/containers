@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.16
+# syntax = docker/dockerfile:1.18
 ########################################
-ARG APPVERSION=0.20.3
+ARG APPVERSION=0.21.0
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.21-bullseye AS reviewdog
+FROM --platform=$BUILDPLATFORM golang:1.25-trixie AS reviewdog
 
 RUN apt-get update && apt-get install -y git build-essential
 
