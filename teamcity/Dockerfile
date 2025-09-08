@@ -43,7 +43,7 @@ COPY --from=docker/buildx-bin:0.26.1 /buildx /usr/local/libexec/docker/cli-plugi
 COPY --from=ghcr.io/sergelogvinov/skopeo /usr/bin/skopeo /usr/bin/skopeo
 COPY --from=ghcr.io/sergelogvinov/skopeo /etc/containers/ /etc/containers/
 COPY --from=ghcr.io/aquasecurity/trivy:0.65.0 /usr/local/bin/trivy /usr/local/bin/trivy
-COPY --from=ghcr.io/sergelogvinov/reviewdog:0.20.3 /usr/bin/reviewdog /usr/bin/reviewdog
+COPY --from=ghcr.io/sergelogvinov/reviewdog:0.21.0 /usr/bin/reviewdog /usr/bin/reviewdog
 COPY --from=ghcr.io/sergelogvinov/git-chglog:0.15.4 /usr/local/bin/git-chglog /usr/bin/git-chglog
 
 COPY --from=bitnami/kubectl:1.32 /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
