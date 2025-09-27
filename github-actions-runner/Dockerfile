@@ -48,14 +48,11 @@ COPY --from=ghcr.io/getsops/sops:v3.10.2-alpine /usr/local/bin/sops /usr/bin/sop
 COPY --from=ghcr.io/sergelogvinov/vals:0.42.1 /usr/bin/vals /usr/bin/vals
 COPY --from=ghcr.io/yannh/kubeconform:v0.7.0 /kubeconform /usr/bin/kubeconform
 COPY --from=minio/mc:RELEASE.2025-04-08T15-39-49Z /usr/bin/mc /usr/bin/mc
-
-# helm hooks error log https://github.com/helm/helm/pull/11228 https://github.com/helm/helm/pull/10309
-# COPY --from=ghcr.io/sergelogvinov/helm:3.13.3 --chown=root:root /usr/bin/helm /usr/bin/helm
+COPY --from=mikefarah/yq:4.47.2 /usr/bin/yq /usr/bin/yq
 
 ENV HELM_DATA_HOME=/usr/local/share/helm
 RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.5 && \
     helm plugin install https://github.com/databus23/helm-diff --version v3.12.1 && \
-    helm repo add bitnami  https://charts.bitnami.com/bitnami && \
     helm repo add sinextra https://helm-charts.sinextra.dev && \
     helm repo update
 

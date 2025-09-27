@@ -52,9 +52,7 @@ COPY --from=ghcr.io/getsops/sops:v3.10.2-alpine /usr/local/bin/sops /usr/bin/sop
 COPY --from=ghcr.io/sergelogvinov/vals:0.42.1 /usr/bin/vals /usr/bin/vals
 COPY --from=ghcr.io/yannh/kubeconform:v0.7.0 /kubeconform /usr/bin/kubeconform
 COPY --from=minio/mc:RELEASE.2025-04-08T15-39-49Z /usr/bin/mc /usr/bin/mc
-
-# helm hooks error log https://github.com/helm/helm/pull/11228 https://github.com/helm/helm/pull/10309
-# COPY --from=ghcr.io/sergelogvinov/helm:3.13.3 --chown=root:root /usr/bin/helm /usr/bin/helm
+COPY --from=mikefarah/yq:4.47.2 /usr/bin/yq /usr/bin/yq
 
 USER buildagent
 
