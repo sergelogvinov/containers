@@ -1,6 +1,6 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  packageRules: [
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
     {
       "description": "Talos Group",
       "groupName": "Talos",
@@ -20,7 +20,7 @@
       "description": "Kubernetes Group",
       "groupName": "Kubernetes",
       "matchPackagePatterns": [
-        "bitnami/kubectl"
+        "rancher/kubectl"
       ],
       "matchDatasources": [
         "docker"
