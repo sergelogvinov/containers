@@ -3,7 +3,7 @@
 ARG APPVERSION=0.2.33
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.25-trixie AS reviewdog
+FROM --platform=$BUILDPLATFORM golang:1.25-trixie AS supercronic
 
 WORKDIR /go/src/supercronic
 
