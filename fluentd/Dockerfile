@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.17
+# syntax = docker/dockerfile:1.19
 ########################################
 ARG APPVERSION=1.17.1
 ########################################
