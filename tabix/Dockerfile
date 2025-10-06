@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.16
+# syntax = docker/dockerfile:1.19
 ########################################
 
 FROM --platform=$BUILDPLATFORM node:18-alpine3.16 AS build
