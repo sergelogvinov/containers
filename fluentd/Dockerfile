@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.17
+# syntax = docker/dockerfile:1.19
 ########################################
-ARG APPVERSION=1.17.1
+ARG APPVERSION=1.19.0
 ########################################
 
-FROM fluent/fluentd:v${APPVERSION}-debian-2.0 AS pkg
+FROM fluent/fluentd:v${APPVERSION}-debian AS pkg
 LABEL org.opencontainers.image.description="Fluentd with modules" \
       org.opencontainers.image.licenses="MIT"
 
