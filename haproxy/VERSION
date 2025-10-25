@@ -1,2 +1,2 @@
 # renovate: datasource=docker depName=haproxy versioning=docker
-3.2.6-alpine3.22
+3.2.7-alpine3.22
