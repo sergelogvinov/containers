@@ -38,7 +38,7 @@ RUN mkdir -p /home/buildagent/conf /home/buildagent/.ansible && \
     chown -R buildagent.buildagent /opt/buildagent /home/buildagent
 
 # https://hub.docker.com/_/docker/tags
-COPY --from=docker:28.5.1-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
+COPY --from=docker:28.5.2-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
 COPY --from=docker/buildx-bin:0.29.1 /buildx /usr/local/libexec/docker/cli-plugins/docker-buildx
 COPY --from=ghcr.io/sergelogvinov/skopeo /usr/bin/skopeo /usr/bin/skopeo
 COPY --from=ghcr.io/sergelogvinov/skopeo /etc/containers/ /etc/containers/
