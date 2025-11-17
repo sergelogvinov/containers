@@ -42,7 +42,7 @@ COPY --from=ghcr.io/aquasecurity/trivy:0.67.2 /usr/local/bin/trivy /usr/local/bi
 COPY --from=ghcr.io/sergelogvinov/reviewdog:0.21.0 /usr/bin/reviewdog /usr/bin/reviewdog
 COPY --from=ghcr.io/sergelogvinov/git-chglog:0.15.4 /usr/local/bin/git-chglog /usr/bin/git-chglog
 
-COPY --from=rancher/kubectl:v1.34.1 /bin/kubectl /usr/local/bin/kubectl
+COPY --from=rancher/kubectl:v1.34.2 /bin/kubectl /usr/local/bin/kubectl
 COPY --from=alpine/helm:3.18.6 /usr/bin/helm /usr/bin/helm
 COPY --from=ghcr.io/getsops/sops:v3.11.0-alpine /usr/local/bin/sops /usr/bin/sops
 COPY --from=ghcr.io/sergelogvinov/vals:0.42.4 /usr/bin/vals /usr/bin/vals
