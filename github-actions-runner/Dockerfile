@@ -1,6 +1,6 @@
-# syntax = docker/dockerfile:1.16
+# syntax = docker/dockerfile:1.20
 ########################################
-ARG APPVERSION=2.329.0
+ARG APPVERSION=2.330.0
 ########################################
 
 FROM ghcr.io/actions/actions-runner:${APPVERSION} AS actions-runner
@@ -34,7 +34,7 @@ RUN install -m 0775 -o runner -g runner -d /app && \
     install -m 0775 -o runner -g runner -d /home/runner -d /home/runner/.ansible
 
 # https://hub.docker.com/_/docker/tags
-COPY --from=docker:28.5.1-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
+COPY --from=docker:28.5.2-cli /usr/local/libexec/docker/cli-plugins/docker-compose /usr/local/libexec/docker/cli-plugins/docker-compose
 # COPY --from=docker/buildx-bin:0.15.0 /buildx /usr/local/lib/docker/cli-plugins/docker-buildx
 COPY --from=ghcr.io/sergelogvinov/skopeo /usr/bin/skopeo /usr/bin/skopeo
 COPY --from=ghcr.io/sergelogvinov/skopeo /etc/containers/ /etc/containers/
@@ -43,9 +43,9 @@ COPY --from=ghcr.io/sergelogvinov/reviewdog:0.21.0 /usr/bin/reviewdog /usr/bin/r
 COPY --from=ghcr.io/sergelogvinov/git-chglog:0.15.4 /usr/local/bin/git-chglog /usr/bin/git-chglog
 
 COPY --from=rancher/kubectl:v1.34.2 /bin/kubectl /usr/local/bin/kubectl
-COPY --from=alpine/helm:3.18.6 /usr/bin/helm /usr/bin/helm
+COPY --from=alpine/helm:3.19.2 /usr/bin/helm /usr/bin/helm
 COPY --from=ghcr.io/getsops/sops:v3.11.0-alpine /usr/local/bin/sops /usr/bin/sops
-COPY --from=ghcr.io/sergelogvinov/vals:0.42.4 /usr/bin/vals /usr/bin/vals
+COPY --from=ghcr.io/sergelogvinov/vals:0.42.5 /usr/bin/vals /usr/bin/vals
 COPY --from=ghcr.io/yannh/kubeconform:v0.7.0 /kubeconform /usr/bin/kubeconform
 COPY --from=minio/mc:RELEASE.2025-04-08T15-39-49Z /usr/bin/mc /usr/bin/mc
 COPY --from=mikefarah/yq:4.48.2 /usr/bin/yq /usr/bin/yq
