@@ -58,7 +58,7 @@ jobs:
     steps:
       - name: Checkout
         if: ${{ inputs.package == 'all' || github.event_name != 'pull_request' }}
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 5
 
@@ -90,7 +90,7 @@ jobs:
           pkg: ${{ fromJSON(needs.packages.outputs.packages) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install Cosign
         uses: sigstore/cosign-installer@v4.0.0
