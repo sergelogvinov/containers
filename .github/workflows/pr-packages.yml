@@ -20,7 +20,7 @@ jobs:
       pull-requests: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Check changes
         uses: dorny/paths-filter@v3
@@ -43,7 +43,7 @@ jobs:
         pkg: ${{ fromJSON(needs.packages.outputs.packages) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       # - name: Set up QEMU
       #   timeout-minutes: 2
