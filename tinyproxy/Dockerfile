@@ -3,7 +3,7 @@
 ARG APPVERSION=1.11.2
 ########################################
 
-FROM alpine:3.22 AS pkg
+FROM alpine:3.23 AS pkg
 LABEL org.opencontainers.image.description="Tinyproxy" \
       org.opencontainers.image.licenses="MIT"
 

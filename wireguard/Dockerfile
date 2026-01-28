@@ -3,7 +3,7 @@
 ARG APPVERSION=1.0.20250521
 ########################################
 
-FROM alpine:3.22 AS pkg
+FROM alpine:3.23 AS pkg
 LABEL org.opencontainers.image.description="Wireguard with utils" \
       org.opencontainers.image.licenses="MIT"
 

@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM alpine:3.22 AS pkg
+FROM alpine:3.23 AS pkg
 LABEL org.opencontainers.image.description="Kubernetes lb" \
       org.opencontainers.image.licenses="MIT"
 
