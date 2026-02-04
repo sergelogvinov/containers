@@ -1,30 +1,35 @@
-# syntax = docker/dockerfile:1.16
+# syntax = docker/dockerfile:1.21
 ########################################
-ARG APPVERSION=0.52.0
+ARG APPVERSION=0.53.0
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.24-bookworm AS ytt
+FROM --platform=$BUILDPLATFORM alpine:3.23 AS ytt
 
-WORKDIR /go/src/ytt
+WORKDIR /src/ytt
 
 ARG APPVERSION
-RUN git clone --single-branch --depth 2 --branch v${APPVERSION} https://github.com/carvel-dev/ytt.git .
+RUN apk add --no-cache curl cosign
+RUN curl -LO https://github.com/carvel-dev/ytt/releases/download/v${APPVERSION}/checksums.txt && \
+    curl -LO https://github.com/carvel-dev/ytt/releases/download/v${APPVERSION}/checksums.txt.pem && \
+    curl -LO https://github.com/carvel-dev/ytt/releases/download/v${APPVERSION}/checksums.txt.sig
 
-ENV CGO_ENABLED=0
-RUN go mod vendor
+RUN cosign verify-blob checksums.txt \
+    --certificate checksums.txt.pem \
+    --signature checksums.txt.sig \
+    --certificate-identity-regexp=https://github.com/carvel-dev \
+    --certificate-oidc-issuer=https://token.actions.githubusercontent.com
 
-ENV LDFLAGS="-w -s -X carvel.dev/ytt/pkg/version.Version=$APPVERSION"
-RUN GOOS=linux GOARCH=amd64 go build -mod vendor -ldflags="$LDFLAGS" -o dist/ytt.linux.amd64 ./cmd/ytt && \
-    GOOS=linux GOARCH=arm64 go build -mod vendor -ldflags="$LDFLAGS" -o dist/ytt.linux.arm64 ./cmd/ytt && \
-    ./dist/ytt.linux.`go env GOARCH` --version
+RUN curl -LO https://github.com/carvel-dev/ytt/releases/download/v${APPVERSION}/ytt-linux-amd64 && \
+    curl -LO https://github.com/carvel-dev/ytt/releases/download/v${APPVERSION}/ytt-linux-arm64 && \
+    grep -e "ytt-linux-a" checksums.txt | sha256sum -c -
 
 ########################################
 
-FROM alpine:3.22 AS pkg
+FROM alpine:3.23 AS pkg
 
 LABEL org.opencontainers.image.description="YTT is a templating tool that understands YAML structure." \
       org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.source="https://github.com/carvel-dev/ytt"
 
 ARG TARGETARCH
-COPY --from=ytt ["/go/src/ytt/dist/ytt.linux.${TARGETARCH}","/usr/local/bin/ytt"]
+COPY --from=ytt ["/src/ytt/ytt-linux-${TARGETARCH}","/usr/local/bin/ytt"]
