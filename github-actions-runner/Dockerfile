@@ -53,6 +53,7 @@ COPY --from=mikefarah/yq:4.50.1 /usr/bin/yq /usr/bin/yq
 ENV HELM_DATA_HOME=/usr/local/share/helm
 RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.5 && \
     helm plugin install https://github.com/databus23/helm-diff --version v3.12.1 && \
+    helm plugin install https://github.com/sergelogvinov/helm-lock && \
     helm repo add sinextra https://helm-charts.sinextra.dev && \
     helm repo update
 
