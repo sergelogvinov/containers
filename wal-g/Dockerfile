@@ -1,20 +1,20 @@
 # syntax = docker/dockerfile:1.16
 ########################################
-ARG APPVERSION=v3.0.7
+ARG APPVERSION=v3.0.8
 ########################################
 
-FROM golang:1.23-bookworm AS walg-base
+FROM golang:1.25-trixie AS walg-base
 
-RUN apt-get update && apt-get install -y cmake git build-essential
+RUN apt-get update && apt-get install -y cmake git build-essential libbrotli-dev liblzo2-dev libsodium-dev
 
 WORKDIR /go/src/
 
 ARG APPVERSION
 RUN git clone --single-branch --depth 2 --branch ${APPVERSION} https://github.com/wal-g/wal-g.git .
 # Fix: fail if commit has two tags
-RUN git tag -d v3.0.6 ||:
+# RUN git tag -d v3.0.6 ||:
 
-ENV USE_LIBSODIUM=1 USE_BROTLI=1
+ENV USE_LIBSODIUM=1 USE_BROTLI=1 USE_LZO=1 GOEXPERIMENT=jsonv2
 ENV GOBIN=/usr/local/bin
 RUN make deps
 
