@@ -1,13 +1,15 @@
-# syntax = docker/dockerfile:1.16
+# syntax = docker/dockerfile:1.21
+########################################
+ARG APPVERSION=20230108154021
 ########################################
 
-FROM --platform=$BUILDPLATFORM alpine:3.22 AS build
+FROM --platform=$BUILDPLATFORM alpine:3.23 AS build
 
 RUN apk add --no-cache --update git wget
 
-ARG APPVERSION=20230108154021
-ENV APPVERSION=${APPVERSION}
 WORKDIR /www
+
+ARG APPVERSION
 RUN wget https://github.com/metrico/clickhouse-mate/releases/download/${APPVERSION}/release.zip -O /tmp/clickhouse-mate.zip && \
     unzip /tmp/clickhouse-mate.zip -d /www
 
