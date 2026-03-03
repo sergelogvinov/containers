@@ -1,6 +1,6 @@
-# syntax = docker/dockerfile:1.17
+# syntax = docker/dockerfile:1.21
 ########################################
-ARG APPVERSION=0.2.33
+ARG APPVERSION=0.2.43
 ########################################
 
 FROM --platform=$BUILDPLATFORM golang:1.25-trixie AS supercronic
@@ -19,7 +19,7 @@ RUN GOOS=linux GOARCH=amd64 go build -mod vendor -ldflags "-w -s -X main.Version
 
 ########################################
 
-FROM alpine:3.22 AS pkg
+FROM alpine:3.23 AS pkg
 
 LABEL org.opencontainers.image.description="Supercronic is a crontab-compatible job runner, designed specifically to run in containers." \
       org.opencontainers.image.licenses="MIT" \

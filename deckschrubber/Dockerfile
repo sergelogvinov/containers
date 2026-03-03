@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.16
+# syntax = docker/dockerfile:1.21
 ########################################
-ARG APPVERSION=0.7.0
+ARG APPVERSION=0.8.0
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.21-bookworm AS deckschrubber
+FROM --platform=$BUILDPLATFORM golang:1.24-bookworm AS deckschrubber
 
 RUN apt-get update && apt-get install -y git build-essential
 
@@ -20,7 +20,7 @@ RUN GOOS=linux GOARCH=amd64 go build -ldflags "-w -s" -o dist/deckschrubber.linu
 
 ########################################
 
-FROM alpine:3.22 AS pkg
+FROM alpine:3.23 AS pkg
 LABEL org.opencontainers.image.description="Deckschrubber inspects images and removes those older than a given age" \
       org.opencontainers.image.licenses="AGPL-3.0" \
       org.opencontainers.image.source="https://github.com/fraunhoferfokus/deckschrubber"

@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.16
+# syntax = docker/dockerfile:1.21
 ########################################
 
 FROM --platform=$BUILDPLATFORM node:18-alpine3.16 AS build
@@ -18,7 +18,7 @@ RUN wget https://github.com/tabixio/tabix/archive/${APPVERSION}.tar.gz -O /tmp/t
 
 ########################################
 
-FROM alpine:3.22 AS pkg
+FROM alpine:3.23 AS pkg
 LABEL org.opencontainers.image.description="Tabix.io UI" \
       org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.url="https://tabix.io" \
