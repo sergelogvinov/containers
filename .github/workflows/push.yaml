@@ -30,7 +30,7 @@ on:
           - openvpn
           - pgbouncer
           - postgresql
-          - pvc-autoresizer
+          - iptables
           - reviewdog
           - skopeo
           - supercronic
