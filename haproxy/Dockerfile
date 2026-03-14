@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.21
 ########################################
-ARG APPVERSION=3.3.4-alpine3.23
+ARG APPVERSION=3.3.5-alpine3.23
 ########################################
 
 FROM haproxy:${APPVERSION} AS pkg
