@@ -93,8 +93,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      # - name: Install Cosign
-      #   uses: sigstore/cosign-installer@v4.1.1
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v4.1.1
       - name: Set up QEMU
         timeout-minutes: 2
         uses: docker/setup-qemu-action@v4
@@ -118,9 +118,9 @@ jobs:
         run: make package-${{ matrix.pkg }}
         env:
           PUSH: "true"
-      # - name: Sign image
-      #   timeout-minutes: 5
-      #   run: make cosign-${{ matrix.pkg }}
+      - name: Sign image
+        timeout-minutes: 5
+        run: make cosign-${{ matrix.pkg }}
 
       # - name: Clean old images
       #   uses: actions/delete-package-versions@v5
