@@ -17,7 +17,7 @@ USER root
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && apt-get dist-upgrade -y && \
     apt-get install -y --no-install-recommends procps vim-tiny \
-        curl wget make zip rsync git \
+        curl wget make zip rsync git gettext-base \
         ansible ansible-lint yamllint jq && \
     apt-get install -y python3-boto python3-jmespath && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
