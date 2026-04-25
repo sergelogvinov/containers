@@ -3,7 +3,7 @@
 ARG APPVERSION=40.62
 ########################################
 
-FROM --platform=$BUILDPLATFORM ubuntu:24.04 AS archive
+FROM --platform=$BUILDPLATFORM ubuntu:26.04 AS archive
 
 RUN apt-get update && apt-get install --no-install-recommends -y ca-certificates wget
 
