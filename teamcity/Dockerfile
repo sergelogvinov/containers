@@ -48,6 +48,7 @@ COPY --from=ghcr.io/sergelogvinov/git-chglog:0.15.4 /usr/local/bin/git-chglog /u
 
 COPY --from=rancher/kubectl:v1.34.3 /bin/kubectl /usr/local/bin/kubectl
 COPY --from=alpine/helm:3.20.2 /usr/bin/helm /usr/bin/helm
+COPY --from=ghcr.io/helmfile/helmfile:v1.4.4 /usr/local/bin/helmfile /usr/bin/helmfile
 COPY --from=ghcr.io/getsops/sops:v3.12.2-alpine /usr/local/bin/sops /usr/bin/sops
 COPY --from=ghcr.io/sergelogvinov/vals:0.43.7 /usr/bin/vals /usr/bin/vals
 COPY --from=ghcr.io/yannh/kubeconform:v0.7.0 /kubeconform /usr/bin/kubeconform
@@ -59,8 +60,8 @@ USER buildagent
 WORKDIR /home/buildagent
 COPY --chown=root:root etc/ /etc/
 
-RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.5 && \
-    helm plugin install https://github.com/databus23/helm-diff --version v3.12.1 && \
+RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.11 && \
+    helm plugin install https://github.com/databus23/helm-diff --version v3.13.2 && \
     helm plugin install https://github.com/sergelogvinov/helm-lock && \
     helm repo add sinextra https://helm-charts.sinextra.dev && \
     helm repo update
