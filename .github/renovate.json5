@@ -3,9 +3,9 @@
   "extends": [
     "config:recommended",
     "docker:enableMajor",
-    ":timezone(Europe/Tallinn)",
     ":dependencyDashboard",
     ":disableRateLimiting",
+    ":disableVulnerabilityAlerts",
     ":semanticCommits",
     ":semanticCommitScopeDisabled",
     "github>sergelogvinov/containers//.github/renovate/customManagers.json5",
