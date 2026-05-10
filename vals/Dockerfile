@@ -3,7 +3,7 @@
 ARG APPVERSION=0.41.1
 ########################################
 
-FROM golang:1.25-bookworm AS vals
+FROM golang:1.26-bookworm AS vals
 
 RUN apt-get update && apt-get install -y git build-essential
 
