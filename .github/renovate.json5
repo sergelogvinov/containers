@@ -2,6 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
+    "helpers:pinGitHubActionDigests",
     "docker:enableMajor",
     ":dependencyDashboard",
     ":disableRateLimiting",
@@ -23,6 +24,10 @@
   "separateMultipleMajor": true,
   "rebaseWhen": "conflicted",
   "ignorePaths": [],
+  "github-actions": {
+    "enabled": true,
+    "pinDigests": true
+  },
   "packageRules": [
     {
       "matchManagers": [
