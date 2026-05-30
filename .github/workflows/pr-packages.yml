@@ -20,10 +20,10 @@ jobs:
       pull-requests: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Check changes
-        uses: dorny/paths-filter@v4
+        uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d # v4.0.1
         id: filter
         with:
           # make list | xargs -n1 | xargs -L 1 -I {} -R 2 echo "{}: [{}/**]" > .github/packages.yaml
@@ -43,7 +43,7 @@ jobs:
         pkg: ${{ fromJSON(needs.packages.outputs.packages) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       # - name: Set up QEMU
       #   timeout-minutes: 2
@@ -62,7 +62,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Expose GitHub Runtime
-        uses: crazy-max/ghaction-github-runtime@v4
+        uses: crazy-max/ghaction-github-runtime@04d248b84655b509d8c44dc1d6f990c879747487 # v4.0.0
       - name: Build
         timeout-minutes: 15
         run: make package-${{ matrix.pkg }}
