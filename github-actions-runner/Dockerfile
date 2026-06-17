@@ -44,7 +44,7 @@ COPY --from=ghcr.io/sergelogvinov/git-chglog:0.15.4 /usr/local/bin/git-chglog /u
 
 COPY --from=rancher/kubectl:v1.34.3 /bin/kubectl /usr/local/bin/kubectl
 COPY --from=alpine/helm:3.21.0 /usr/bin/helm /usr/bin/helm
-COPY --from=ghcr.io/helmfile/helmfile:v1.5.2 /usr/local/bin/helmfile /usr/bin/helmfile
+COPY --from=ghcr.io/helmfile/helmfile:v1.5.5 /usr/local/bin/helmfile /usr/bin/helmfile
 COPY --from=ghcr.io/getsops/sops:v3.13.1-alpine /usr/local/bin/sops /usr/bin/sops
 COPY --from=ghcr.io/sergelogvinov/vals:0.44.0 /usr/bin/vals /usr/bin/vals
 COPY --from=ghcr.io/yannh/kubeconform:v0.7.0 /kubeconform /usr/bin/kubeconform
