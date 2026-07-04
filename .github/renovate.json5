@@ -30,6 +30,17 @@
   },
   "packageRules": [
     {
+      "matchDatasources": [
+        "github-tags"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest"
+      ],
+      "minimumReleaseAge": "7 days"
+    },
+    {
       "matchManagers": [
         "dockerfile",
         "regex"

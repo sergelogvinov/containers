@@ -86,10 +86,10 @@ jobs:
       packages: write
       id-token: write
     strategy:
-        fail-fast: false
-        max-parallel: 2
-        matrix:
-          pkg: ${{ fromJSON(needs.packages.outputs.packages) }}
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        pkg: ${{ fromJSON(needs.packages.outputs.packages) }}
     steps:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
