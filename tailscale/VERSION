@@ -1,0 +1,3 @@
+# renovate: datasource=docker depName=ghcr.io/tailscale/tailscale
+v1.98.8
+latest

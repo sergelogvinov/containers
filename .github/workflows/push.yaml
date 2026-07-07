@@ -36,6 +36,7 @@ on:
           - skopeo
           - supercronic
           - tabix
+          - tailscale
           - tinyproxy
           - vals
           - wal-g
@@ -43,6 +44,7 @@ on:
           # cicd
           - teamcity
           - github-actions-runner
+          #
           - all
 
 env:
