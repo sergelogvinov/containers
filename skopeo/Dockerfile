@@ -3,7 +3,7 @@
 ARG APPVERSION=1.22.0
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.24-bullseye AS skopeo
+FROM --platform=$BUILDPLATFORM golang:1.25-bullseye AS skopeo
 
 RUN apt-get update && apt-get install -y git build-essential
 
@@ -17,7 +17,7 @@ RUN make bin/skopeo.linux.amd64 bin/skopeo.linux.arm64
 
 ########################################
 
-FROM alpine:3.23 AS pkg
+FROM alpine:3.24 AS pkg
 LABEL org.opencontainers.image.description="Copying an image from and to various storage mechanisms" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.source="https://github.com/containers/skopeo"
