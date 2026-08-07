@@ -3,7 +3,7 @@
 ARG APPVERSION=0.53.0
 ########################################
 
-FROM --platform=$BUILDPLATFORM alpine:3.23 AS ytt
+FROM --platform=$BUILDPLATFORM alpine:3.24 AS ytt
 
 WORKDIR /src/ytt
 
@@ -25,7 +25,7 @@ RUN curl -LO https://github.com/carvel-dev/ytt/releases/download/v${APPVERSION}/
 
 ########################################
 
-FROM alpine:3.23 AS pkg
+FROM alpine:3.24 AS pkg
 
 LABEL org.opencontainers.image.description="YTT is a templating tool that understands YAML structure." \
       org.opencontainers.image.licenses="Apache-2.0" \
