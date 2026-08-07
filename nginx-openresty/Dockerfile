@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.24
+# syntax = docker/dockerfile:1.26
 ########################################
 
 FROM alpine:3.24 AS openresty-build
