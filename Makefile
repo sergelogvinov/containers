@@ -83,6 +83,9 @@ package-wal-g:
 package-mongodb:
 	$(call build,mongodb,pkg)
 	$(call build,mongodb,official)
+package-tailscale:
+	$(call build,tailscale,pkg)
+	$(call build,tailscale,derp)
 
 package-%:
 	$(call build,$*,$(PKGTARGET))
