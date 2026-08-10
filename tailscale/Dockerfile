@@ -1,9 +1,9 @@
 # syntax = docker/dockerfile:1.24
 ########################################
-ARG APPVERSION=1.98.10
+ARG APPVERSION=v1.98.10
 ########################################
 
-FROM ghcr.io/tailscale/tailscale:v${APPVERSION} AS tailscale
+FROM ghcr.io/tailscale/tailscale:${APPVERSION} AS tailscale
 
 ########################################
 
@@ -25,12 +25,12 @@ FROM --platform=$BUILDPLATFORM golang:1.26.5-trixie AS derp-build
 WORKDIR /go/src
 
 ARG APPVERSION
-RUN git clone --single-branch --depth 1 --branch v${APPVERSION} https://github.com/tailscale/tailscale.git .
+RUN git clone --single-branch --depth 1 --branch ${APPVERSION} https://github.com/tailscale/tailscale.git .
 
 ENV CGO_ENABLED=0
 RUN go mod download
-RUN GOOS=linux GOARCH=amd64 go build -ldflags "-w -s -X tailscale.com/version.longStamp=v${APPVERSION}" -o dist/derper.linux.amd64 ./cmd/derper && \
-    GOOS=linux GOARCH=arm64 go build -ldflags "-w -s -X tailscale.com/version.longStamp=v${APPVERSION}" -o dist/derper.linux.arm64 ./cmd/derper && \
+RUN GOOS=linux GOARCH=amd64 go build -ldflags "-w -s -X tailscale.com/version.longStamp=${APPVERSION}" -o dist/derper.linux.amd64 ./cmd/derper && \
+    GOOS=linux GOARCH=arm64 go build -ldflags "-w -s -X tailscale.com/version.longStamp=${APPVERSION}" -o dist/derper.linux.arm64 ./cmd/derper && \
     ./dist/derper.linux.`go env GOARCH` -version
 
 ########################################
