@@ -60,7 +60,8 @@
         "teamcity\/Dockerfile"
       ],
       "matchDatasources": [
-        "docker"
+        "docker",
+        "dockerfile"
       ],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
