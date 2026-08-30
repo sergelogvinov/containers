@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.24
 ########################################
-ARG APPVERSION=1.98.10
+ARG APPVERSION=1.102.3
 ########################################
 
 FROM ghcr.io/tailscale/tailscale:v${APPVERSION} AS tailscale
