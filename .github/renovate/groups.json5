@@ -51,6 +51,19 @@
         "minor"
       ],
       "enabled": false
+    },
+    {
+      "description": "GitHub Actions Runner Docker images",
+      "groupName": "GitHub Actions Runner Docker images",
+      "matchFileNames": [
+        "github-actions-runner/Dockerfile"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      }
     }
   ]
 }
