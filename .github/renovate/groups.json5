@@ -55,7 +55,7 @@
     {
       "description": "CI/CD Docker images",
       "groupName": "cicd",
-      "matchFileNames": [
+      "matchPackageNames": [
         "github-actions-runner\/Dockerfile",
         "teamcity\/Dockerfile"
       ],
