@@ -53,10 +53,11 @@
       "enabled": false
     },
     {
-      "description": "GitHub Actions Runner Docker images",
-      "groupName": "GitHub Actions Runner Docker images",
+      "description": "CI/CD Docker images",
+      "groupName": "cicd",
       "matchFileNames": [
-        "github-actions-runner/Dockerfile"
+        "github-actions-runner/Dockerfile",
+        "teamcity/Dockerfile"
       ],
       "matchDatasources": [
         "docker"
