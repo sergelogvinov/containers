@@ -1,9 +1,9 @@
 # syntax = docker/dockerfile:1.24
 ########################################
-ARG APPVERSION=0.21.0
+ARG APPVERSION=0.21.2
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.25-trixie AS reviewdog
+FROM --platform=$BUILDPLATFORM golang:1.26-trixie AS reviewdog
 
 RUN apt-get update && apt-get install -y git build-essential
 
@@ -22,7 +22,7 @@ RUN GOOS=linux GOARCH=amd64 go build -mod vendor -ldflags="$LDFLAGS" -o dist/rev
 
 ########################################
 
-FROM alpine:3.23 AS pkg
+FROM alpine:3.24 AS pkg
 LABEL org.opencontainers.image.description="Automated code review tool integrated with any code analysis tools regardless of programming language" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.source="https://github.com/reviewdog/reviewdog"
