@@ -20,7 +20,7 @@ ENTRYPOINT ["/usr/local/bin/tailscale"]
 
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.26.5-trixie AS derp-build
+FROM --platform=$BUILDPLATFORM golang:1.26.6-trixie AS derp-build
 
 WORKDIR /go/src
 
