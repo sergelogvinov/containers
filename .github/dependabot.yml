@@ -17,3 +17,12 @@ updates:
       timezone: "Etc/UTC"
     labels:
       - "dependencies"
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns:
+          - "actions/*"
+          - "azure/*"
+          - "docker/*"
+          - "sigstore/*"
