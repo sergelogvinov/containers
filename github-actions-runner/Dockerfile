@@ -39,7 +39,7 @@ COPY --from=docker:29.7.2-cli /usr/local/libexec/docker/cli-plugins/docker-compo
 COPY --from=ghcr.io/sergelogvinov/skopeo /usr/bin/skopeo /usr/bin/skopeo
 COPY --from=ghcr.io/sergelogvinov/skopeo /etc/containers/ /etc/containers/
 COPY --from=ghcr.io/aquasecurity/trivy:0.74.0 /usr/local/bin/trivy /usr/local/bin/trivy
-COPY --from=ghcr.io/sergelogvinov/reviewdog:0.21.0 /usr/bin/reviewdog /usr/bin/reviewdog
+COPY --from=ghcr.io/sergelogvinov/reviewdog:0.21.2 /usr/bin/reviewdog /usr/bin/reviewdog
 COPY --from=ghcr.io/sergelogvinov/git-chglog:0.15.4 /usr/local/bin/git-chglog /usr/bin/git-chglog
 
 COPY --from=rancher/kubectl:v1.34.3 /bin/kubectl /usr/local/bin/kubectl
