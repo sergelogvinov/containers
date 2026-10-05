@@ -3,7 +3,7 @@
 ARG APPVERSION
 ########################################
 
-FROM alpine:3.23 AS pkg
+FROM alpine:3.24 AS pkg
 LABEL org.opencontainers.image.description="IPtables" \
       org.opencontainers.image.licenses="MIT"
 

@@ -3,7 +3,7 @@
 ARG APPVERSION=2.7.3
 ########################################
 
-FROM alpine:3.24.1 AS pkg
+FROM alpine:3.24.2 AS pkg
 LABEL org.opencontainers.image.description="OpenVPN" \
       org.opencontainers.image.licenses="MIT"
 
