@@ -80,6 +80,7 @@ jobs:
 
   build-push:
     name: Release image
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'dependencies') }}
     timeout-minutes: 240
     needs: packages
     runs-on: Builder
@@ -124,13 +125,3 @@ jobs:
       - name: Sign image
         timeout-minutes: 5
         run: make cosign-${{ matrix.pkg }}
-
-      # - name: Clean old images
-      #   uses: actions/delete-package-versions@v5
-      #   with:
-      #     package-name: ${{ matrix.pkg }}
-      #     package-type: container
-      #     ignore-versions: latest
-      #     min-versions-to-keep: 10
-      #     delete-only-untagged-versions: 'true'
-      #   continue-on-error: true
