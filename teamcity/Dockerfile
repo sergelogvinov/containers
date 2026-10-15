@@ -52,7 +52,7 @@ COPY --from=ghcr.io/helmfile/helmfile:v1.8.1 /usr/local/bin/helmfile /usr/bin/he
 COPY --from=ghcr.io/getsops/sops:v3.13.3-alpine /usr/local/bin/sops /usr/bin/sops
 COPY --from=ghcr.io/sergelogvinov/vals:0.47.0 /usr/bin/vals /usr/bin/vals
 COPY --from=ghcr.io/yannh/kubeconform:v0.8.0 /kubeconform /usr/bin/kubeconform
-COPY --from=minio/mc:RELEASE.2025-04-08T15-39-49Z /usr/bin/mc /usr/bin/mc
+COPY --from=chainguard/minio-client:latest /usr/bin/mc /usr/bin/mc
 COPY --from=mikefarah/yq:4.54.1 /usr/bin/yq /usr/bin/yq
 
 USER buildagent
