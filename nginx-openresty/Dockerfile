@@ -28,7 +28,7 @@ RUN apk add --no-cache --virtual .build-deps \
 
 WORKDIR /usr/src
 
-ARG APPVERSION=1.29.2.5
+ARG APPVERSION=1.31.8.1
 ENV APPVERSION=${APPVERSION}
 RUN curl -fsSLO https://openresty.org/download/openresty-${APPVERSION}.tar.gz && \
     tar xzf openresty-${APPVERSION}.tar.gz && \
@@ -136,7 +136,7 @@ LABEL org.opencontainers.image.description="Nginx with lua" \
       org.opencontainers.image.licenses="MIT"
 
 COPY --from=nginx-openresty / /
-COPY --from=minio/mc:RELEASE.2025-04-16T18-13-26Z /usr/bin/mc /usr/bin/mc
+COPY --from=chainguard/minio-client:latest /usr/bin/mc /usr/bin/mc
 
 STOPSIGNAL SIGQUIT
 CMD ["/usr/local/sbin/nginx", "-g", "daemon off;"]
@@ -168,7 +168,7 @@ LABEL org.opencontainers.image.description="Nginx with lua and device-detection"
       org.opencontainers.image.licenses="MPL-2.0"
 
 COPY --from=nginx-openresty-device-detection / /
-COPY --from=minio/mc:RELEASE.2025-04-16T18-13-26Z /usr/bin/mc /usr/bin/mc
+COPY --from=chainguard/minio-client:latest /usr/bin/mc /usr/bin/mc
 
 STOPSIGNAL SIGQUIT
 CMD ["/usr/local/sbin/nginx", "-g", "daemon off;"]
