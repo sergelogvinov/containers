@@ -10,6 +10,10 @@ LABEL org.opencontainers.image.description="Fluentd with modules" \
 USER root
 WORKDIR /fluentd/etc
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends procps \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN gem install \
     fluent-plugin-record-modifier \
     fluent-plugin-anonymizer \
@@ -27,6 +31,9 @@ FROM pkg AS clickhouse
 LABEL org.opencontainers.image.description="Fluentd with clickhouse"
 
 USER root
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends util-linux \
+    && rm -rf /var/lib/apt/lists/*
 COPY scripts/clickhouse-push.sh /usr/bin/clickhouse-push.sh
 COPY --from=clickhouse/clickhouse-server:25.3 /usr/bin/clickhouse /usr/bin/clickhouse
 RUN ln -s /usr/bin/clickhouse /usr/bin/clickhouse-client
