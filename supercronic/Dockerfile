@@ -1,9 +1,9 @@
-# syntax = docker/dockerfile:1.24
+# syntax = docker/dockerfile:1.28
 ########################################
-ARG APPVERSION=0.2.43
+ARG APPVERSION=0.2.51
 ########################################
 
-FROM --platform=$BUILDPLATFORM golang:1.26-trixie AS supercronic
+FROM --platform=$BUILDPLATFORM golang:1.27-trixie AS supercronic
 
 WORKDIR /go/src/supercronic
 
