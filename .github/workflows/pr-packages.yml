@@ -5,15 +5,15 @@ on:
     branches:
       - main
     paths-ignore:
-      - '.github/**'
-      - '.vscode/**'
-      - 'Makefile'
-      - 'README.md'
+      - ".github/**"
+      - ".vscode/**"
+      - "Makefile"
+      - "README.md"
 
 jobs:
   packages:
     name: List packages
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     outputs:
       packages: ${{ steps.filter.outputs.changes }}
     permissions:
