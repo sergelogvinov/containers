@@ -3,7 +3,7 @@
 ARG APPVERSION=20230108154021
 ########################################
 
-FROM --platform=$BUILDPLATFORM alpine:3.23 AS build
+FROM --platform=$BUILDPLATFORM alpine:3.24 AS build
 
 RUN apk add --no-cache --update git wget
 
