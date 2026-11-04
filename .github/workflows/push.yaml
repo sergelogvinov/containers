@@ -56,9 +56,23 @@ jobs:
     runs-on: ubuntu-26.04
     outputs:
       packages: ${{ steps.package.outputs.packages || steps.filter.outputs.changes }}
+      skip: ${{ steps.labels.outputs.skip }}
     permissions:
+      contents: read
       pull-requests: read
     steps:
+      - name: Check PR labels
+        if: ${{ github.event_name == 'push' }}
+        id: labels
+        run: |
+          LABELS=$(gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/pulls" --jq '[.[].labels[].name] | join(",")')
+          echo "PR labels: ${LABELS}"
+          if [[ ",${LABELS}," == *",dependencies,"* ]]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
       - name: Checkout
         if: ${{ inputs.package == 'all' || github.event_name != 'pull_request' }}
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -80,7 +94,7 @@ jobs:
 
   build-push:
     name: Release image
-    if: ${{ !contains(github.event.pull_request.labels.*.name, 'dependencies') }}
+    if: ${{ needs.packages.outputs.skip != 'true' && needs.packages.outputs.packages != '[]' }}
     timeout-minutes: 240
     needs: packages
     runs-on: Builder
