@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.28
 ########################################
-ARG APPVERSION=2.338.0
+ARG APPVERSION=2.338.2
 ########################################
 
 FROM ghcr.io/actions/actions-runner:${APPVERSION} AS actions-runner
