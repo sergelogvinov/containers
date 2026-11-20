@@ -53,7 +53,7 @@ COPY --from=ghcr.io/getsops/sops:v3.13.3-alpine /usr/local/bin/sops /usr/bin/sop
 COPY --from=ghcr.io/sergelogvinov/vals:0.50.0 /usr/bin/vals /usr/bin/vals
 COPY --from=ghcr.io/yannh/kubeconform:v0.8.0 /kubeconform /usr/bin/kubeconform
 COPY --from=chainguard/minio-client:latest /usr/bin/mc /usr/bin/mc
-COPY --from=mikefarah/yq:4.54.1 /usr/bin/yq /usr/bin/yq
+COPY --from=mikefarah/yq:4.54.3 /usr/bin/yq /usr/bin/yq
 
 USER buildagent
 
